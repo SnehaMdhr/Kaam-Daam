@@ -1,10 +1,10 @@
-import React from 'react'
-import './login.css'; 
+import React from "react";
+import "./Login.css";
+import { FaGoogle, FaFacebook, FaTwitter } from "react-icons/fa";
 import logo from "../assets/image/logo.png";
 import bannerImage from "../assets/image/bannerImage.png";
 
-
-const login = () => {
+const Login = () => {
   return (
     <div className="container">
       <div className="left">
@@ -36,19 +36,16 @@ const login = () => {
           Do not have account? <a href="/register">Sign Up</a>
         </p>
 
-        <div className="divider">
-          <span>OR</span>
-        </div>
+        <div className="divider"><span>OR</span></div>
 
         <div className="social-icons">
-          
-          <a href="#"><i class="fa-brands fa-google"></i></a>
-          <a href="#"><i class="fa-brands fa-facebook"></i></a>
-          <a href="#"><i class="fa-brands fa-twitter"></i></a>
+          <a href="#"><FaGoogle /></a>
+          <a href="#"><FaFacebook /></a>
+          <a href="#"><FaTwitter /></a>
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default login
+export default Login;

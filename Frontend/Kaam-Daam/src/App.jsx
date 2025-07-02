@@ -1,9 +1,8 @@
 import React, { lazy, Suspense } from "react";
-import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
-// Lazy-loaded Login component
-const Login = lazy(() => import("./public/login.jsx"));
-const Register = lazy(() => import("./public/register.jsx"));
+const Login = lazy(() => import("./public/Login"));
+const Register = lazy(() => import("./public/Register"));
 
 function App() {
   return (
