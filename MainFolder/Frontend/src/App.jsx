@@ -2,7 +2,7 @@ import React, { lazy, Suspense } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 const Login = lazy(() => import("./public/login"));
-const Register = lazy(() => import("./public/Register"));
+const Register = lazy(() => import("./public/register"));
 
 function App() {
   return (
