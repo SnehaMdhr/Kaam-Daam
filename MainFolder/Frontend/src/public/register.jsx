@@ -28,6 +28,19 @@ const Register = () => {
           <label htmlFor="phone">Phone no:</label>
           <input id="phone" type="text" placeholder="Enter your phone number" required />
 
+           <div className="radio-group">
+            <label>Role:</label>
+            <div className="radio-options">
+              <label>
+                <input type="radio" name="role" value="jobseeker" required />
+                Job Seeker
+              </label>
+              <label>
+                <input type="radio" name="role" value="recruiter" />
+                Recruiter
+              </label>
+            </div>
+          </div>
           <label htmlFor="password">Password:</label>
           <input id="password" type="password" placeholder="Enter your password" required />
 
