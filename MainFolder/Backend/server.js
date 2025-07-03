@@ -1,13 +1,13 @@
 const express = require('express');
 const app = express();
-const PORT = 3001;
+const cors = require('cors');
+require('dotenv').config();
 
+const authRoutes = require('./routes/authRoutes');
+
+app.use(cors());
 app.use(express.json());
+app.use('/api/auth', authRoutes);
 
-app.get('/', (req, res) => {
-    res.send('Kaam Damm backend is live!');
-});
-
-app.listen(PORT, () => {
-    console.log(`Server is running on http://localhost:${PORT}`);
-});
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
