@@ -37,11 +37,11 @@ const KaamDaamHomePage = () => {
           </div>
           <div className="nav-right">
             <ul className="nav-links">
-              <li>Home</li>
-              <li>About</li>
-              <li>Service</li>
-              <li>Help</li>
-              <li>Contact</li>
+              <li><a href="/dashboardWithout">Home</a></li>
+              <li><a href="/about">About</a></li>
+              <li><a href="/service">Service</a></li>
+              <li><a href="/help">Help</a></li>
+              <li><a href="/contract">Contact</a></li>
             </ul>
             <button className="login-btn">Login/Signup</button>
           </div>
@@ -55,7 +55,8 @@ const KaamDaamHomePage = () => {
             <h1>Your Career Deserves a Kick-start</h1>
             <div className="search-bar">
               <input type="text" placeholder="Search" />
-              <button className="search-btn">Find Your First Job Now</button>
+              <a href="/searchjob">
+              <button className="search-btn">Find Your First Job Now</button></a>
             </div>
             <div className="cta-buttons">
               <button className="student-btn">For Students</button>

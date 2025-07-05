@@ -30,6 +30,15 @@ body {
   justify-content: space-between;
   align-items: center;
 }
+a {
+  color: black;         /* Default link color */
+  text-decoration: none;  /* Removes underline */
+  transition: color 0.3s ease;
+}
+
+a:hover {
+  color: #2a2d30;     
+}
 
 /* Group nav links and button together */
 .nav-right {
