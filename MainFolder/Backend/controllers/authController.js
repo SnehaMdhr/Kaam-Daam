@@ -3,9 +3,9 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
 const register = async (req, res) => {
-    const { username, email, phone, password } = req.body;
+    const { username, email, phone, role, password } = req.body;
 
-    if (!username || !email || !phone || !password)
+    if (!username || !email || !phone || !role || !password)
         return res.status(400).json({ message: 'All fields are required' });
 
     try {
@@ -16,8 +16,8 @@ const register = async (req, res) => {
         const hashedPassword = await bcrypt.hash(password, 10);
 
         const result = await pool.query(
-            'INSERT INTO users (username, email, phone, password) VALUES ($1, $2, $3, $4) RETURNING id, username, email',
-            [username, email, phone, hashedPassword]
+            'INSERT INTO users (username, email, phone, role, password) VALUES ($1, $2, $3, $4, $5) RETURNING id, username, email',
+            [username, email, phone, role, hashedPassword]
         );
 
         res.status(201).json({ message: 'User registered', user: result.rows[0] });
@@ -48,7 +48,7 @@ const login = async (req, res) => {
         res.status(200).json({
             message: 'Login successful',
             token,
-            user: { id: user.id, username: user.username, email: user.email }
+            user: { id: user.id, username: user.username, email: user.email, role: user.role }
         });
     } catch (err) {
         console.error(err);
