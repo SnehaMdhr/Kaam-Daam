@@ -1,10 +1,39 @@
-import React from "react";
+import React, { useState } from "react";
 import "./Register.css";
 import { FaGoogle, FaFacebook, FaTwitter } from "react-icons/fa";
 import logo from "../assets/image/logo.png";
 import bannerImage from "../assets/image/bannerImage.png";
 
 const Register = () => {
+  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
+  const [phone, setPhone] = useState(''); 
+  const [password, setPassword] = useState(''); 
+
+  const handleSubmit = async(e) => {
+    e.preventDefault();
+
+  const response = await fetch('http://localhost:5000/api/auth/register', {
+      method: 'POST',
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({username, email, phone, password})
+    })
+    const data = await response.json();
+    console.log(data);
+
+    if (response.ok){
+      console.log("Registration Sucessful");
+      alert("Registration Sucessful! Redirecting to login page...");
+      window.location.href = "/login";
+    } else {
+      console.error("Registration Failed");
+      alert(data.message || "Registration failed. Please try again.");
+    }
+
+  }
+
   return (
     <div className="container">
       <div className="left">
@@ -18,18 +47,18 @@ const Register = () => {
           Do not have an account? Don’t worry it takes less than a minute to register
         </p>
 
-        <form>
+        <form onSubmit={handleSubmit}>
           <label htmlFor="name">Name:</label>
-          <input id="name" type="text" placeholder="Enter your name" required />
+          <input id="name" type="text" placeholder="Enter your name" value={username} onChange={(e) => setUsername(e.target.value)} required />
 
           <label htmlFor="email">Email:</label>
-          <input id="email" type="email" placeholder="Enter your email" required />
+          <input id="email" type="email" placeholder="Enter your email" value={email} onChange={(e) => setEmail(e.target.value)} required />
 
           <label htmlFor="phone">Phone no:</label>
-          <input id="phone" type="text" placeholder="Enter your phone number" required />
+          <input id="phone" type="text" placeholder="Enter your phone number" value={phone} onChange={(e) => setPhone(e.target.value)} required />
 
           <label htmlFor="password">Password:</label>
-          <input id="password" type="password" placeholder="Enter your password" required />
+          <input id="password" type="password" placeholder="Enter your password" value={password} onChange={(e) => setPassword(e.target.value)} required />
 
           <button type="submit" className="login-btn">Sign Up</button>
         </form>
