@@ -5,7 +5,11 @@ const DashboardWithoutLogin = lazy(() => import("./public/dashboardWithoutLogin"
 const Login = lazy(() => import("./public/login"));
 const Register = lazy(() => import("./public/register"));
 const ResetPassword = lazy(() => import("./public/forget"));
-
+const Searchjob = lazy(() => import("./public/searchjob"));
+const Service = lazy(() => import("./public/service"));
+const Contract = lazy(() => import("./public/contract")); 
+const help = lazy(() => import("./public/help"));
+const about = lazy(() => import("./public/about"));
 function App() {
   return (
     <Router>
@@ -15,7 +19,13 @@ function App() {
           <Route path="/dashboardWithout" element={<DashboardWithoutLogin />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-          <Route path="/forget" element={<ResetPassword />} />x
+          <Route path="/forget" element={<ResetPassword />} />
+          <Route path="/searchjob" element={<Searchjob />} />
+          <Route path="/service" element={<Service />} />
+          <Route path="/contract" element={<Contract />} />
+          <Route path="/help" element={<help />} />
+          <Route path="/about" element={<about />} />
+          {/* Add more routes as needed */}
         </Routes>
       </Suspense>
     </Router>
