@@ -26,6 +26,10 @@ const Login = () => {
     localStorage.setItem("token", data.token);
     if(data.token){
       console.log("Login Sucessful");
+
+      if (!data.user.role){
+        window.location.href = "/role-selection";
+      }else{
       if(data.user.role === 'job_seeker'){
         localStorage.setItem("role", data.user.role);
         window.location.href = "/job_seeker_dashboard";
@@ -33,7 +37,7 @@ const Login = () => {
       else if(data.user.role === 'recruiter'){
         localStorage.setItem("role", data.user.role);
         window.location.href = "/recruiter_dashboard";
-      }
+      }}
     } else {
       console.error("Login Failed");
       alert("Login Failed: " + data.message);
@@ -74,9 +78,8 @@ const Login = () => {
         <div className="divider"><span>OR</span></div>
 
         <div className="social-icons">
-          <a href="#"><FaGoogle /></a>
+          <a href="http://localhost:5000/auth/google"><FaGoogle /></a>
           <a href="#"><FaFacebook /></a>
-          <a href="#"><FaTwitter /></a>
         </div>
       </div>
     </div>
