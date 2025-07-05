@@ -24,29 +24,13 @@ import anjali from "../assets/image/anjali.png";
 import apala from "../assets/image/apala.png";
 import kimti from "../assets/image/kimti.png";   
 import pic from "../assets/image/1.png";   
-
-const KaamDaamHomePage = () => {
+import Header from "../components/Header";
+import Footer from "../components/footer";
+const dashboardWithoutLogin = () => {
   return (
     <div>
-      {/* Navbar */}
-      <nav className="navbar">
-        <div className="container nav-content">
-          <div className="logo">
-            <img src={logo} alt="logo" />
-            <h3>Kaam Daam</h3>
-          </div>
-          <div className="nav-right">
-            <ul className="nav-links">
-              <li><a href="/dashboardWithout">Home</a></li>
-              <li><a href="/about">About</a></li>
-              <li><a href="/service">Service</a></li>
-              <li><a href="/help">Help</a></li>
-              <li><a href="/contract">Contact</a></li>
-            </ul>
-            <button className="login-btn">Login/Signup</button>
-          </div>
-        </div>
-      </nav>
+      
+      <Header />
 
       {/* Hero Section */}
       <header className="hero">
@@ -207,19 +191,9 @@ const KaamDaamHomePage = () => {
       </section>
 
       {/* Footer */}
-      <footer className="site-footer">
-        <div className="footer-links">
-          <a href="#">About</a>
-          <a href="#">Contact</a>
-          <a href="#">Terms of Service</a>
-          <a href="#">Privacy Policy</a>
-        </div>
-        <p className="copyright">
-          ©2024 KaamDaam. All rights reserved.
-        </p>
-      </footer>
+      <Footer />
     </div>
   );
 };
 
-export default KaamDaamHomePage;
+export default dashboardWithoutLogin;

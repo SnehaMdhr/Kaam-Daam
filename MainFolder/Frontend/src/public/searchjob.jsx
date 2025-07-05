@@ -1,31 +1,14 @@
 import React from "react";
 import "./searchjob.css";
-import logo from "../assets/image/logo.png"; 
-import jobsImage from "../assets/image/jobs.png"; // Assuming jobs.png is in the same directory
+import logo from "../assets/image/logo.png";
+import jobsImage from "../assets/image/jobs.png";
+import Header from "../components/Header";
+import Footer from "../components/footer";
 
 const JobSearch = () => {
   return (
     <>
-      {/* Navbar */}
-      <nav className="navbar">
-        <div className="container nav-content">
-          <div className="logo">
-            <img src={logo} alt="logo" />
-            <h3>Kaam Daam</h3>
-          </div>
-          <div className="nav-right">
-           <ul className="nav-links">
-              <li><a href="/dashboardWithout">Home</a></li>
-              <li><a href="/about">About</a></li>
-              <li><a href="/service">Service</a></li>
-              <li><a href="/help">Help</a></li>
-              <li><a href="/contract">Contact</a></li>
-            </ul>
-            <button className="login-btn">Login/Signup</button>
-          </div>
-        </div>
-      </nav>
-
+      <Header />
       {/* Hero Section */}
       <header className="hero">
         <div className="search-bar">
@@ -41,56 +24,53 @@ const JobSearch = () => {
 
       <div className="jobcolor">
         <div className="job-list">
-          <div className="job-list">
-  <div className="job-card">
-    <div className="job-info">
-      <span className="job-type">Part-time</span>
-      <h3>UI/UX designer needed for Learnmates</h3>
-      <p>Develop and maintain web applications for a growing startup.</p>
-      <a href="#" className="apply-btn">Apply Now</a>
-    </div>
-    <div className="job-image">
-      <img src={jobsImage} alt="Job" />
-    </div>
-  </div>
+          <div className="job-card">
+            <div className="job-info">
+              <span className="job-type">Part-time</span>
+              <h3>UI/UX designer needed for Learnmates</h3>
+              <p>Develop and maintain web applications for a growing startup.</p>
+              <a href="#" className="apply-btn">Apply Now</a>
+            </div>
+            <div className="job-image">
+              <img src={jobsImage} alt="Job" />
+            </div>
+          </div>
 
-  <div className="job-card">
-    <div className="job-info">
-      <span className="job-type">Part-time</span>
-      <h3>UI/UX designer needed for Learnmates</h3>
-      <p>Develop and maintain web applications for a growing startup.</p>
-      <a href="#" className="apply-btn">Apply Now</a>
-    </div>
-    <div className="job-image">
-      <img src={jobsImage} alt="Job" />
-    </div>
-  </div>
+          <div className="job-card">
+            <div className="job-info">
+              <span className="job-type">Part-time</span>
+              <h3>UI/UX designer needed for Learnmates</h3>
+              <p>Develop and maintain web applications for a growing startup.</p>
+              <a href="#" className="apply-btn">Apply Now</a>
+            </div>
+            <div className="job-image">
+              <img src={jobsImage} alt="Job" />
+            </div>
+          </div>
 
-  <div className="job-card">
-    <div className="job-info">
-      <span className="job-type">Part-time</span>
-      <h3>UI/UX designer needed for Learnmates</h3>
-      <p>Develop and maintain web applications for a growing startup.</p>
-      <a href="#" className="apply-btn">Apply Now</a>
-    </div>
-    <div className="job-image">
-      <img src={jobsImage} alt="Job" />
-    </div>
-  </div>
+          <div className="job-card">
+            <div className="job-info">
+              <span className="job-type">Part-time</span>
+              <h3>UI/UX designer needed for Learnmates</h3>
+              <p>Develop and maintain web applications for a growing startup.</p>
+              <a href="#" className="apply-btn">Apply Now</a>
+            </div>
+            <div className="job-image">
+              <img src={jobsImage} alt="Job" />
+            </div>
+          </div>
 
-  <div className="job-card">
-    <div className="job-info">
-      <span className="job-type">Part-time</span>
-      <h3>UI/UX designer needed for Learnmates</h3>
-      <p>Develop and maintain web applications for a growing startup.</p>
-      <a href="#" className="apply-btn">Apply Now</a>
-    </div>
-    <div className="job-image">
-      <img src={jobsImage} alt="Job" />
-    </div>
-  </div>
-</div>
-
+          <div className="job-card">
+            <div className="job-info">
+              <span className="job-type">Part-time</span>
+              <h3>UI/UX designer needed for Learnmates</h3>
+              <p>Develop and maintain web applications for a growing startup.</p>
+              <a href="#" className="apply-btn">Apply Now</a>
+            </div>
+            <div className="job-image">
+              <img src={jobsImage} alt="Job" />
+            </div>
+          </div>
         </div>
       </div>
 
@@ -127,16 +107,7 @@ const JobSearch = () => {
         <a href="#" className="cta-button">Get Started</a>
       </section>
 
-      {/* Footer */}
-      <footer className="site-footer">
-        <div className="footer-links">
-          <a href="#">About</a>
-          <a href="#">Contact</a>
-          <a href="#">Terms of Service</a>
-          <a href="#">Privacy Policy</a>
-        </div>
-        <p className="copyright">©2024 KaamDaam. All rights reserved.</p>
-      </footer>
+      <Footer />
     </>
   );
 };
