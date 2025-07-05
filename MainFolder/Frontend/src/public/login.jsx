@@ -54,7 +54,7 @@ const Login = () => {
           <input type="password" placeholder="Enter your password" value={password} onChange={(e) => setPassword(e.target.value)} required />
 
           <div className="forgot">
-            <a href="#">Forget Password</a>
+            <a href="/forget">Forget Password</a>
           </div>
 
           <button type="submit" className="login-btn">Login</button>
