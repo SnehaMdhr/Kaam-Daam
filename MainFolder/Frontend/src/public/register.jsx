@@ -8,6 +8,7 @@ const Register = () => {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState(''); 
+  const [role, setRole] = useState('');
   const [password, setPassword] = useState(''); 
 
   const handleSubmit = async(e) => {
@@ -18,7 +19,7 @@ const Register = () => {
       headers: {
         "Content-Type": "application/json"
       },
-      body: JSON.stringify({username, email, phone, password})
+      body: JSON.stringify({username, email, phone, role, password})
     })
     const data = await response.json();
     console.log(data);
@@ -61,11 +62,11 @@ const Register = () => {
             <label>Role:</label>
             <div className="radio-options">
               <label>
-                <input type="radio" name="role" value="jobseeker" required />
+                <input type="radio" name="role" value="job_seeker" checked = {role === "job_seeker"} onChange={(e) => setRole(e.target.value)} required />
                 Job Seeker
               </label>
               <label>
-                <input type="radio" name="role" value="recruiter" />
+                <input type="radio" name="role" value="recruiter" checked = {role === "recruiter"} onChange={(e) => setRole(e.target.value)} />
                 Recruiter
               </label>
             </div>

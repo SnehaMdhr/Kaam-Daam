@@ -26,7 +26,14 @@ const Login = () => {
     localStorage.setItem("token", data.token);
     if(data.token){
       console.log("Login Sucessful");
-      window.location.href = "/dashboard";
+      if(data.user.role === 'job_seeker'){
+        localStorage.setItem("role", data.user.role);
+        window.location.href = "/job_seeker_dashboard";
+      }
+      else if(data.user.role === 'recruiter'){
+        localStorage.setItem("role", data.user.role);
+        window.location.href = "/recruiter_dashboard";
+      }
     } else {
       console.error("Login Failed");
       alert("Login Failed: " + data.message);
