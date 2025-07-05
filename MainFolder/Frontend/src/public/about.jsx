@@ -26,133 +26,160 @@ const About = () => {
                 <br />
                 <span className="highlight">KAAM DAAM</span>
               </h1>
-              <h3>Our Story</h3>
+              <div className="line">
+              <h3>Our Story</h3></div>
               <p className="desc">
-                KaamDaam was born from a simple yet powerful idea: to provide IT
-                students with hands-on experience and connect them with companies
-                seeking digital solutions. We understand the challenge of breaking
-                into the industry without experience, so we created a bridge.
-                Today, KaamDaam continues to empower students with opportunities,
-                guidance, and confidence.
+                KaamDaam was born from a simple yet powerful idea: to provide IT students with a launchpad for their careers. We recognized the challenge students face in gaining practical experience and building a portfolio while still in school. At the same time, we saw the need for businesses to access fresh, innovative talent. KaamDaam was created to solve this, offering a platform where students can apply their skills to real projects and companies can tap into a pool of motivated, skilled individuals.
               </p>
             </div>
             <div className="image-block">
               <img src={groupImage} alt="students working" />
             </div>
           </div>
+          </section>
+          </div>
+ <section className="values-section">
+        <h2>Our Values</h2>
+        <div className="values-container">
+          <div className="value-card">
+            <h2>👥 Community</h2>
+            <p>
+              We foster a supportive community where students and businesses can
+              connect, learn, and grow together.
+            </p>
+          <br></br>
+          <br></br>
+          <br></br>
+            <h2>🛡️ Integrity</h2>
+            <p>
+              We are committed to ethical practices, transparency, and
+              maintaining the highest standards of professionalism.
+            </p>
+          </div>
 
-          {/* Our Values */}
-          <div className="section">
-            <h2>Our Values</h2>
-            <div className="values-grid">
-              <div className="value-card light">
-                <h4>Community</h4>
-                <p>We believe in building strong, supportive student communities.</p>
-              </div>
-              <div className="value-card light">
-                <h4>Continuous Growth</h4>
-                <p>Always learning. Always improving. Always evolving.</p>
-              </div>
-              <div className="value-image">
-                <img src={colabImage} alt="hands together" />
-              </div>
-              <div className="value-card white">
-                <h4>Integrity</h4>
-                <p>We operate with full transparency and ethical practices.</p>
-              </div>
-              <div className="value-card white">
-                <h4>Collaboration</h4>
-                <p>
-                  Success comes from working together—students, mentors, companies.
-                </p>
-              </div>
+          <div className="center-image">
+            <img src={colabImage} alt="Teamwork Hands" />
+            
+          </div>
+
+          
+          <div className="value-card">
+            <h2>📈 Continuous Growth</h2>
+            <p>
+              We are dedicated to fostering learning and development for both
+              students and companies.
+            </p>
+            <br></br>
+            <br></br>
+            <br></br>
+            <h2>🤝 Collaboration</h2>
+            <p>
+              We believe in the power of teamwork and encourage open
+              communication and mutual respect.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Benefits Section */}
+      <section className="benefits-section">
+        <div className="benefits-container">
+          {/* Students Side */}
+          <div className="benefits-box student">
+            <h3>Benefits for Students</h3>
+            <div className="benefit-card light">
+              <h4>🎓 Real-World Experience</h4>
+              <p>
+                Gain practical experience by working on real projects for real
+                companies.
+              </p>
+            </div>
+            <div className="benefit-card light">
+              <h4>📁 Portfolio Building</h4>
+              <p>
+                Build a professional portfolio showcasing your skills and
+                accomplishments.
+              </p>
+            </div>
+            <div className="benefit-card light">
+              <h4>🚀 Career Advancement</h4>
+              <p>
+                Enhance your resume and increase your chances of landing your
+                dream job after graduation.
+              </p>
             </div>
           </div>
 
-          {/* Benefits */}
-          <div className="section benefits">
-            <div className="benefit-box students">
-              <h3>Benefits for Students</h3>
-              <ul>
-                <li>
-                  <strong>Real-World Experience</strong>
-                  <br />
-                  Work with actual companies on real projects.
-                </li>
-                <li>
-                  <strong>Portfolio Building</strong>
-                  <br />
-                  Showcase your work to stand out in the job market.
-                </li>
-                <li>
-                  <strong>Career Advancement</strong>
-                  <br />
-                  Gain skills and confidence to grow in your career.
-                </li>
-              </ul>
+          {/* Companies Side */}
+          <div className="benefits-box company">
+            <h3>Benefits for Companies</h3>
+            <div className="benefit-card dark">
+              <h4>👨‍💻 Access to Talent</h4>
+              <p>
+                Tap into a pool of skilled and motivated IT students eager to
+                contribute.
+              </p>
             </div>
-            <div className="benefit-box companies">
-              <h3>Benefits for Companies</h3>
-              <ul>
-                <li>
-                  <strong>Access to Talent</strong>
-                  <br />
-                  Engage with the next generation of tech professionals.
-                </li>
-                <li>
-                  <strong>Innovative Solutions</strong>
-                  <br />
-                  Receive fresh, innovative perspectives and work.
-                </li>
-                <li>
-                  <strong>Cost Effective</strong>
-                  <br />
-                  Get affordable solutions while providing learning opportunities.
-                </li>
-              </ul>
+            <div className="benefit-card dark">
+              <h4>💡 Innovative Solutions</h4>
+              <p>
+                Benefit from fresh perspectives and innovative ideas from the
+                next generation of tech talent.
+              </p>
+            </div>
+            <div className="benefit-card dark">
+              <h4>💰 Cost-Effective</h4>
+              <p>
+                Find cost-effective solutions for your projects without
+                compromising on quality.
+              </p>
             </div>
           </div>
+        </div>
+      </section>
 
           {/* Meet the Team */}
-          <div className="section">
-            <h2>Meet the Team</h2>
-            <div className="team-grid">
-              <div className="team-member">
-                <img src={apalaImg} alt="Apsa Lama" />
-                <p>
-                  <strong>Apsa Lama</strong>
-                  <br />
-                  Frontend Developer
-                </p>
-              </div>
-              <div className="team-member">
-                <img src={anjaliImg} alt="Kiran Ghimire" />
-                <p>
-                  <strong>Kiran Ghimire</strong>
-                  <br />
-                  UI/UX Designer
-                </p>
-              </div>
-              <div className="team-member">
-                <img src={snehaImg} alt="Esmita Maharjan" />
-                <p>
-                  <strong>Esmita Maharjan</strong>
-                  <br />
-                  Project Manager
-                </p>
-              </div>
-              <div className="team-member">
-                <img src={kimtiImg} alt="Saraswati" />
-                <p>
-                  <strong>Saraswati</strong>
-                  <br />
-                  Backend Developer
-                </p>
-              </div>
-            </div>
-          </div>
-        </section>
-      </div>
+         <section className="team-section section">
+          <div className="team-intro">
+  <h2>Meet the Team</h2>
+  <div className="team-grid">
+    <div className="team-member">
+      <img src={apalaImg} alt="Apsa Lama" />
+      <p>
+        <strong>Apsa Lama</strong>
+        <br />
+        Frontend Developer
+      </p>
+    </div>
+    <div className="team-member">
+      <img src={anjaliImg} alt="Kiran Ghimire" />
+      <p>
+        <strong>Kiran Ghimire</strong>
+        <br />
+        UI/UX Designer
+      </p>
+    </div>
+    <div className="team-member">
+      <img src={snehaImg} alt="Esmita Maharjan" />
+      <p>
+        <strong>Esmita Maharjan</strong>
+        <br />
+        Project Manager
+      </p>
+    </div>
+    <div className="team-member">
+      <img src={kimtiImg} alt="Saraswati" />
+      <p>
+        <strong>Saraswati</strong>
+        <br />
+        Backend Developer
+      </p>
+    </div>
+  </div>
+  </div>
+</section>
+
+     
       <Footer />
     </>
   );
