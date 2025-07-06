@@ -1,47 +1,43 @@
 import React from "react";
 import "./Login.css";
-import { FaGoogle, FaFacebook, FaTwitter } from "react-icons/fa";
-import logo from "../assets/image/logo.png";
-import bannerImage from "../assets/image/bannerImage.png";
+import { FaGoogle, FaFacebook } from "react-icons/fa";
+import jobImage from "../assets/image/job.png"; // Use the correct path to your image
 
 const Login = () => {
   return (
-    <div className="container">
-      <div className="left">
-        <img src={bannerImage} alt="Job Illustration" />
+    <div className="login-container">
+      <div className="login-left">
+        <img src={jobImage} alt="Looking for a Job" />
       </div>
-      <div className="right">
-        <div className="logo">
-          <img src={logo} alt="Logo" />
-          <h3>Kaam Daam</h3>
-        </div>
-        <h2>Welcome Back!</h2>
-        <p className="subtitle">Please enter your detail</p>
 
-        <form>
-          <label>Email:</label>
-          <input type="email" placeholder="Enter your email" required />
-
-          <label>Password:</label>
-          <input type="password" placeholder="Enter your password" required />
-
-          <div className="forgot">
-            <a href="/forget">Forget Password</a>
-          </div>
-
-          <button type="submit" className="login-btn">Login</button>
-        </form>
-
-        <p className="signup">
-          Do not have account? <a href="/register">Sign Up</a>
+      <div className="login-right">
+        <h2>Welcome back to Kaam Daam</h2>
+        <p className="login-subtitle">
+          Login with your registered Email &amp; Password
         </p>
 
-        <div className="divider"><span>OR</span></div>
+        <form className="login-form">
+          <label htmlFor="email">Email</label>
+          <input type="email" id="email" placeholder="E-mail@example.com" required />
 
-        <div className="social-icons">
+          <label htmlFor="password">Password</label>
+          <input type="password" id="password" placeholder="Password" required />
+
+          <button type="submit" className="login-btn">Log In</button>
+        </form>
+
+        <div className="login-links">
+          <a href="/forget" className="forgot-link">Forgot password?</a>
+          <p className="signup-text">
+            Don’t have an account? <a href="/register">Register Now</a>
+          </p>
+        </div>
+
+        <div className="login-divider"><span>OR</span></div>
+
+        <div className="login-socials">
           <a href="#"><FaGoogle /></a>
           <a href="#"><FaFacebook /></a>
-          <a href="#"><FaTwitter /></a>
         </div>
       </div>
     </div>
