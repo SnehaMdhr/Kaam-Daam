@@ -6,6 +6,7 @@ const session = require('express-session');
 const cors = require('cors');
 require('dotenv').config();
 require('./passport');
+const pool = require('./db'); 
 
 app.use(cors({
     origin: 'http://localhost:5173',
@@ -23,36 +24,48 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-// normal
+// normal routes
 const authRoutes = require('./routes/authRoutes');
 app.use('/api/auth', authRoutes);
 
-// google
+// google routes
 app.get('/auth/google',
-    passport.authenticate('google', { scope: ['profile', 'email']})
+    passport.authenticate('google', { scope: ['profile', 'email'] })
 );
 
 app.get('/auth/google/callback',
-  passport.authenticate('google', { failureRedirect: '/login' }),
-  (req, res) => {
-    console.log("Google login success, user:", req.user); 
+    passport.authenticate('google', { failureRedirect: '/login' }),
+    async (req, res) => {
+        console.log("Google login success, user:", req.user); 
 
-    if (!req.user) {
-      return res.status(401).send("Google login failed or no user.");
+        if (!req.user) {
+            return res.status(401).send("Google login failed or no user.");
+        }
+
+        const email = req.user.email;
+        const user = await pool.query('SELECT * FROM users WHERE email = $1', [email]);
+
+        if (user.rows.length > 0) {
+            const existingUser = user.rows[0];
+
+            if (existingUser.role) {
+                const token = jwt.sign({ id: existingUser.id }, process.env.JWT_SECRET, { expiresIn: '1d' });
+                res.redirect(`http://localhost:5173/${existingUser.role}_dashboard?token=${token}`);
+            } else {
+                const token = jwt.sign({ id: existingUser.id }, process.env.JWT_SECRET, { expiresIn: '1d' });
+                res.redirect(`http://localhost:5173/google-redirect?token=${token}`);
+            }
+        } else {
+            const newUser = await pool.query(
+                'INSERT INTO users (username, email) VALUES ($1, $2) RETURNING *',
+                [req.user.displayName, req.user.email]
+            );
+
+            const token = jwt.sign({ id: newUser.rows[0].id }, process.env.JWT_SECRET, { expiresIn: '1d' });
+            res.redirect(`http://localhost:5173/google-redirect?token=${token}`);
+        }
     }
-
-    const token = jwt.sign(
-      { id: req.user.id },
-      process.env.JWT_SECRET,
-      { expiresIn: '1d' }
-    );
-
-    console.log("Generated token:", token); 
-
-    res.redirect(`http://localhost:5173/google-redirect?token=${token}`);
-  }
 );
-
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

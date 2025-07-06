@@ -5,25 +5,29 @@ const GoogleRedirect = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        const params = new URLSearchParams(window.location.search);
-        const token = params.get("token");
+  const token = new URLSearchParams(window.location.search).get("token");
+  if (token) {
+    localStorage.setItem("token", token);
 
-        console.log("Current URL:", window.location.href);
-        console.log("Token from URL:", token);
-
-        if (token) {
-            localStorage.setItem("token", token);
-            console.log("Token saved to localStorage:", localStorage.getItem("token"));
-
-            // Use setTimeout to ensure token is saved before navigating
-            setTimeout(() => {
-                navigate("/role-selection");
-            }, 0); // Delay navigation to ensure storage is complete
+    fetch("http://localhost:5000/api/auth/me", {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    })
+      .then(res => res.json())
+      .then(data => {
+        if (!data.user.role) {
+          navigate("/role-selection");
         } else {
-            alert("Google login failed or no token provided.");
-            navigate("/login");
+          localStorage.setItem("role", data.user.role);
+          navigate(`/${data.user.role}_dashboard`);
         }
-    }, [navigate]);
+      });
+  } else {
+    alert("Login failed");
+    navigate("/login");
+  }
+}, []);
 
     return <p>Redirecting...</p>;
 };

@@ -38,9 +38,10 @@ passport.use(
           return done(null, existingUser.rows[0]);
         }
 
+        // Insert new user without a role, the role will be assigned later
         const newUser = await pool.query(
-          'INSERT INTO users (username, email, role) VALUES ($1, $2, $3) RETURNING *',
-          [name, email, 'job_seeker'] // default role
+          'INSERT INTO users (username, email) VALUES ($1, $2) RETURNING *',
+          [name, email]
         );
 
         return done(null, newUser.rows[0]);
