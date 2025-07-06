@@ -84,9 +84,8 @@ const Register = () => {
         <div className="divider"><span>OR</span></div>
 
         <div className="social-icons">
-          <a href="#"><FaGoogle /></a>
+          <a href="http://localhost:5000/auth/google"><FaGoogle /></a>
           <a href="#"><FaFacebook /></a>
-          <a href="#"><FaTwitter /></a>
         </div>
       </div>
 
