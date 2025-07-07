@@ -62,10 +62,6 @@ const Login = () => {
           <label>Password:</label>
           <input type="password" placeholder="Enter your password" value={password} onChange={(e) => setPassword(e.target.value)} required />
 
-          <div className="forgot">
-            <a href="/forget">Forget Password</a>
-          </div>
-
           <button type="submit" className="login-btn">Log In</button>
         </form>
 
