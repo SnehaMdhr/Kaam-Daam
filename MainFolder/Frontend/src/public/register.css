@@ -24,35 +24,33 @@ body {
   justify-content: center;
 }
 
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 30px;
+}
+
+.logo img {
+  width: 40px;
+  height: 40px;
+}
+
+.logo h3 {
+  font-size: 1.5rem;
+  color: #1f4a5c;
+}
+
 .register-left h2 {
   font-size: 28px;
   margin-bottom: 10px;
+  color: #1f4a5c;
 }
 
 .subtitle {
   font-size: 14px;
   color: #666;
   margin-bottom: 20px;
-}
-
-.role-toggle {
-  display: flex;
-  gap: 10px;
-  margin-bottom: 25px;
-}
-
-.role-btn {
-  padding: 8px 16px;
-  border: 1px solid #ccc;
-  background: none;
-  cursor: pointer;
-  border-radius: 4px;
-  font-size: 14px;
-  transition: 0.3s ease;
-}
-
-.role-btn:hover {
-  background-color: #f0f0f0;
 }
 
 .register-form label {
@@ -81,6 +79,11 @@ body {
   font-size: 16px;
   margin-top: 20px;
   cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.register-btn:hover {
+  background-color: #163a4a;
 }
 
 .login-link {
@@ -94,6 +97,10 @@ body {
   text-decoration: none;
   color: #1f4a5c;
   font-weight: 500;
+}
+
+.login-link a:hover {
+  text-decoration: underline;
 }
 
 .social-auth {
@@ -127,6 +134,8 @@ body {
   max-width: 450px;
   height: auto;
 }
+
+/* Radio buttons */
 .radio-group {
   margin: 15px 0;
 }
