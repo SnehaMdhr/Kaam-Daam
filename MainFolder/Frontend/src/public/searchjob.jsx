@@ -2,7 +2,7 @@ import React from "react";
 import "./searchjob.css";
 import logo from "../assets/image/logo.png";
 import jobsImage from "../assets/image/jobs.png";
-import Header from "../components/Header";
+import Header from "../components/header";
 import Footer from "../components/footer";
 
 const JobSearch = () => {
