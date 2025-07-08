@@ -42,10 +42,10 @@ const dashboardWithoutLogin = () => {
               <a href="/searchjob">
               <button className="search-btn">Find Your First Job Now</button></a>
             </div>
-            <div className="cta-buttons">
+            {/* <div className="cta-buttons">
               <button className="student-btn">For Students</button>
               <button className="company-btn">For Companies</button>
-            </div>
+            </div> */}
             </div>
           </div>
       </header>
@@ -187,7 +187,7 @@ const dashboardWithoutLogin = () => {
       <section className="cta-section">
         <h2>Ready to Launch Your Freelancing Career?</h2>
         <p>Join KaamDaam today and start your journey as a freelance professional.</p>
-        <a href="#" className="cta-button">Get Started</a>
+        <a href="/login" className="cta-button">Get Started</a>
       </section>
 
       {/* Footer */}
