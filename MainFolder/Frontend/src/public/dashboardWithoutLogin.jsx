@@ -24,7 +24,7 @@ import anjali from "../assets/image/anjali.png";
 import apala from "../assets/image/apala.png";
 import kimti from "../assets/image/kimti.png";   
 import pic from "../assets/image/1.png";   
-import Header from "../components/Header";
+import Header from "../components/header";
 import Footer from "../components/footer";
 const dashboardWithoutLogin = () => {
   return (

@@ -2,71 +2,78 @@
   max-width: 1100px;
   margin: 0 auto;
   padding: 30px 15px;
-  font-family: Arial, sans-serif;
+  font-family: 'Segoe UI', sans-serif;
   text-align: center;
   color: #222;
 }
 
 .section-title {
   font-weight: 600;
-  font-size: 18px;
+  font-size: 20px;
   margin-bottom: 40px;
 }
 
 .services-container {
   display: flex;
-  justify-content: space-between;
-  gap: 15px;
+  justify-content: space-around;
+  align-items: flex-start;
   flex-wrap: wrap;
+  gap: 30px;
+}
+
+.service-column {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 330px;
+  width: 100%;
+}
+
+.service-label {
+  font-size: 30px;
+  font-weight: 800;
+  margin-bottom: 15px;
+
 }
 
 .service-box {
-  background-color: #cdc5b8;
+  background-color: #e1d9cd;
   padding: 25px 20px;
-  width: 30%;
-  min-width: 280px;
+  width: 100%;
   border-radius: 12px;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-}
-
-.center-box {
-  width: 30%;
-}
-
-.service-heading {
-  font-weight: 600;
-  font-size: 15px;
-  margin-bottom: 18px;
+  align-items: stretch;
   text-align: left;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.06);
 }
 
 .service-item {
   background-color: #fff;
   border-radius: 8px;
-  padding: 12px 15px;
+  padding: 14px 18px;
   margin-bottom: 15px;
   display: flex;
   align-items: center;
-  gap: 10px;
-  font-size: 14px;
+  gap: 12px;
+  font-size: 15px;
   font-weight: 500;
-  cursor: default;
-  box-shadow: 0 1px 3px rgb(0 0 0 / 0.1);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
 .icon {
   font-size: 18px;
   display: inline-flex;
   align-items: center;
+  align-content: center;
   justify-content: center;
   width: 22px;
 }
 
 .btn-primary {
-  background-color: #2d4d57;
+  margin-top: 25px;
+  background-color:#1c355e;
   color: white;
   border: none;
   padding: 10px 18px;
@@ -74,17 +81,13 @@
   font-weight: 600;
   cursor: pointer;
   align-self: center;
-  margin-top: 8px;
-  width: 110px;
+  width: 150px;
   transition: background-color 0.3s ease;
-}
-
-.btn-primary:hover {
-  background-color: #4a6b76;
 }
 
 .footer-text {
   font-size: 12px;
   color: #666;
   margin-top: 35px;
+  text-align: center;
 }
