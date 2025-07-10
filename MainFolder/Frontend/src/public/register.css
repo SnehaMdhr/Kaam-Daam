@@ -1,151 +1,141 @@
 * {
-  box-sizing: border-box;
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
   font-family: "Segoe UI", sans-serif;
 }
 
 body {
+  background-color: #f9f9f9;
+}
+
+.register-container {
+  display: flex;
+  min-height: 100vh;
+  width: 100%;
+}
+
+.register-left {
+  flex: 1;
+  padding: 60px;
   background-color: #fff;
   display: flex;
-  align-items: center;
+  flex-direction: column;
   justify-content: center;
-  height: 100vh;
-}
-
-.container {
-  display: flex;
-  width: 100%;
-  max-width: 1000px;
-  border-radius: 10px;
-  overflow: hidden;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-}
-
-/* Left (Form) */
-.left {
-  flex: 1;
-  padding: 40px;
-  background-color: white;
 }
 
 .logo {
   display: flex;
   align-items: center;
-  font-size: 1.8rem;
-  font-weight: bold;
-  color: #1c355e;
-  margin-bottom: 25px;
+  gap: 10px;
+  margin-bottom: 30px;
 }
 
 .logo img {
+  width: 40px;
   height: 40px;
-  margin-right: 10px;
-  margin-left:120px;
 }
 
-h2 {
-  margin-bottom: 5px;
+.logo h3 {
+  font-size: 1.5rem;
+  color: #1f4a5c;
+}
+
+.register-left h2 {
+  font-size: 28px;
+  margin-bottom: 10px;
+  color: #1f4a5c;
 }
 
 .subtitle {
- color: gray;
-  font-size: 0.9rem;
-  margin-bottom: 25px;
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 20px;
 }
 
-form label {
+.register-form label {
   display: block;
   margin-top: 15px;
   font-weight: 600;
+  font-size: 14px;
 }
 
-form input {
- width: 100%;
+.register-form input {
+  width: 100%;
   padding: 10px;
-  margin-top: 5px;
+  margin-top: 6px;
   border-radius: 5px;
   border: 1px solid #ccc;
+  font-size: 14px;
 }
 
-.login-btn {
+.register-btn {
   width: 100%;
   padding: 12px;
-  background-color: black;
+  background-color: #1f4a5c;
   color: white;
   border: none;
   border-radius: 5px;
-  font-size: 1rem;
-  margin-top: 15px;
+  font-size: 16px;
+  margin-top: 20px;
   cursor: pointer;
+  transition: background 0.3s ease;
 }
 
-.signup {
+.register-btn:hover {
+  background-color: #163a4a;
+}
+
+.login-link {
+  margin-top: 20px;
+  font-size: 14px;
   text-align: center;
-  margin: 20px 0 10px;
-  font-size: 0.9rem;
+  color: #555;
 }
 
-.signup a {
-  color: #007bff;
+.login-link a {
   text-decoration: none;
+  color: #1f4a5c;
+  font-weight: 500;
 }
 
-.divider {
-  text-align: center;
-  margin: 25px 0;
-  position: relative;
+.login-link a:hover {
+  text-decoration: underline;
 }
 
-.divider::before {
-  content: "";
-  height: 1px;
-  background: #ccc;
-  position: absolute;
-  top: 50%;
-  left: 0;
-  right: 0;
-  z-index: 0;
+.social-auth {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  gap: 15px;
 }
 
-.divider span {
-  background-color: white;
-  padding: 0 10px;
-  position: relative;
-  z-index: 1;
-}
-
-.social-icons {
-  text-align: center;
-}
-
-.social-icons a {
-  margin: 0 12px;
+.social-auth a {
+  font-size: 22px;
   color: #333;
-  font-size: 1.8rem;
-  text-decoration: none;
-  transition: color 0.3s ease;
+  transition: 0.3s ease;
 }
 
-.social-icons a:hover {
-  color: #007bff;
+.social-auth a:hover {
+  color: #1f4a5c;
 }
 
-/* Right (Image) */
-.right {
+.register-right {
   flex: 1;
-  background-color: white;
+  background-color: #fff;
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: 40px;
 }
 
-.right img {
+.register-right img {
   width: 100%;
+  max-width: 450px;
   height: auto;
 }
 
-
+/* Radio buttons */
 .radio-group {
   margin: 15px 0;
 }
