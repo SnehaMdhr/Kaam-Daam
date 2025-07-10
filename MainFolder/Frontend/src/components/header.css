@@ -1,0 +1,104 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+body {
+  background: #f9f9f9;
+  color: #333;
+}
+
+.container {
+  max-width: 95%;
+  margin: auto;
+  padding: 15px 20px;
+}
+/* Navbar */
+.navbar {
+  background-color: #fff;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+  position: sticky;
+  height: 70px;
+  top: 0;
+  z-index: 1000;
+}
+
+/* Navbar content layout */
+.nav-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+a {
+  color: black;         /* Default link color */
+  text-decoration: none;  /* Removes underline */
+  transition: color 0.3s ease;
+}
+
+a:hover {
+  color: #2a2d30;     
+}
+
+/* Group nav links and button together */
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+/* Logo section */
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  color: #1c355e;
+}
+
+.logo img {
+  height: 40px;
+  width: 40px;
+  object-fit: contain;
+}
+
+.logo h3 {
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+/* Nav links */
+.nav-links {
+  display: flex;
+  list-style: none;
+  gap: 50px;
+}
+
+.nav-links li {
+  cursor: pointer;
+  font-weight: 500;
+  color: #333;
+  transition: color 0.3s ease;
+}
+
+.nav-links li:hover {
+  color: #1c355e;
+}
+
+/* Login button */
+.login-btn {
+  padding: 8px 16px;
+  background-color:#1c355e;
+  margin-left: 75px;
+  color: white;
+  border: none;
+  cursor: pointer;
+ text-align: center;
+  font-weight: 500;
+  transition: background 0.3s ease;
+  border-radius: 12px; 
+}
+
+.login-btn:hover {
+  background-color: #162946;
+}
