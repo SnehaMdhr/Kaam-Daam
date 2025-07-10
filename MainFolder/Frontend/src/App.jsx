@@ -12,6 +12,7 @@ const Service = lazy(() => import("./public/service"));
 const Contact = lazy(() => import("./public/contact")); 
 const Help = lazy(() => import("./public/help"));
 const About = lazy(() => import("./public/about"));
+const SettingEmployer = lazy(() => import("./public/settingemployer"));
 function App() {
   return (
     <Router>
@@ -29,6 +30,8 @@ function App() {
           <Route path="/contact" element={<Contact />} />
           <Route path="/help" element={<Help />} />
           <Route path="/about" element={<About />} />
+          <Route path="/settingemployer" element={<SettingEmployer />} />
+          {/* Add more routes as needed */}
         </Routes>
       </Suspense>
     </Router>
