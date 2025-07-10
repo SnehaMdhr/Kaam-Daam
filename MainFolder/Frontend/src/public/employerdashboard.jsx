@@ -4,6 +4,11 @@ import { FaSearch, FaStar, FaRegClock, FaRegFileAlt } from 'react-icons/fa';
 import girl from '../assets/image/employerdashboard.png';
 import HeaderForEmployer from '../components/headerforemployer';
 import Sidebar from '../components/sidebar';
+import tech from "../assets/image/tech.png";
+import design from "../assets/image/design.png";    
+import writing from "../assets/image/writing.png";
+import marketing from "../assets/image/marketing.png";
+import video from "../assets/image/video.png";
 
 const Employerdashboard = () => {
   return (
@@ -38,12 +43,26 @@ const Employerdashboard = () => {
 
               {/* Category Cards */}
               <div className="category-boxes">
-                <div className="category-card">Video & Photography</div>
-                <div className="category-card">Video & Photography</div>
-                <div className="category-card">Video & Photography</div>
-                <div className="category-card">Video & Photography</div>
-                <div className="category-card">Video & Photography</div>
-              </div>
+                <div className="job-card">
+    <img src={tech} alt="tech" />
+    <p>Technology & IT</p>
+  </div>
+  <div className="job-card">
+    <img src={design} alt="design" />
+    <p>Design & Creativity</p>
+  </div>
+  <div className="job-card">
+    <img src={writing} alt="writing" />
+    <p>Writing & Content Creation</p>
+  </div>
+  <div className="job-card">
+    <img src={marketing} alt="marketing" />
+    <p>Digital Marketing</p>
+  </div>
+  <div className="job-card">
+    <img src={video} alt="video" />
+    <p>Video & Photography</p>
+  </div></div>
 
               {/* Ratings & Reminders Side-by-side */}
               <div className="cards-row">

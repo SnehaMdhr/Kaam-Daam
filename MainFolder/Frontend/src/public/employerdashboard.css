@@ -1,114 +1,269 @@
-/* Global Reset & Base Styles */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: 'Segoe UI', sans-serif;
-}
+/* employerdashboard.css */
 
 body {
-  background-color: #f5f6fa;
-  color: #333;
-  line-height: 1.5;
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #f5f7fa;
 }
 
-/* Layout: Dashboard Body */
-.dashboard-body {
+/* Layout */
+.dashboard-container {
   display: flex;
-  gap: 20px;
-  padding: 20px;
   margin-left: 320px;
 }
 
-/* ============================
-   CATEGORY BOXES
-============================ */
-.category-boxes {
-  display: flex;
-  gap: 12px;
-  margin-top: 20px;
-  flex-wrap: wrap;
+.dashboard-content {
+  flex-grow: 1;
+  padding: 20px;
 }
 
-.category-card {
-  background-color: #fff;
-  padding: 12px 20px;
+/* Header */
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.search-box {
+  display: flex;
+  align-items: center;
+  background-color: white;
+  padding: 8px 12px;
   border-radius: 8px;
-  border: 1px solid #ddd;
+  border: 1px solid #ccc;
+}
+
+.search-box input {
+  border: none;
+  outline: none;
+  margin-left: 8px;
   font-size: 14px;
-  font-weight: 500;
-  color: #333;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+}
+
+.find-btn {
+  background-color: #063b64;
+  color: white;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background 0.3s ease;
+}
+
+.find-btn:hover {
+  background-color: #042f52;
+}
+
+/* Main Dashboard Body */
+.dashboard-body {
+  display: flex;
+  gap: 20px;
+}
+
+/* Left Section */
+.dashboard-main {
+  flex: 3;
+}
+
+/* Profile Card */
+.profile-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #d9f0ea;
+  border-radius: 16px;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.profile-info h2 {
+  margin: 0;
+  font-size: 24px;
+  color: #1c1c1c;
+}
+
+.profile-info p {
+  margin: 4px 0;
+  color: #5f5f5f;
+}
+
+.profile-info strong {
+  color: #1c1c1c;
+}
+
+.profile-img {
+  width: 120px;
+  height: auto;
+  border-radius: 8px;
+}
+
+/* Category Cards */
+.category-boxes {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.job-card {
+  background-color: white;
+  padding: 30px 20px;
+  border-radius: 6px;
+ box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  width: 280px;
+  height:200px;
+    margin-bottom: 20px;
   transition: transform 0.2s ease;
 }
 
-.category-card:hover {
-  transform: translateY(-2px);
-  cursor: pointer;
+.job-card:hover {
+  transform: translateY(-5px);
+}
+.ratings-card, .reminders-card {
+  flex: 1;
+  background-color: white;
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
 }
 
-/* ============================
-   STAR RATINGS BREAKDOWN
-============================ */
+/* Ratings */
+.rating {
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.rating svg {
+  margin-right: 6px;
+}
+
 .stars-breakdown {
   list-style: none;
-  margin-top: 12px;
-  padding-left: 0;
+  padding: 0;
+  font-size: 14px;
 }
 
 .stars-breakdown li {
   display: flex;
   align-items: center;
-  gap: 8px;
-  font-size: 13px;
-  color: #444;
-  margin-bottom: 8px;
+  margin-bottom: 6px;
 }
 
 .stars-breakdown .bar {
-  flex-grow: 1;
-  height: 6px;
-  background-color: #ddd;
+  background-color: #4caf50;
+  height: 8px;
+  margin-left: 8px;
   border-radius: 4px;
-  position: relative;
-  overflow: hidden;
+  flex-shrink: 0;
 }
 
-.stars-breakdown .bar::after {
-  content: '';
-  display: block;
-  height: 100%;
-  background-color: #ffc107;
-  position: absolute;
-  top: 0;
-  left: 0;
+/* Reminders */
+.reminders-card ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }
 
-/* ============================
-   APPLICANT CARD
-============================ */
-.applicant-card {
-  background-color: #f9f9fc;
-  border-radius: 8px;
+.reminders-card li {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+  font-size: 14px;
+  color: #374151;
+}
+
+.reminders-card svg {
+  margin-right: 8px;
+  color: #4a4a4a;
+}
+
+/* Right Sidebar */
+.dashboard-sidebar {
+  flex: 1;
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.dashboard-sidebar h3 {
+  font-size: 18px;
+  font-weight: 600;
+  color: #1c1c1c;
+  margin-bottom: 16px;
+}
+
+/* Notification Items */
+.notification-item {
+  display: flex;
+  flex-direction: column;
+  background-color: #f8f9fa;
   padding: 12px 16px;
+  border-radius: 12px;
+  margin-bottom: 10px;
+  border-left: 4px solid #0e7490;
+}
+
+.notification-item strong {
+  font-weight: 600;
+  color: #0f172a;
+}
+
+.notification-item span {
+  color: #475569;
+  font-size: 14px;
+}
+
+/* New Applicants */
+.new-applicants {
+  margin-top: 24px;
+}
+
+.applicant-card {
+  background-color: #f1f5f9;
+  padding: 14px 16px;
+  border-radius: 12px;
   margin-bottom: 12px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-  transition: background-color 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  transition: background 0.3s ease;
+  border-left: 4px solid #4f46e5;
 }
 
 .applicant-card:hover {
-  background-color: #eef1f7;
+  background-color: #e2e8f0;
 }
 
 .applicant-card strong {
-  font-size: 14px;
-  color: #1c355e;
-  display: block;
-  margin-bottom: 4px;
+  font-size: 16px;
+  color: #1e293b;
 }
 
 .applicant-card p {
-  font-size: 13px;
-  color: #555;
-  margin: 0;
+  margin: 4px 0 0;
+  color: #64748b;
+  font-size: 14px;
+}
+
+/* Optional: View Profile Button */
+.view-profile-btn {
+  margin-top: 8px;
+  padding: 6px 10px;
+  background-color: #2563eb;
+  color: #ffffff;
+  border: none;
+  border-radius: 6px;
+  font-size: 12px;
+  cursor: pointer;
+  align-self: flex-start;
+}
+
+.view-profile-btn:hover {
+  background-color: #1d4ed8;
 }
