@@ -1,29 +1,34 @@
 import React from "react";
 import "./forget.css";
-import logo from "../assets/image/logo.png";
-import bannerImage from "../assets/image/bannerImage.png";
+import forget from "../assets/image/forget.png"; // Adjusted image import
 
 const ResetPassword = () => {
   return (
-    <div className="container">
-      <div className="img">
-       <img src={bannerImage} alt="Job Illustration" />
-        <div className="form-box">
-          <div className="logo">
-           <img src={logo} alt="Kaam Daam Logo" />
-            <h3>Kaam Daam</h3>
-          </div>
-          <h2>Reset Password</h2>
-          <form>
-            <label htmlFor="email">Email:</label>
-            <input
-              type="email"
-              id="email"
-              placeholder="Enter your email"
-              required
-            />
-            <button type="submit">Reset</button>
-          </form>
+    <div className="forget-container">
+      <div className="forget-left">
+        <img src={forget} alt="Looking for a Job" />
+      </div>
+
+      <div className="forget-right">
+        <h2>Forgot Your Password?</h2>
+        <p className="forget-subtitle">
+          Reset your password and start again!
+        </p>
+
+        <form className="forget-form">
+          <label htmlFor="email">Email</label>
+          <input type="email" id="email" placeholder="E-mail@example.com" required />
+
+          <label htmlFor="phoneno">Phone Number</label>
+          <input type="text" id="phoneno" placeholder="Phone Number" required />
+
+          <button type="submit" className="forget-btn">Reset Password</button>
+        </form>
+
+        <div className="forget-links">
+          <p className="login-text">
+            Go Back To <a href="/login">Login</a>
+          </p>
         </div>
       </div>
     </div>
