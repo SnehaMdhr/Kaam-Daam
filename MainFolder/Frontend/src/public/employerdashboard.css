@@ -1,0 +1,114 @@
+/* Global Reset & Base Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+body {
+  background-color: #f5f6fa;
+  color: #333;
+  line-height: 1.5;
+}
+
+/* Layout: Dashboard Body */
+.dashboard-body {
+  display: flex;
+  gap: 20px;
+  padding: 20px;
+  margin-left: 320px;
+}
+
+/* ============================
+   CATEGORY BOXES
+============================ */
+.category-boxes {
+  display: flex;
+  gap: 12px;
+  margin-top: 20px;
+  flex-wrap: wrap;
+}
+
+.category-card {
+  background-color: #fff;
+  padding: 12px 20px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  font-size: 14px;
+  font-weight: 500;
+  color: #333;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+  transition: transform 0.2s ease;
+}
+
+.category-card:hover {
+  transform: translateY(-2px);
+  cursor: pointer;
+}
+
+/* ============================
+   STAR RATINGS BREAKDOWN
+============================ */
+.stars-breakdown {
+  list-style: none;
+  margin-top: 12px;
+  padding-left: 0;
+}
+
+.stars-breakdown li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: #444;
+  margin-bottom: 8px;
+}
+
+.stars-breakdown .bar {
+  flex-grow: 1;
+  height: 6px;
+  background-color: #ddd;
+  border-radius: 4px;
+  position: relative;
+  overflow: hidden;
+}
+
+.stars-breakdown .bar::after {
+  content: '';
+  display: block;
+  height: 100%;
+  background-color: #ffc107;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+/* ============================
+   APPLICANT CARD
+============================ */
+.applicant-card {
+  background-color: #f9f9fc;
+  border-radius: 8px;
+  padding: 12px 16px;
+  margin-bottom: 12px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  transition: background-color 0.2s ease;
+}
+
+.applicant-card:hover {
+  background-color: #eef1f7;
+}
+
+.applicant-card strong {
+  font-size: 14px;
+  color: #1c355e;
+  display: block;
+  margin-bottom: 4px;
+}
+
+.applicant-card p {
+  font-size: 13px;
+  color: #555;
+  margin: 0;
+}

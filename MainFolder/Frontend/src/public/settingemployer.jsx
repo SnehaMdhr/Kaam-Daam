@@ -1,9 +1,8 @@
 import React from 'react';
 import { FaTachometerAlt, FaSuitcase, FaUsers, FaEnvelope, FaBuilding, FaChartBar, FaCog } from 'react-icons/fa';
 import HeaderForEmployer from '../components/headerforemployer';
-import './settingemployer.css';
 import Sidebar from '../components/sidebar';
-
+import './settingemployer.css';
 const SettingEmployer = () => {
   return (
     <div>
