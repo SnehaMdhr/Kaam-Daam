@@ -2,6 +2,7 @@ const pool = require('../db');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
+
 const register = async (req, res) => {
     const { username, email, phone, role, password } = req.body;
 
@@ -55,6 +56,7 @@ const login = async (req, res) => {
         res.status(500).json({ message: 'Server error' });
     }
 };
+
 
 module.exports = { register, login };
 
