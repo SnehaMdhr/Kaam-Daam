@@ -1,0 +1,95 @@
+.job-postings-container {
+  padding: 30px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  font-family: 'Segoe UI', sans-serif;
+  margin-left: 320px;
+}
+
+.job-postings-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.job-postings-header h1{
+  font-size: 40px;
+  margin-bottom: 20px;
+  color: #1c355e;
+}
+
+.new-job-btn {
+  background-color: #d9c4a3;
+  color: #333;
+  border: none;
+  padding: 8px 16px;
+  font-size: 14px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.search-bar {
+  display: flex;
+  align-items: center;
+  background-color: #e9d6bb;
+  padding: 10px 16px;
+  border-radius: 6px;
+  margin-bottom: 20px;
+  gap: 10px;
+}
+
+.search-bar input {
+  border: none;
+  background: transparent;
+  outline: none;
+  width: 100%;
+  font-size: 14px;
+}
+
+/* Job Table */
+.job-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.job-table thead {
+  background-color: #d7f3f3;
+  text-align: left;
+}
+
+.job-table th,
+.job-table td {
+  padding: 12px 16px;
+  border-bottom: 1px solid #eee;
+}
+
+.job-table a {
+  color: #1c355e;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.status {
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-weight: 500;
+  font-size: 13px;
+  display: inline-block;
+}
+
+.status.active {
+  background-color: #c8f0e0;
+  color: #006644;
+}
+
+.status.filled {
+  background-color: #d3f3f0;
+  color: #006778;
+}
+
+.status.inactive {
+  background-color: #f0f0f0;
+  color: #777;
+}

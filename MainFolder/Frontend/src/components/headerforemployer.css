@@ -1,0 +1,71 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+body {
+  background: #f9f9f9;
+  color: #333;
+}
+
+.container {
+  max-width: 95%;
+  margin: auto;
+  padding: 15px 20px;
+}
+/* Navbar */
+.topbar {
+  background-color: #fff;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+  position: sticky;
+  height: 70px;
+  top: 0;
+  z-index: 1000;
+}
+
+/* Navbar content layout */
+.nav-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+
+/* Group nav links and button together */
+.topbar-right {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+/* Logo section */
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  color: #1c355e;
+}
+
+.logo img {
+  height: 40px;
+  width: 40px;
+  object-fit: contain;
+}
+
+.logo h3 {
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.icon {
+  font-size: 20px;
+  color: #333;
+  cursor: pointer;
+}
+
+.org-name {
+  font-weight: 600;
+  color: #444;
+}
