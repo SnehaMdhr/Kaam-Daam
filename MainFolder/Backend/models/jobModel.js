@@ -17,4 +17,13 @@ const createJob = async (jobData) => {
   return result.rows[0];
 };
 
-module.exports = { createJob };
+// ✅ Get all jobs created by a specific user
+const getJobsByUser = async (userId) => {
+  const result = await pool.query(
+    `SELECT id, title, status, posted_date FROM job_posts WHERE user_id = $1 ORDER BY posted_date DESC`,
+    [userId]
+  );
+  return result.rows;
+};
+
+module.exports = { createJob, getJobsByUser };
