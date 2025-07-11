@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
 import './CreateJob.css';
+import { useNavigate } from 'react-router-dom';
 
 const CreateJob = () => {
+  const navigate = useNavigate();
+
   const [job, setJob] = useState({
     title: '',
     status: 'open',
@@ -33,6 +36,7 @@ const CreateJob = () => {
     const data = await response.json();
     if(response.ok) {
       alert('Job posted successfully!');
+      navigate('/employerjobposting');
       console.log(data.job);
     } else {
       console.error('Error posting job:', data.error);
