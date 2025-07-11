@@ -1,0 +1,49 @@
+.job-details-content {
+  background-color: #ffffff;
+  border-radius: 8px;
+  padding: 24px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  margin-left: 320px;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.job-details-content p {
+  margin: 10px 0;
+  font-size: 15px;
+  color: #2c3e50;
+}
+
+.job-details-content h1 {
+  font-size: 28px;
+  color: #1c355e;
+  margin-bottom: 20px;
+}
+
+.button-group {
+  margin-top: 30px;
+  display: flex;
+  gap: 12px;
+}
+
+.btn {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.btn-blue {
+  background-color: #1c355e;
+  color: white;
+}
+
+.btn-red {
+  background-color: #e53935;
+  color: white;
+}
+
+.btn:hover {
+  opacity: 0.9;
+}
