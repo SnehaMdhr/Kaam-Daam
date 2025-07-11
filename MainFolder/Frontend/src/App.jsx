@@ -12,6 +12,13 @@ const Service = lazy(() => import("./public/service"));
 const Contact = lazy(() => import("./public/contact")); 
 const Help = lazy(() => import("./public/help"));
 const About = lazy(() => import("./public/about"));
+const SettingEmployer = lazy(() => import("./public/settingemployer"));
+const EmployerAnalytics = lazy(() => import("./public/employeranalytics"));
+const EmployerMessage = lazy(() => import("./public/employermessage"));
+const EmployerDashboard = lazy(() => import("./public/employerdashboard"));
+const EmployerCompanyProfile = lazy(() => import("./public/employercompanyprofile"));
+const Employerjobposting = lazy(() => import("./public/employerjobposting"));
+const Empoyerjobapplications = lazy(() => import("./public/employerapplicationmanagement"));
 function App() {
   return (
     <Router>
@@ -29,6 +36,14 @@ function App() {
           <Route path="/contact" element={<Contact />} />
           <Route path="/help" element={<Help />} />
           <Route path="/about" element={<About />} />
+          <Route path="/settingemployer" element={<SettingEmployer />} />
+          <Route path="/employeranalytics" element={<EmployerAnalytics />} />
+          <Route path="/employermessage" element={<EmployerMessage />} />
+          <Route path="/employerdashboard" element={<EmployerDashboard />} />
+          <Route path="/employercompanyprofile" element={<EmployerCompanyProfile />} />
+          <Route path="/employerjobposting" element={<Employerjobposting />} />
+          <Route path="/empoyerjobapplicationmanagement" element={<Empoyerjobapplications />} />
+          {/* Add more routes as needed */}
         </Routes>
       </Suspense>
     </Router>
