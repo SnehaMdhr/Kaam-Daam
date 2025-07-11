@@ -23,6 +23,7 @@ const Login = () => {
     console.log(data); 
 
     localStorage.setItem("token", data.token);
+    localStorage.setItem("userId", data.user.id);
     if(data.token){
       console.log("Login Sucessful");
 
