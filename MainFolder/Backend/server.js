@@ -4,7 +4,7 @@ const passport = require('passport');
 const jwt = require('jsonwebtoken');
 const session = require('express-session');
 const cors = require('cors');
-require('dotenv').config();
+require('dotenv').config(); // Keep only one instance
 require('./passport');
 const pool = require('./db'); 
 
@@ -24,11 +24,11 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-// normal routes
+// Normal routes
 const authRoutes = require('./routes/authRoutes');
 app.use('/api/auth', authRoutes);
 
-// google routes
+// Google routes
 app.get('/auth/google',
     passport.authenticate('google', { scope: ['profile', 'email'] })
 );
@@ -46,22 +46,19 @@ app.get('/auth/google/callback',
         const user = await pool.query('SELECT * FROM users WHERE email = $1', [email]);
 
         if (user.rows.length > 0) {
-            const existingUser = user.rows[0];
-
-            if (existingUser.role) {
-                const token = jwt.sign({ id: existingUser.id }, process.env.JWT_SECRET, { expiresIn: '1d' });
-                res.redirect(`http://localhost:5173/${existingUser.role}_dashboard?token=${token}`);
-            } else {
-                const token = jwt.sign({ id: existingUser.id }, process.env.JWT_SECRET, { expiresIn: '1d' });
-                res.redirect(`http://localhost:5173/google-redirect?token=${token}`);
-            }
+            const existingUser  = user.rows[0];
+            const token = jwt.sign({ id: existingUser .id }, process.env.JWT_SECRET, { expiresIn: '1d' });
+            const redirectUrl = existingUser .role ? 
+                `http://localhost:5173/${existingUser .role}_dashboard?token=${token}` : 
+                `http://localhost:5173/google-redirect?token=${token}`;
+            res.redirect(redirectUrl);
         } else {
-            const newUser = await pool.query(
+            const newUser  = await pool.query(
                 'INSERT INTO users (username, email) VALUES ($1, $2) RETURNING *',
                 [req.user.displayName, req.user.email]
             );
 
-            const token = jwt.sign({ id: newUser.rows[0].id }, process.env.JWT_SECRET, { expiresIn: '1d' });
+            const token = jwt.sign({ id: newUser .rows[0].id }, process.env.JWT_SECRET, { expiresIn: '1d' });
             res.redirect(`http://localhost:5173/google-redirect?token=${token}`);
         }
     }
