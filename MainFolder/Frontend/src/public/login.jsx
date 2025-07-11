@@ -35,7 +35,7 @@ const Login = () => {
       }
       else if(data.user.role === 'recruiter'){
         localStorage.setItem("role", data.user.role);
-        window.location.href = "/recruiter_dashboard";
+        window.location.href = "/employerdashboard";
       }}
     } else {
       console.error("Login Failed");
