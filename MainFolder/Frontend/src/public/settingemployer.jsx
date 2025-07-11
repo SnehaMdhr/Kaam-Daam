@@ -70,13 +70,13 @@ const SettingEmployer = () => {
           <section className="settings-section">
             <h3>Notifications</h3>
             <div className="form-group">
-              <label><input type="checkbox" /> New Applications: Receive email notifications when new applications are submitted for your job postings.</label>
+              <label><input type="checkbox" />Job Alerts: Get notified when new job opportunities matching your interests are posted.</label>
             </div>
             <div className="form-group">
-              <label><input type="checkbox" /> Messages: Get notified when you receive new messages from applicants or platform support.</label>
+              <label><input type="checkbox" /> Message Notifications: Receive alerts when employers respond to your applications or messages.</label>
             </div>
             <div className="form-group">
-              <label><input type="checkbox" /> Platform Updates: Stay informed about new features, updates, and important announcements from KaamDaam.</label>
+              <label><input type="checkbox" />Stay informed about new features, tips, and announcements from Kaam Daam to enhance your job search experience.</label>
             </div>
             <div className="button-wrapper">
     <button>Update Notification</button>
