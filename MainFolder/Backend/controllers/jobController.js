@@ -1,4 +1,4 @@
-const { createJob } = require('../models/jobModel');
+const { createJob, getJobsByUser } = require('../models/jobModel');
 
 const postJob = async (req, res) => {
   try {
@@ -10,4 +10,15 @@ const postJob = async (req, res) => {
   }
 };
 
-module.exports = { postJob };
+// ✅ Get jobs for logged-in user
+const getUserJobs = async (req, res) => {
+  try {
+    const jobs = await getJobsByUser(req.user.id);
+    res.status(200).json(jobs);
+  } catch (err) {
+    console.error("Error fetching jobs:", err.message);
+    res.status(500).json({ error: "Failed to fetch jobs" });
+  }
+};
+
+module.exports = { postJob, getUserJobs };
