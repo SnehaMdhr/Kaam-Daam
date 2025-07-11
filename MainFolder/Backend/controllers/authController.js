@@ -1,7 +1,19 @@
 const pool = require('../db');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const crypto = require('crypto');
+const nodemailer = require('nodemailer');
 
+// Email setup
+const transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS
+    }
+});
+
+// GET current user info
 const getMe = async (req, res) => {
     try {
         const result = await pool.query(
@@ -9,9 +21,8 @@ const getMe = async (req, res) => {
             [req.user.id]
         );
 
-        if (result.rows.length === 0) {
+        if (result.rows.length === 0)
             return res.status(404).json({ message: 'User not found' });
-        }
 
         res.json({ user: result.rows[0] });
     } catch (err) {
@@ -20,15 +31,13 @@ const getMe = async (req, res) => {
     }
 };
 
+// UPDATE user role
 const updateRole = async (req, res) => {
-    console.log("JWT Payload:", req.user);
-
     const { role } = req.body;
     const userId = req.user.id;
 
-    if (!role || (role !== 'job_seeker' && role !== 'recruiter')) {
+    if (!role || (role !== 'job_seeker' && role !== 'recruiter'))
         return res.status(400).json({ message: 'Invalid role selected' });
-    }
 
     try {
         const result = await pool.query(
@@ -47,8 +56,7 @@ const updateRole = async (req, res) => {
     }
 };
 
-
-
+// REGISTER new user
 const register = async (req, res) => {
     const { username, email, phone, role, password } = req.body;
 
@@ -74,6 +82,7 @@ const register = async (req, res) => {
     }
 };
 
+// LOGIN
 const login = async (req, res) => {
     const { email, password } = req.body;
 
@@ -103,4 +112,80 @@ const login = async (req, res) => {
     }
 };
 
-module.exports = { register, login, updateRole, getMe };
+// SEND PASSWORD RESET LINK
+const sendResetLink = async (req, res) => {
+    const { email } = req.body;
+
+    if (!email) return res.status(400).json({ message: 'Email is required' });
+
+    try {
+        const result = await pool.query('SELECT * FROM users WHERE email = $1', [email]);
+        if (result.rows.length === 0)
+            return res.status(404).json({ message: 'User not found' });
+
+        const token = crypto.randomBytes(32).toString('hex');
+        const expiry = new Date(Date.now() + 60 * 60 * 1000); // 1 hour
+
+        await pool.query(
+            'UPDATE users SET reset_token = $1, reset_token_expiry = $2 WHERE email = $3',
+            [token, expiry, email]
+        );
+
+        const resetLink = `http://localhost:5173/resetthing?token=${token}&email=${email}`;
+
+        await transporter.sendMail({
+            to: email,
+            subject: 'Reset Your Password',
+            html: `<p>Click the link below to reset your password. It will expire in 1 hour.</p>
+                   <a href="${resetLink}">${resetLink}</a>`
+        });
+
+        res.status(200).json({ message: 'Password reset link sent to your email' });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ message: 'Server error' });
+    }
+};
+
+// RESET PASSWORD using Token
+const resetPasswordWithToken = async (req, res) => {
+    const { email, token, newPassword } = req.body;
+
+    if (!email || !token || !newPassword)
+        return res.status(400).json({ message: 'All fields are required' });
+
+    try {
+        const result = await pool.query('SELECT * FROM users WHERE email = $1', [email]);
+        if (result.rows.length === 0)
+            return res.status(404).json({ message: 'User not found' });
+
+        const user = result.rows[0];
+
+        if (user.reset_token !== token)
+            return res.status(400).json({ message: 'Invalid or expired token' });
+
+        if (new Date() > new Date(user.reset_token_expiry))
+            return res.status(400).json({ message: 'Token expired' });
+
+        const hashedPassword = await bcrypt.hash(newPassword, 10);
+
+        await pool.query(
+            'UPDATE users SET password = $1, reset_token = NULL, reset_token_expiry = NULL WHERE email = $2',
+            [hashedPassword, email]
+        );
+
+        res.status(200).json({ message: 'Password reset successful. Please login.' });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ message: 'Server error' });
+    }
+};
+
+module.exports = {
+    register,
+    login,
+    updateRole,
+    getMe,
+    sendResetLink,
+    resetPasswordWithToken
+};
