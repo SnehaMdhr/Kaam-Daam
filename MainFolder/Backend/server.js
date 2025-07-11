@@ -7,6 +7,7 @@ const cors = require('cors');
 require('dotenv').config(); // Keep only one instance
 require('./passport');
 const pool = require('./db'); 
+const userRoutes = require('./routes/users');
 
 app.use(cors({
     origin: 'http://localhost:5173',
@@ -20,6 +21,8 @@ app.use(session({
     resave: false,
     saveUninitialized: true
 }));
+
+app.use('/api/users', userRoutes);
 
 app.use(passport.initialize());
 app.use(passport.session());
