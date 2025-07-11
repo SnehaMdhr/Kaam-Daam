@@ -18,7 +18,7 @@ const SettingEmployer = () => {
     if (userId) {
       axios.get(`http://localhost:5000/api/users/${userId}`)
         .then((res) => setUser(res.data))
-        .catch((err) => console.error('Failed to load settlings', err));
+        .catch((err) => console.error('Failed to load settings', err));
     }
   }, [userId]);
 

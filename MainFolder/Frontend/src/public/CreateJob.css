@@ -1,0 +1,70 @@
+/* Base Styling */
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #f4f7fa;
+}
+
+.create-job-container {
+  max-width: 600px;
+  margin: 40px auto;
+  background-color: #ffffff;
+  padding: 30px 40px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  border-left: 6px solid #12355b;
+}
+
+.create-job-container h2 {
+  color: #12355b;
+  margin-bottom: 25px;
+  text-align: center;
+}
+
+.job-form label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: 600;
+  color: #2c3e50;
+}
+
+.job-form input,
+.job-form select,
+.job-form textarea {
+  width: 100%;
+  padding: 10px 12px;
+  margin-bottom: 20px;
+  border: 1px solid #dbe2ef;
+  border-radius: 6px;
+  background-color: #fafafa;
+  font-size: 14px;
+  transition: border 0.3s;
+}
+
+.job-form input:focus,
+.job-form select:focus,
+.job-form textarea:focus {
+  border-color: #12355b;
+  outline: none;
+}
+
+.job-form textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+.job-form button {
+  width: 100%;
+  padding: 12px;
+  background-color: #12355b;
+  color: #ffffff;
+  font-size: 16px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.job-form button:hover {
+  background-color: #0d2544;
+}

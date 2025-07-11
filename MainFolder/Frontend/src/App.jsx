@@ -20,6 +20,7 @@ const EmployerDashboard = lazy(() => import("./public/employerdashboard"));
 const EmployerCompanyProfile = lazy(() => import("./public/employercompanyprofile"));
 const Employerjobposting = lazy(() => import("./public/employerjobposting"));
 const Empoyerjobapplications = lazy(() => import("./public/employerapplicationmanagement"));
+const CreateJob = lazy(() => import("./public/CreateJob"));
 function App() {
   return (
     <Router>
@@ -38,6 +39,7 @@ function App() {
           <Route path="/help" element={<Help />} />
           <Route path="/about" element={<About />} />
           <Route path="/resetthing" element={<ResetThing/>} />
+          <Route path="/createjob" element={<CreateJob />} />
 
           <Route path="/settingemployer" element={<SettingEmployer />} />
           <Route path="/employeranalytics" element={<EmployerAnalytics />} />
