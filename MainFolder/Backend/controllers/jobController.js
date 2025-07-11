@@ -1,4 +1,5 @@
 const { createJob, getJobsByUser } = require('../models/jobModel');
+const pool = require('../db'); 
 
 const postJob = async (req, res) => {
   try {
@@ -21,4 +22,78 @@ const getUserJobs = async (req, res) => {
   }
 };
 
-module.exports = { postJob, getUserJobs };
+const getJobById = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const result = await pool.query('SELECT * FROM job_posts WHERE id = $1', [id]);
+    if (result.rows.length === 0) {
+      return res.status(404).json({ error: 'Job not found' });
+    }
+    res.json(result.rows[0]);
+  } catch (err) {
+    console.error('Error getting job:', err);
+    res.status(500).json({ error: 'Server error' });
+  }
+};
+
+const updateJobById = async (req, res) => {
+  const { id } = req.params;
+  const {
+    title,
+    status,
+    posted_date,
+    description,
+    people_required,
+    address,
+    job_type,
+    work_schedule,
+    shift_timing
+  } = req.body;
+
+  try {
+    const result = await pool.query(
+      `UPDATE job_posts SET
+        title = $1,
+        status = $2,
+        posted_date = $3,
+        description = $4,
+        people_required = $5,
+        address = $6,
+        job_type = $7,
+        work_schedule = $8,
+        shift_timing = $9
+      WHERE id = $10 RETURNING *`,
+      [
+        title,
+        status,
+        posted_date,
+        description,
+        people_required,
+        address,
+        job_type,
+        work_schedule,
+        shift_timing,
+        id
+      ]
+    );
+
+    res.json({ message: 'Job updated', job: result.rows[0] });
+  } catch (err) {
+    console.error('Error updating job:', err);
+    res.status(500).json({ error: 'Failed to update job' });
+  }
+};
+
+// DELETE a job
+const deleteJobById = async (req, res) => {
+  const { id } = req.params;
+  try {
+    await pool.query('DELETE FROM job_posts WHERE id = $1', [id]);
+    res.json({ message: 'Job deleted successfully' });
+  } catch (err) {
+    console.error('Error deleting job:', err);
+    res.status(500).json({ error: 'Server error' });
+  }
+};
+
+module.exports = { postJob, getUserJobs,getJobById, deleteJobById, updateJobById };
