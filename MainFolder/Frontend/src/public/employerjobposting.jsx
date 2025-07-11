@@ -8,6 +8,7 @@ import './employerjobposting.css';
 const EmployerJobPosting = () => {
   const navigate = useNavigate();
   const [jobs, setJobs] = useState([]);
+  const [searchTerm, setSearchTerm] = useState('');
 
   useEffect(() => {
     const fetchJobs = async () => {
@@ -15,7 +16,7 @@ const EmployerJobPosting = () => {
         const token = localStorage.getItem('token');
         const response = await fetch('http://localhost:5000/api/jobs/my-jobs', {
           headers: {
-            Authorization: `Bearer ${token}`, // ✅ Fixed template literal
+            Authorization: `Bearer ${token}`,
           },
         });
 
@@ -36,6 +37,11 @@ const EmployerJobPosting = () => {
 
   const formatDate = (dateStr) => new Date(dateStr).toISOString().split('T')[0];
 
+  // Filter jobs based on search term
+  const filteredJobs = jobs.filter((job) =>
+    job.title.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   return (
     <div>
       <HeaderForEmployer />
@@ -51,7 +57,12 @@ const EmployerJobPosting = () => {
 
           <div className="search-bar">
             <FaSearch />
-            <input type="text" placeholder="Search job postings" />
+            <input
+              type="text"
+              placeholder="Search job postings"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
           </div>
 
           <table className="job-table">
@@ -65,8 +76,8 @@ const EmployerJobPosting = () => {
               </tr>
             </thead>
             <tbody>
-              {jobs.length > 0 ? (
-                jobs.map((job) => (
+              {filteredJobs.length > 0 ? (
+                filteredJobs.map((job) => (
                   <tr key={job.id}>
                     <td>{job.title}</td>
                     <td>
@@ -74,7 +85,7 @@ const EmployerJobPosting = () => {
                         {job.status === 'open' ? 'Active' : job.status === 'closed' ? 'Inactive' : job.status}
                       </span>
                     </td>
-                    <td>0</td>
+                    <td>{job.applicants_count || 0}</td>
                     <td>{formatDate(job.posted_date)}</td>
                     <td>
                       <a href={`/jobdetails/${job.id}`}>View Details</a>
@@ -84,7 +95,7 @@ const EmployerJobPosting = () => {
               ) : (
                 <tr>
                   <td colSpan="5" style={{ textAlign: 'center' }}>
-                    No job postings yet.
+                    No matching job postings.
                   </td>
                 </tr>
               )}
