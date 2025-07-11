@@ -13,7 +13,6 @@ const Contact = lazy(() => import("./public/contact"));
 const Help = lazy(() => import("./public/help"));
 const About = lazy(() => import("./public/about"));
 const ResetThing = lazy(() => import("./public/ResetThing"));
-
 const SettingEmployer = lazy(() => import("./public/settingemployer"));
 const EmployerAnalytics = lazy(() => import("./public/employeranalytics"));
 const EmployerMessage = lazy(() => import("./public/employermessage"));
