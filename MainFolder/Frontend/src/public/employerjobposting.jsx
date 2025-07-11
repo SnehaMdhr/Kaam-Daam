@@ -1,9 +1,11 @@
-import React from 'react'
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import HeaderForEmployer from '../components/headerforemployer';
 import Sidebar from '../components/sidebar';
 import { FaSearch } from 'react-icons/fa';
 import './employerjobposting.css'; // Assuming you have a CSS file for styling
 const employerjobposting = () => {
+  const navigate = useNavigate();
   return (
     <div>
         <HeaderForEmployer />
@@ -12,7 +14,7 @@ const employerjobposting = () => {
         <Sidebar />
       <div className="job-postings-header">
         <h1>Job Postings</h1>
-        <button className="new-job-btn">Create New Job</button>
+        <button className="new-job-btn" onClick={() => navigate('/createjob')}>Create New Job</button>
       </div>
 
       <div className="search-bar">
