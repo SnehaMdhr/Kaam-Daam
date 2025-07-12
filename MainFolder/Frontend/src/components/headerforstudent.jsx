@@ -8,7 +8,7 @@ const HeaderForStudent = () => {
   const navigate = useNavigate();
 
   const goToProfile = () => {
-    navigate("/studentviewprofile");
+    navigate("/studentviewprofile/:id"); // Replace ':id' with actual user ID if needed
   };
 
   return (
