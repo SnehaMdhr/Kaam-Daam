@@ -1,0 +1,52 @@
+.student-profile-container {
+  max-width: 600px;
+  margin: 30px auto;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.student-profile-container h2 {
+  color: #2b4d66;
+  margin-bottom: 20px;
+}
+
+.student-profile-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.student-profile-form label {
+  margin-bottom: 6px;
+  font-weight: 500;
+  color: #333;
+}
+
+.student-profile-form input,
+.student-profile-form textarea {
+  padding: 10px;
+  margin-bottom: 16px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 14px;
+  width: 100%;
+}
+
+.student-profile-form textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+.student-profile-form button {
+  background-color: #1f4e5f;
+  color: #fff;
+  padding: 10px 18px;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  cursor: pointer;
+  align-self: flex-end;
+  margin-top: 10px;
+}
+
+.student-profile-form button:hover {
+  background-color: #153943;
+}
