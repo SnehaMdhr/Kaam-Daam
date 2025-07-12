@@ -10,6 +10,10 @@ const pool = require('./db');
 const userRoutes = require('./routes/users');
 const jobRoutes = require('./routes/jobRoutes');
 
+const path = require('path');
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+
+
 app.use(cors({
     origin: 'http://localhost:5173',
     credentials: true
