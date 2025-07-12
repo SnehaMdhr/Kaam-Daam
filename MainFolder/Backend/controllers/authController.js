@@ -13,6 +13,73 @@ const transporter = nodemailer.createTransport({
     }
 });
 
+// Get Employer Profile
+const getEmployerProfile = async (req, res) => {
+  const userId = req.params.id;
+  console.log(`Fetching profile for user ID: ${userId}`); // Debug log
+  try {
+    const result = await pool.query(
+      `SELECT id, username, email, profile_picture_url, phone, industry, comp_description, website, linkedin, facebook
+       FROM users WHERE id = $1`,
+      [userId]
+    );
+
+    if (result.rows.length === 0) {
+      return res.status(404).json({ message: 'Employer not found' });
+    }
+
+    res.json(result.rows[0]);
+  } catch (err) {
+    console.error('Error fetching employer profile:', err);
+    res.status(500).json({ message: 'Server error', error: err.message }); // Include error message in response for debugging
+  }
+};
+
+// Update Employer Profile
+const updateEmployerProfile = async (req, res) => {
+  const userId = req.params.id;
+  console.log(`Updating profile for user ID: ${userId}`); // Debug log
+  const { username, email, phone, industry, comp_description, website, linkedin, facebook } = req.body;
+  const profile_picture_url = req.file ? req.file.filename : null;
+
+  try {
+    const result = await pool.query(
+      `UPDATE users SET
+        username = $1,
+        email = $2,
+        phone = $3,
+        profile_picture_url = COALESCE($4, profile_picture_url),
+        comp_description = $5,
+        industry = $6,
+        website = $7,
+        linkedin = $8,
+        facebook = $9
+      WHERE id = $10 RETURNING *`,
+      [
+        username,
+        email,
+        phone,
+        profile_picture_url,
+        comp_description,
+        industry,
+        website,
+        linkedin,
+        facebook,
+        userId,
+      ]
+    );
+
+    res.status(200).json({
+      message: "Employer profile updated successfully",
+      user: result.rows[0],
+    });
+  } catch (err) {
+    console.error('Error updating employer profile:', err);
+    res.status(500).json({ message: 'Server error', error: err.message }); // Include error message in response for debugging
+  }
+};
+
+
 // UPDATE student profile
 const updateUserProfile = async (req, res) => {
     const userId = req.params.id;
@@ -248,5 +315,7 @@ module.exports = {
     sendResetLink,
     resetPasswordWithToken,
     getUserProfile,
-    updateUserProfile
+    updateUserProfile,
+    getEmployerProfile,
+    updateEmployerProfile
 };
