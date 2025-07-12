@@ -78,4 +78,21 @@ const checkAlreadyApplied = async (req, res) => {
   }
 };
 
-module.exports = { applyToJob, getApplicationsByEmployer,getApplicationsByStudent, checkAlreadyApplied };
+
+const updateApplicationStatus = async (req, res) => {
+  const { applicationId } = req.params;
+  const { status } = req.body;
+
+  try {
+    await pool.query(
+      'UPDATE job_applications SET status = $1 WHERE id = $2',
+      [status, applicationId]
+    );
+    res.json({ message: "Status updated successfully" });
+  } catch (err) {
+    console.error("Failed to update status", err);
+    res.status(500).json({ error: "Could not update application status" });
+  }
+};
+
+module.exports = { applyToJob, getApplicationsByEmployer,getApplicationsByStudent, checkAlreadyApplied, updateApplicationStatus };

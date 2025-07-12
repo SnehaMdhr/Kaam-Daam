@@ -1,22 +1,46 @@
-import React, { useEffect, useState } from "react";
-import HeaderForEmployer from "../components/headerforemployer";
-import Sidebar from "../components/sidebar";
-import { FaSearch } from "react-icons/fa";
-import axios from "axios";
-import "./employerapplicationmanagement.css";
+import React, { useEffect, useState } from 'react';
+import HeaderForEmployer from '../components/headerforemployer';
+import Sidebar from '../components/sidebar';
+import { FaSearch } from 'react-icons/fa';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+import './employerapplicationmanagement.css';
 
 const EmployerApplicationManagement = () => {
   const [applications, setApplications] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
+    const token = localStorage.getItem('token');
     axios
-      .get("http://localhost:5000/api/applications/employer", {
+      .get('http://localhost:5000/api/applications/employer', {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((res) => setApplications(res.data))
-      .catch((err) => console.error("Failed to load applications", err));
+      .catch((err) => console.error('Failed to load applications', err));
   }, []);
+
+  const handleStatusChange = (applicationId, newStatus) => {
+    const token = localStorage.getItem('token');
+    axios
+      .put(
+        `http://localhost:5000/api/applications/status/${applicationId}`,
+        { status: newStatus },
+        { headers: { Authorization: `Bearer ${token}` } }
+      )
+      .then(() => {
+        setApplications((prev) =>
+          prev.map((app) =>
+            app.id === applicationId ? { ...app, status: newStatus } : app
+          )
+        );
+      })
+      .catch((err) => console.error('Error updating status', err));
+  };
+
+  const handleViewProfile = (userId) => {
+    navigate(`/studentviewprofile/${userId}`);
+  };
 
   return (
     <div>
@@ -40,36 +64,46 @@ const EmployerApplicationManagement = () => {
             <tr>
               <th>Applicant</th>
               <th>Email</th>
-              <th>Applied Date</th>
+              <th>Application Date</th>
               <th>Status</th>
               <th>Actions</th>
             </tr>
           </thead>
-
           <tbody>
-            {applications.length === 0 ? (
-              <tr>
-                <td colSpan="5">No applications yet.</td>
+            {applications.map((app) => (
+              <tr key={app.id}>
+                <td>{app.applicant_name}</td>
+                <td>{app.email}</td>
+                <td>{new Date(app.applied_at).toLocaleDateString()}</td>
+                <td>
+                  <select
+                    value={app.status}
+                    onChange={(e) =>
+                      handleStatusChange(app.id, e.target.value)
+                    }
+                  >
+                    <option value="Applied">Applied</option>
+                    <option value="Accepted">Accepted</option>
+                    <option value="Rejected">Rejected</option>
+                    <option value="Interview">Interview</option>
+                    <option value="Hired">Hired</option>
+                  </select>
+                </td>
+                <td>
+                  <button onClick={() => handleViewProfile(app.user_id)}>
+                    View Profile
+                  </button>{" "}
+                  |{" "}
+                  <button onClick={() => navigate('/messages')}>
+                    Send Message
+                  </button>
+                </td>
               </tr>
-            ) : (
-              applications.map((app) => (
-                <tr key={app.id}>
-                  <td>{app.applicant_name}</td>
-                  <td>{app.email}</td>
-                  <td>{new Date(app.applied_at).toLocaleDateString()}</td>
-                  <td>
-                    <span className="status">{app.status}</span>
-                  </td>
-                  <td>
-                    <a href={`/studentprofile/${app.user_id}`}>View Profile</a> |{" "}
-                    <button>Change Status</button> |{" "}
-                    <button>Send Message</button>
-                  </td>
-                </tr>
-              ))
-            )}
+            ))}
           </tbody>
         </table>
+
+        
       </div>
     </div>
   );
