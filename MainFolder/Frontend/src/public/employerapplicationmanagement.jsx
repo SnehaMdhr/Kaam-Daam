@@ -87,6 +87,8 @@ const EmployerApplicationManagement = () => {
                     <option value="Rejected">Rejected</option>
                     <option value="Interview">Interview</option>
                     <option value="Hired">Hired</option>
+                    <option value="Past">Past</option>
+
                   </select>
                 </td>
                 <td>
