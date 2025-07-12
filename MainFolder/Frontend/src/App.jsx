@@ -85,7 +85,7 @@ function App() {
           <Route path="/studentprofile" element={<StudentProfile />} />
           <Route path="/studentreview" element={<StudentReview />} />
           <Route path="/studentsetting" element={<StudentSetting />} />
-          <Route path="/studentviewjob" element={<StudentViewJob />} />
+          <Route path="/studentviewjob/:id" element={<StudentViewJob />} />
           <Route path="/studentviewprofile" element={<StudentViewProfile />} />
           <Route path="/employerviewprofile" element={<EmployerViewProfile />} />
 

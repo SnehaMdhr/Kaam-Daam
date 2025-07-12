@@ -14,6 +14,12 @@ const Register = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    // Validate phone number length
+    if (phone.length !== 10) {
+      alert("Phone number must be exactly 10 digits.");
+      return;
+    }
+
     const response = await fetch('http://localhost:5000/api/auth/register', {
       method: 'POST',
       headers: {
@@ -73,7 +79,10 @@ const Register = () => {
             id="phone"
             placeholder="Enter your phone number"
             value={phone}
-            onChange={(e) => setPhone(e.target.value)}
+            onChange={(e) => {
+              const value = e.target.value.replace(/\D/g, '').slice(0, 10);
+              setPhone(value);
+            }}
             required
           />
 
@@ -118,7 +127,7 @@ const Register = () => {
         </form>
 
         <p className="login-link">
-          Already have an account? <a href="/login">Sign In Now</a>
+          Already have an account? <a href="/login">Log In Now</a>
         </p>
 
         <div className="social-auth">

@@ -1,20 +1,23 @@
-import React, { use } from "react";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Header from "../components/headerforstudent";
 import Sidebar from "../components/sidebarstudent";
 import "./studentsetting.css";
 
-const studentsetting = () => {
+const StudentSetting = () => {
   const [user, setUser] = useState({
     username: "",
     email: "",
     phone: "",
   });
 
-  const userId = localStorage.getItem("userId"); // must be saved during login
+  const navigate = useNavigate();
+  const userId = localStorage.getItem("userId");   // saved during login
 
-  // Fetch user data on page load
+  /* ──────────────────────────────────
+      Fetch user data on first render
+  ─────────────────────────────────── */
   useEffect(() => {
     if (userId) {
       axios
@@ -24,7 +27,7 @@ const studentsetting = () => {
     }
   }, [userId]);
 
-  // Handle input changes
+  /* ──────────────────────────────── */
   const handleChange = (e) => {
     setUser((prev) => ({
       ...prev,
@@ -32,36 +35,52 @@ const studentsetting = () => {
     }));
   };
 
-  // Handle profile update
   const handleUpdate = () => {
     axios
       .put(`http://localhost:5000/api/users/${userId}`, user)
       .then(() => alert("Settings updated!"))
       .catch((err) => console.error("Update failed", err));
   };
+
+  /* ─────────────  NEW  ──────────── */
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("userId");
+    navigate("/login");
+  };
+
   return (
     <div>
       <Header />
 
       <div className="settings-container">
         <Sidebar />
+
         <div className="settings-main">
-          <h1>Settings</h1>
+          {/* top bar with title + logout */}
+          <div className="settings-header">
+            <h1>Settings</h1>
+            <button className="logout-btn" onClick={handleLogout}>
+              Log&nbsp;Out
+            </button>
+          </div>
 
           {/* Account Information */}
           <section className="settings-section">
             <h3>Account Information</h3>
+
             <div className="form-group">
-              <label htmlFor="company-name">Applicant's Name</label>
+              <label htmlFor="applicant-name">Applicant's Name</label>
               <input
                 type="text"
+                id="applicant-name"
                 name="username"
                 value={user.username}
                 onChange={handleChange}
-                id="applicant-name"
                 placeholder="Applicant Name"
               />
             </div>
+
             <div className="form-group">
               <label htmlFor="contact-email">Applicant Email</label>
               <input
@@ -72,6 +91,7 @@ const studentsetting = () => {
                 placeholder="Applicant Email"
               />
             </div>
+
             <div className="form-group">
               <label htmlFor="contact-person">Contact Details</label>
               <input
@@ -83,13 +103,16 @@ const studentsetting = () => {
                 placeholder="Contact Details"
               />
             </div>
+
             <div className="button-wrapper">
               <button onClick={handleUpdate}>Update Account</button>
             </div>
           </section>
+
           {/* Notifications */}
           <section className="settings-section">
             <h3>Notifications</h3>
+
             <div className="form-group">
               <label>
                 <input type="checkbox" />
@@ -97,19 +120,23 @@ const studentsetting = () => {
                 your interests are posted.
               </label>
             </div>
+
             <div className="form-group">
               <label>
-                <input type="checkbox" /> Message Notifications: Receive alerts
-                when employers respond to your applications or messages.
+                <input type="checkbox" />
+                Message Notifications: Receive alerts when employers respond to
+                your applications or messages.
               </label>
             </div>
+
             <div className="form-group">
               <label>
-                <input type="checkbox" /> Platform Updates: Stay informed about
-                new features, updates, and important announcements from
-                KaamDaam.
+                <input type="checkbox" />
+                Platform Updates: Stay informed about new features, updates, and
+                important announcements from KaamDaam.
               </label>
             </div>
+
             <div className="button-wrapper">
               <button>Update Notification</button>
             </div>
@@ -120,4 +147,4 @@ const studentsetting = () => {
   );
 };
 
-export default studentsetting;
+export default StudentSetting;

@@ -1,9 +1,23 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Header from "../components/headerforstudent";
 import Sidebar from "../components/sidebarstudent";
+import axios from "axios";
 import "./studentmyapplication.css";
 
-const studentmyapplication = () => {
+const StudentMyApplications = () => {
+  const [applications, setApplications] = useState([]);
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+
+    axios
+      .get("http://localhost:5000/api/applications/student", {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      .then((res) => setApplications(res.data))
+      .catch((err) => console.error("Failed to load my applications", err));
+  }, []);
+
   return (
     <div>
       <Header />
@@ -11,57 +25,32 @@ const studentmyapplication = () => {
         <Sidebar />
         <h2>My Applications</h2>
 
-        {/* Application 1 */}
-        <div className="application-card">
-          <div className="app-info">
-            <span className="app-status applied">Applied</span>
-            <h3 className="job-title">Junior Software Developer</h3>
-            <p className="company">Tech Innovators Inc. | Kathmandu</p>
-          </div>
-          <img
-            src="https://cdn-icons-png.flaticon.com/512/906/906175.png"
-            alt="Job visual"
-          />
-        </div>
-
-        {/* Application 2 */}
-        <div className="application-card">
-          <div className="app-info">
-            <span className="app-status review">Under Review</span>
-            <h3 className="job-title">IT Support Specialist</h3>
-            <p className="company">Global Solutions Ltd. | Lalitpur</p>
-          </div>
-          <img
-            src="https://cdn-icons-png.flaticon.com/512/5696/5696551.png"
-            alt="Job visual"
-          />
-        </div>
-
-        {/* Application 3 */}
-        <div className="application-card">
-          <div className="app-info">
-            <span className="app-status rejected">Rejected</span>
-            <h3 className="job-title">Web Development Intern</h3>
-            <p className="company">Creative Minds Studio | Bhaktapur</p>
-          </div>
-          <img
-            src="https://cdn-icons-png.flaticon.com/512/7497/7497650.png"
-            alt="Job visual"
-          />
-        </div>
-
-        {/* Application 4 */}
-        <div className="application-card">
-          <div className="app-info">
-            <span className="app-status accepted">Accepted</span>
-            <h3 className="job-title">Data Entry Clerk</h3>
-            <p className="company">Data Dynamics Co. | Kathmandu</p>
-          </div>
-          <img
-            src="https://cdn-icons-png.flaticon.com/512/3815/3815145.png"
-            alt="Job visual"
-          />
-        </div>
+        {applications.length === 0 ? (
+          <p>No applications found.</p>
+        ) : (
+          applications.map((app) => (
+            <div className="application-card" key={app.id}>
+              <div className="app-info">
+                <span className={`app-status ${app.status.toLowerCase()}`}>
+                  {app.status}
+                </span>
+                <h3 className="job-title">{app.title}</h3>
+                <p className="company">{app.address}</p>
+                <a
+                  href={`/studentviewjob/${app.job_id}`}
+                  className="view-link"
+                  style={{ color: "#3b82f6", marginTop: "8px", display: "inline-block" }}
+                >
+                  View Job
+                </a>
+              </div>
+              <img
+                src="https://cdn-icons-png.flaticon.com/512/906/906175.png"
+                alt="Job visual"
+              />
+            </div>
+          ))
+        )}
 
         <div className="view-more">+ view more</div>
       </div>
@@ -69,4 +58,4 @@ const studentmyapplication = () => {
   );
 };
 
-export default studentmyapplication;
+export default StudentMyApplications;

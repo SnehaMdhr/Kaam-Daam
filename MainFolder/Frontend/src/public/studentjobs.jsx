@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from "react";
 import Header from "../components/headerforstudent";
 import Sidebar from "../components/sidebarstudent";
-import img from "../assets/image/jobs.png"; // You can use this as fallback or default image
+import img from "../assets/image/jobs.png";
 import "./studentjobs.css";
 import axios from "axios";
 
 const Jobs = () => {
   const [jobs, setJobs] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const jobsPerPage = 10;
 
   useEffect(() => {
     axios
@@ -14,6 +16,17 @@ const Jobs = () => {
       .then((res) => setJobs(res.data))
       .catch((err) => console.error("Failed to fetch jobs", err));
   }, []);
+
+  const indexOfLastJob = currentPage * jobsPerPage;
+  const indexOfFirstJob = indexOfLastJob - jobsPerPage;
+  const currentJobs = jobs.slice(indexOfFirstJob, indexOfLastJob);
+  const totalPages = Math.ceil(jobs.length / jobsPerPage);
+
+  const goToPage = (page) => {
+    if (page >= 1 && page <= totalPages) {
+      setCurrentPage(page);
+    }
+  };
 
   return (
     <div>
@@ -32,10 +45,10 @@ const Jobs = () => {
           </div>
 
           <div className="job-cards">
-            {jobs.length === 0 ? (
+            {currentJobs.length === 0 ? (
               <p>No jobs available.</p>
             ) : (
-              jobs.map((job) => (
+              currentJobs.map((job) => (
                 <div className="job-card" key={job.id}>
                   <div className="job-content">
                     <h3>{job.title}</h3>
@@ -51,13 +64,17 @@ const Jobs = () => {
           </div>
 
           <div className="pagination">
-            <span className="page">&lt;</span>
-            <span className="page active">1</span>
-            <span className="page">2</span>
-            <span className="page">3</span>
-            <span className="page">4</span>
-            <span className="page">5</span>
-            <span className="page">&gt;</span>
+            <span className="page" onClick={() => goToPage(currentPage - 1)}>&lt;</span>
+            {[...Array(totalPages)].map((_, i) => (
+              <span
+                key={i + 1}
+                className={`page ${currentPage === i + 1 ? "active" : ""}`}
+                onClick={() => goToPage(i + 1)}
+              >
+                {i + 1}
+              </span>
+            ))}
+            <span className="page" onClick={() => goToPage(currentPage + 1)}>&gt;</span>
           </div>
         </div>
       </div>

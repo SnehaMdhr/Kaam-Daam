@@ -81,3 +81,19 @@ h2 {
   text-align: right;
   cursor: pointer;
 }
+
+
+.app-status.applied { background-color: #e0f7fa; color: #00796b; }
+.app-status.accepted { background-color: #e0ffe0; color: #2e7d32; }
+.app-status.rejected { background-color: #ffebee; color: #c62828; }
+.app-status.review { background-color: #fff3e0; color: #ef6c00; }
+
+.view-link {
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+
+.view-link:hover {
+  color: #2563eb;
+}
