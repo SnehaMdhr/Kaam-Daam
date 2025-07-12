@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import {
   FaHome,
   FaSuitcase,
@@ -10,22 +10,24 @@ import {
 } from 'react-icons/fa';
 import './sidebar.css';
 
-const sidebarstudent = () => {
+const SidebarStudent = () => {
+  const studentId = localStorage.getItem("userId"); // ✅ Get student ID
+
   return (
     <div className="sidebar">
-          <ul>
-            <li><a href="/studentdashboard"><FaHome className="icon" /> Dashboard</a></li>
-            <li><a href="/studentjobs"><FaSuitcase className="icon" /> Jobs</a></li>
-            <li><a href="/studentreview"><FaUsers className="icon" /> Review</a></li>
-            <li><a href="/studentmessage"><FaEnvelope className="icon" /> Messaging</a></li>
-            <li><a href="/studentprofile"><FaBuilding className="icon" />Profile</a></li>
-            <li><a href="/studentmyapplication"><FaChartBar className="icon" /> My application</a></li>
-          </ul>
-          <div className="sidebar-footer">
-            <a href="/studentsetting"><FaCog className="icon" /> Settings</a>
-          </div>
-        </div>
-  )
-}
+      <ul>
+        <li><a href="/studentdashboard"><FaHome className="icon" /> Dashboard</a></li>
+        <li><a href="/studentjobs"><FaSuitcase className="icon" /> Jobs</a></li>
+        <li><a href={`/studentreview/${studentId}`}><FaUsers className="icon" /> Review</a></li>
+        <li><a href="/studentmessage"><FaEnvelope className="icon" /> Messaging</a></li>
+        <li><a href="/studentprofile"><FaBuilding className="icon" /> Profile</a></li>
+        <li><a href="/studentmyapplication"><FaChartBar className="icon" /> My Applications</a></li>
+      </ul>
+      <div className="sidebar-footer">
+        <a href="/studentsetting"><FaCog className="icon" /> Settings</a>
+      </div>
+    </div>
+  );
+};
 
-export default sidebarstudent
+export default SidebarStudent;
