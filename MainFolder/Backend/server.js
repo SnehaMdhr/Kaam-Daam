@@ -29,6 +29,7 @@ app.use(session({
 
 app.use('/api/users', userRoutes);
 app.use('/api/jobs', jobRoutes);
+app.use('/api/employers', require('./routes/employers'));
 
 
 app.use(passport.initialize());
