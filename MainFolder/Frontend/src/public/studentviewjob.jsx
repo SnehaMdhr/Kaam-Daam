@@ -25,34 +25,35 @@ const StudentViewJob = () => {
     // Check if user already applied
     axios
       .get(`http://localhost:5000/api/applications/check/${id}`, {
-        headers: { Authorization: `Bearer ${token}`},
+        headers: { Authorization: `Bearer ${token}` },
       })
       .then((res) => setAlreadyApplied(res.data.applied))
       .catch((err) => console.error("Failed to check application status", err));
   }, [id]);
 
-const handleApply = () => {
-  if (alreadyApplied) {
-    alert("You've already applied for this job.");
-    return;
-  }
+  const handleApply = () => {
+    if (alreadyApplied) {
+      alert("You've already applied for this job.");
+      return;
+    }
 
-  const token = localStorage.getItem("token");
+    const token = localStorage.getItem("token");
 
-  axios
-    .post(
-      "http://localhost:5000/api/applications/apply",
-      { jobId: job.id },
-      { headers: { Authorization: `Bearer ${token}` } }
-    )
-    .then(() => {
-      alert("Applied Successfully!");
-      setAlreadyApplied(true);
-    })
-    .catch((err) => {
-      alert("Failed to apply: " + err.response?.data?.error || err.message);
-    });
-};
+    axios
+      .post(
+        "http://localhost:5000/api/applications/apply",
+        { jobId: job.id },
+        { headers: { Authorization: `Bearer ${token}` } }
+      )
+      .then(() => {
+        alert("Applied Successfully!");
+        navigate("/studentmyapplication");
+        setAlreadyApplied(true);
+      })
+      .catch((err) => {
+        alert("Failed to apply: " + err.response?.data?.error || err.message);
+      });
+  };
 
   const goBack = () => {
     navigate("/studentjobs");
@@ -66,7 +67,10 @@ const handleApply = () => {
       <div className="job-details-container">
         <Sidebar />
         <nav className="breadcrumb">
-          <span style={{ cursor: "pointer", color: "#007bff" }} onClick={goBack}>
+          <span
+            style={{ cursor: "pointer", color: "#007bff" }}
+            onClick={goBack}
+          >
             Browse
           </span>{" "}
           / Job Details
