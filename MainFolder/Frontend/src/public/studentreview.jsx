@@ -1,15 +1,15 @@
-import React from 'react'
-import Header  from '../components/headerforemployer'
-import Sidebar from '../components/sidebarstudent'
+import React from "react";
+import Header from "../components/headerforstudent";
+import Sidebar from "../components/sidebarstudent";
 
 const studentreview = () => {
   return (
     <div>
-        <Header/>
-        <Sidebar/>
+      <Header />
+      <Sidebar />
       <h1> student review</h1>
     </div>
-  )
-}
+  );
+};
 
-export default studentreview
+export default studentreview;
