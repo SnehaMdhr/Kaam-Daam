@@ -13,6 +13,65 @@ const transporter = nodemailer.createTransport({
     }
 });
 
+// UPDATE student profile
+const updateUserProfile = async (req, res) => {
+    const userId = req.params.id;
+    const {
+        username,
+        email,
+        phone,
+        course,
+        institution,
+        linkedin,
+        portfolio,
+        bio
+    } = req.body;
+
+        const profile_picture_url = req.file ? req.file.filename : null;
+
+    try {
+        const result = await pool.query(
+            `UPDATE users SET
+                username = $1,
+                email = $2,
+                phone = $3,
+                profile_picture_url = $4,
+                course = $5,
+                institution = $6,
+                linkedin = $7,
+                portfolio = $8,
+                bio = $9
+             WHERE id = $10 RETURNING *`,
+            [username, email, phone,profile_picture_url, course, institution, linkedin, portfolio, bio, userId]
+        );
+
+        res.status(200).json({ message: 'Profile updated successfully', user: result.rows[0] });
+    } catch (err) {
+        console.error('Error updating profile:', err);
+        res.status(500).json({ message: 'Server error' });
+    }
+};
+
+// GET student profile
+const getUserProfile = async (req, res) => {
+    const userId = req.params.id;
+    try {
+        const result = await pool.query(
+            `SELECT id, username, email,profile_picture_url, phone, course, institution, linkedin, portfolio, bio 
+             FROM users WHERE id = $1`,
+            [userId]
+        );
+
+        if (result.rows.length === 0)
+            return res.status(404).json({ message: 'User not found' });
+
+        res.json(result.rows[0]);
+    } catch (err) {
+        console.error('Error fetching profile:', err);
+        res.status(500).json({ message: 'Server error' });
+    }
+};
+
 // GET current user info
 const getMe = async (req, res) => {
     try {
@@ -187,5 +246,7 @@ module.exports = {
     updateRole,
     getMe,
     sendResetLink,
-    resetPasswordWithToken
+    resetPasswordWithToken,
+    getUserProfile,
+    updateUserProfile
 };

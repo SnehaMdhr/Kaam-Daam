@@ -1,46 +1,24 @@
-// routes/users.js
 const express = require('express');
 const router = express.Router();
 const pool = require('../db');
+const { updateUserProfile, getUserProfile } = require('../controllers/authController');
+const multer = require('multer');
+const path = require('path');
 
-// 🔎 GET user profile (only username, email, phone)
-router.get('/:id', async (req, res) => {
-  const { id } = req.params;
-  try {
-    const result = await pool.query(
-      'SELECT username, email, phone FROM users WHERE id = $1',
-      [id]
-    );
-    if (result.rows.length === 0) {
-      return res.status(404).json({ error: 'User not found' });
-    }
-    res.json(result.rows[0]);
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: 'Server error while fetching user' });
+// 🧠 Setup Multer storage
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, 'uploads/'); // must match the folder name
+  },
+  filename: (req, file, cb) => {
+    const uniqueName = Date.now() + '-' + file.originalname;
+    cb(null, uniqueName);
   }
 });
+const upload = multer({ storage });
 
-// ✏️ PUT update user profile
-router.put('/:id', async (req, res) => {
-  const { id } = req.params;
-  const { username, email, phone } = req.body;
-
-  try {
-    const result = await pool.query(
-      'UPDATE users SET username = $1, email = $2, phone = $3 WHERE id = $4 RETURNING *',
-      [username, email, phone, id]
-    );
-
-    if (result.rows.length === 0) {
-      return res.status(404).json({ error: 'User not found or not updated' });
-    }
-
-    res.json({ message: 'Profile updated successfully', user: result.rows[0] });
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: 'Server error while updating profile' });
-  }
-});
+// ✅ Routes
+router.get('/:id', getUserProfile);
+router.put('/:id', upload.single('profile_picture'), updateUserProfile);
 
 module.exports = router;
