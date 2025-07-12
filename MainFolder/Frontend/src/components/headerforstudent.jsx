@@ -6,9 +6,10 @@ import { useNavigate } from "react-router-dom";
 
 const HeaderForStudent = () => {
   const navigate = useNavigate();
+  const userId = localStorage.getItem("userId");
 
   const goToProfile = () => {
-    navigate("/studentviewprofile/:id"); // Replace ':id' with actual user ID if needed
+    navigate(`/studentviewprofile/${userId}`); // Replace ':id' with actual user ID if needed
   };
 
   return (
