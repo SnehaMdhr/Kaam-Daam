@@ -10,6 +10,7 @@ const pool = require('./db');
 const userRoutes = require('./routes/users');
 const jobRoutes = require('./routes/jobRoutes');
 
+
 const path = require('path');
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 

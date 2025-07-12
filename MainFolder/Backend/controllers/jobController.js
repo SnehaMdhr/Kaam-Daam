@@ -96,4 +96,22 @@ const deleteJobById = async (req, res) => {
   }
 };
 
-module.exports = { postJob, getUserJobs,getJobById, deleteJobById, updateJobById };
+
+// GET all active job posts
+const getAllJobs = async (req, res) => {
+  try {
+    const result = await pool.query(`
+      SELECT job_posts.*, users.username AS company_name 
+      FROM job_posts
+      JOIN users ON job_posts.user_id = users.id
+      ORDER BY job_posts.created_at DESC
+    `);
+    res.json(result.rows);
+  } catch (err) {
+  console.error("Error fetching jobs:", err); // Show full error stack
+  res.status(500).json({ error: err.message || "Server error" }); // Send real error message
+}
+
+};
+
+module.exports = { postJob, getUserJobs,getJobById, deleteJobById, updateJobById, getAllJobs};
