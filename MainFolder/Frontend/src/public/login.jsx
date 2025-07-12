@@ -32,7 +32,7 @@ const Login = () => {
       }else{
       if(data.user.role === 'job_seeker'){
         localStorage.setItem("role", data.user.role);
-        window.location.href = "/job_seeker_dashboard";
+        window.location.href = "/studentdashboard";
       }
       else if(data.user.role === 'recruiter'){
         localStorage.setItem("role", data.user.role);
