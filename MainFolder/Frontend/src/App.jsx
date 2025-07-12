@@ -29,6 +29,7 @@ const StudentMyApplication=lazy(()=> import("./public/studentmyapplication"))
 const StudentProfile=lazy(()=> import("./public/studentprofile"))
 const StudentReview = lazy(()=> import("./public/studentreview"))
 const StudentSetting = lazy(()=> import("./public/studentsetting"))
+const StudentViewJob = lazy(()=> import("./public/studentviewjob"))
 function App() {
   return (
     <Router>
@@ -64,6 +65,7 @@ function App() {
           <Route path="/studentprofile" element={<StudentProfile/>}/>
           <Route path="/studentreview" element={<StudentReview/>}/>
           <Route path="/studentsetting" element={<StudentSetting/>}/>
+          <Route path="/studentviewjob" element={<StudentViewJob/>}/>
 
 
           {/* Add more routes as needed */}
