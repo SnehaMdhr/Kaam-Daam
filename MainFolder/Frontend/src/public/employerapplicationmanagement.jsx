@@ -88,7 +88,6 @@ const EmployerApplicationManagement = () => {
                     <option value="Interview">Interview</option>
                     <option value="Hired">Hired</option>
                     <option value="Past">Past</option>
-
                   </select>
                 </td>
                 <td>
@@ -98,14 +97,24 @@ const EmployerApplicationManagement = () => {
                   |{" "}
                   <button onClick={() => navigate('/messages')}>
                     Send Message
-                  </button>
+                  </button>{" "}
+                  {app.status === "Past" && (
+                    <>
+                      |{" "}
+                      <button
+                        onClick={() =>
+                          navigate(`/add-review/${app.user_id}/${app.job_id}`)
+                        }
+                      >
+                        Give Review
+                      </button>
+                    </>
+                  )}
                 </td>
               </tr>
             ))}
           </tbody>
         </table>
-
-        
       </div>
     </div>
   );

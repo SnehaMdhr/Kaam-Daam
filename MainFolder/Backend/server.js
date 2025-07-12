@@ -10,6 +10,7 @@ const pool = require('./db');
 const userRoutes = require('./routes/users');
 const jobRoutes = require('./routes/jobRoutes');
 const applicationRoutes = require('./routes/applicationRoutes');
+const reviewRoutes = require('./routes/reviewRoutes');
 
 
 const path = require('path');
@@ -33,6 +34,7 @@ app.use('/api/users', userRoutes);
 app.use('/api/jobs', jobRoutes);
 app.use('/api/employers', require('./routes/employers'));
 app.use('/api/applications', applicationRoutes);
+app.use('/api/reviews', reviewRoutes);
 
 
 app.use(passport.initialize());
