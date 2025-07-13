@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import Header from "../components/headerforstudent";
-import Sidebar from "../components/sidebarstudent";
+import Header from "../components/headerforemployer";
+import Sidebar from "../components/sidebar";
 import { useNavigate, useParams } from "react-router-dom";
 import "./StudentViewProfile.css";
 
@@ -54,7 +54,12 @@ const StudentViewProfile = () => {
       <div className="profile-container">
         <Sidebar />
         <div className="profile-content">
-          <h2>Student Profile</h2>
+          <h1>Student Profile</h1>
+          </div>
+          <div className='bar'>
+
+              <h3>Picture</h3>
+              </div>
           {user.profile_picture_url && (
             <img
               src={`http://localhost:5000/uploads/${user.profile_picture_url}`}
@@ -62,13 +67,29 @@ const StudentViewProfile = () => {
               className="profile-picture"
             />
           )}
+          <div className='bar'>
+
+              <h3>Personal Information</h3>
+              </div>
           <p><strong>Full Name:</strong> {user.username}</p>
           <p><strong>Email:</strong> {user.email}</p>
           <p><strong>Phone:</strong> {user.phone}</p>
+          <div className='bar'>
+
+              <h3>Academic Background</h3>
+              </div>
           <p><strong>Course:</strong> {user.course}</p>
           <p><strong>Institution:</strong> {user.institution}</p>
+          <div className='bar'>
+
+              <h3>Links</h3>
+              </div>
           <p><strong>LinkedIn:</strong> <a href={user.linkedin} target="_blank" rel="noopener noreferrer">{user.linkedin}</a></p>
           <p><strong>Portfolio:</strong> <a href={user.portfolio} target="_blank" rel="noopener noreferrer">{user.portfolio}</a></p>
+          <div className='bar'>
+
+              <h3>Bio</h3>
+              </div>
           <p><strong>Bio:</strong> {user.bio}</p>
 
           {/* ✅ Skills Section */}
@@ -96,6 +117,10 @@ const StudentViewProfile = () => {
             </button>
           )}
 
+          <div className='bar'>
+
+              <h3>Review</h3>
+              </div>
           {/* ✅ Show reviews */}
           <div className="reviews-section" style={{ marginTop: "30px" }}>
             <h3>Employer Reviews</h3>
@@ -112,7 +137,6 @@ const StudentViewProfile = () => {
           </div>
         </div>
       </div>
-    </div>
   );
 };
 

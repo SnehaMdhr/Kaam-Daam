@@ -68,13 +68,28 @@ const JobDetails = () => {
   return (
     <div>
       <HeaderForEmployer />
-      <div style={{ display: "flex" }}>
+      <div className="head-title">
         <Sidebar />
+        <div className='header-container'>
+        <h1>Job Details</h1>
+      </div>
         <div className="p-8 job-details-content">
-          <h1 className="text-2xl font-bold mb-4">{job.title}</h1>
+          <h2 className="text-2xl font-bold mb-4">{job.title}</h2>
+          <div className='bar'>
+
+              <h3>Job Overview</h3>
+              </div>
           <p>
             <strong>Status:</strong> {job.status}
           </p>
+           <p>
+            <strong>Posted on:</strong>{" "}
+            {new Date(job.posted_date).toLocaleDateString()}
+          </p>
+          <div className='bar'>
+
+              <h3>Job Details</h3>
+              </div>
           <p>
             <strong>Address:</strong> {job.address}
           </p>
@@ -84,16 +99,17 @@ const JobDetails = () => {
           <p>
             <strong>People Required:</strong> {job.people_required}
           </p>
+          <div className='bar'>
+
+              <h3>Work Schedule</h3>
+              </div>
           <p>
             <strong>Work Schedule:</strong> {job.work_schedule}
           </p>
           <p>
             <strong>Shift Timing:</strong> {job.shift_timing}
           </p>
-          <p>
-            <strong>Posted on:</strong>{" "}
-            {new Date(job.posted_date).toLocaleDateString()}
-          </p>
+         
 
           <div className="button-group">
             <button className="btn btn-blue" onClick={handleUpdate}>

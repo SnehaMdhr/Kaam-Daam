@@ -26,7 +26,7 @@ const SidebarStudent = () => {
           </span>
         </li>
         <li>
-          <a href="/studentprofile">Profile</a>
+          <a href="/studentprofileedit">Profile</a>
         </li>
         <li>
           <a href="/studentmyapplication">My Applications</a>
