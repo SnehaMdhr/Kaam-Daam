@@ -74,54 +74,49 @@ const StudentViewJob = () => {
           </span>{" "}
           / Job Details
         </nav>
-
+        <div className='header-container'>
+        <h1>Job Details</h1>
+      </div>
+      <div className="content">
         <h1 className="job-title">{job.title}</h1>
         <p className="posted-by">Posted by {job.company_name}</p>
 
         <img className="job-banner" src={jobbanner} alt="Job Banner" />
 
-        <section className="job-section">
-          <h2>Description</h2>
-          <p>{job.description}</p>
-        </section>
+        <div className='bar'>
 
-        <section className="job-section">
-          <h2>Job Type</h2>
+              <h3>Job Overview</h3>
+              </div>
           <p>
-            {job.job_type} | {job.work_schedule}
+            <strong>Status:</strong> {job.status}
           </p>
-        </section>
+           <p>
+            <strong>Posted on:</strong>{" "}
+            {new Date(job.posted_date).toLocaleDateString()}
+          </p>
+          <div className='bar'>
 
-        <section className="job-section">
-          <h2>Shift Timing</h2>
-          <p>{job.shift_timing}</p>
-        </section>
+              <h3>Job Details</h3>
+              </div>
+          <p>
+            <strong>Address:</strong> {job.address}
+          </p>
+          <p>
+            <strong>Description:</strong> {job.description}
+          </p>
+          <p>
+            <strong>People Required:</strong> {job.people_required}
+          </p>
+          <div className='bar'>
 
-        <section className="job-section">
-          <h2>Location</h2>
-          <p>{job.address}</p>
-        </section>
-
-        <section className="job-section">
-          <h2>People Required</h2>
-          <p>{job.people_required}</p>
-        </section>
-
-        <section className="job-section">
-          <h2>Category</h2>
-          <p>{job.category || "Not specified"}</p>
-        </section>
-
-        <section className="job-section">
-          <h2>Skill Level</h2>
-          <p>{job.skill_level || "Not specified"}</p>
-        </section>
-
-        <section className="job-section">
-          <h2>Duration</h2>
-          <p>{job.duration || "Not specified"}</p>
-        </section>
-
+              <h3>Work Schedule</h3>
+              </div>
+          <p>
+            <strong>Work Schedule:</strong> {job.work_schedule}
+          </p>
+          <p>
+            <strong>Shift Timing:</strong> {job.shift_timing}
+          </p>
         <div className="apply-button-wrapper">
           {!alreadyApplied ? (
             <button className="apply-button" onClick={handleApply}>
@@ -134,6 +129,7 @@ const StudentViewJob = () => {
           )}
         </div>
       </div>
+    </div>
     </div>
   );
 };

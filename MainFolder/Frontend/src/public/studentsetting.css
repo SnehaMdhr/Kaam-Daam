@@ -1,41 +1,40 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: 'Segoe UI', sans-serif;
-}
-
 .settings-container {
-  display: flex;
-  min-height: 100vh;
-  background-color: #f9f9f9;
+  padding: 30px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  font-family: 'Segoe UI', sans-serif;
+  margin-left: 320px;
 }
 
 
 /* Main content */
 .settings-main {
-  margin-left: 320px;
-  padding: 30px;
-  width: 100%;
+ display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
 }
-
 
 
 .settings-main h1 {
   font-size: 40px;
-  margin-bottom: 20px;
   color: #1c355e;
 }
+
 .settings-section {
   background: #fff;
   padding: 20px;
-  margin: 20px 0;
+  margin: 20 0;
   border-radius: 10px;
   box-shadow: 0 2px 5px rgba(0,0,0,0.05);
 }
 
 .settings-section h3 {
+ background-color: #e9dbc8;  /* Light beige */
+  padding: 12px 20px;
+  border-radius: 8px;
   margin-bottom: 20px;
+  font-weight: bold;
+  font-size: 1.1rem;
   color: #1c355e;
 }
 
@@ -47,16 +46,19 @@
   display: block;
   margin-bottom: 6px;
   font-weight: 500;
+  margin-left: 50px;
   color: #333;
 }
 
 input[type="text"],
 input[type="email"],
 input[type="password"] {
-  width: 100%;
+  width: 90%;
   padding: 10px 12px;
   border: 1px solid #ccc;
   border-radius: 5px;
+  margin-left: 50px;
+  margin-right: 100px;
   font-size: 1rem;
 }
 
@@ -73,7 +75,7 @@ input[type="checkbox"] {
 .button-wrapper {
   display: flex;
   justify-content: flex-end;
-  margin-top: 15px; /* Optional spacing */
+  margin-top: 30px; /* Optional spacing */
 }
 
 button {
@@ -81,6 +83,7 @@ button {
   color: #fff;
   padding: 10px 20px;
   border: none;
+  margin-right: 100px;
   border-radius: 6px;
   cursor: pointer;
   font-size: 1rem;
@@ -90,25 +93,24 @@ button:hover {
   background-color: #2e4c7b;
 }
 
-/* ───── NEW: wrap title & logout ───── */
-.settings-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 20px;
-}
 
-/* ───── NEW: logout button style ───── */
 .logout-btn {
-  background-color: #d9534f;   /* red */
-  color: #fff;
+  background-color: #e74c3c;      /* red shade */
+  color: white;
   padding: 10px 20px;
   border: none;
   border-radius: 6px;
-  cursor: pointer;
   font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 20px;
 }
 
 .logout-btn:hover {
-  background-color: #c9302c;   /* darker red on hover */
+  background-color: #c0392b;      /* darker red on hover */
+  transform: scale(1.03);
 }

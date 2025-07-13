@@ -60,9 +60,9 @@ const Jobs = () => {
       <div className="job-listings">
         <Sidebar />
         <div className="job-listing-content">
-          <h2>Job Listings</h2>
+          <h1>Job Listings</h1>
           <p>Explore opportunities tailored for beginner IT students.</p>
-
+          </div>
           <div className="filters">
             <select name="category" value={filters.category} onChange={handleFilterChange}>
               <option value="">All Categories</option>
@@ -123,7 +123,6 @@ const Jobs = () => {
           </div>
         </div>
       </div>
-    </div>
   );
 };
 

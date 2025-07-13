@@ -1,16 +1,29 @@
 .job-listings {
-  max-width: 900px;
-  margin: 40px auto;
-  padding: 0 20px;
+  padding: 30px;
+  background-color: #ffffff;
+  border-radius: 8px;
   font-family: 'Segoe UI', sans-serif;
+  margin-left: 320px;
 }
 
-.job-listings h2 {
-  font-size: 28px;
-  margin-bottom: 5px;
+.job-listing-content{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-bottom: 20px;
+
 }
 
-.job-listings p {
+.job-listings-content h1 {
+  font-size: 40px;
+  color: #1c355e;
+}
+
+.job-listings-content p {
+  display: block;
+  width: 100%;
+  clear: both;
+
   color: #666;
   margin-bottom: 20px;
 }
@@ -37,6 +50,7 @@
 }
 
 .job-card {
+  width: 100%;
   display: flex;
   justify-content: space-between;
   background: white;

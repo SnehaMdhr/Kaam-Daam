@@ -23,7 +23,9 @@ const StudentMyApplications = () => {
       <Header />
       <div className="applications-container">
         <Sidebar />
-        <h2>My Applications</h2>
+        <div className="apphead">
+        <h1>My Applications</h1>
+        </div>
 
         {applications.length === 0 ? (
           <p>No applications found.</p>
@@ -39,7 +41,7 @@ const StudentMyApplications = () => {
                 <a
                   href={`/studentviewjob/${app.job_id}`}
                   className="view-link"
-                  style={{ color: "#3b82f6", marginTop: "8px", display: "inline-block" }}
+                  style={{ color: " #1f4a5c", marginTop: "8px", display: "inline-block" }}
                 >
                   View Job
                 </a>
