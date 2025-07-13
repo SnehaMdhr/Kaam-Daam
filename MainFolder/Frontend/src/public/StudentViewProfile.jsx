@@ -71,6 +71,20 @@ const StudentViewProfile = () => {
           <p><strong>Portfolio:</strong> <a href={user.portfolio} target="_blank" rel="noopener noreferrer">{user.portfolio}</a></p>
           <p><strong>Bio:</strong> {user.bio}</p>
 
+          {/* ✅ Skills Section */}
+          {user.skills && Array.isArray(user.skills) && user.skills.length > 0 && (
+            <div className="skills-section" style={{ marginTop: "20px" }}>
+              <h3>Skills</h3>
+              <ul>
+                {user.skills.map((skill, index) => (
+                  <li key={index}>
+                    {skill.name} — <em>{skill.level}</em>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+
           {/* ✅ Only show back button for employers */}
           {currentRole === "recruiter" && (
             <button

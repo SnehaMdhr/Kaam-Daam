@@ -9,6 +9,7 @@ import design from "../assets/image/design.png";
 import writing from "../assets/image/writing.png";
 import marketing from "../assets/image/marketing.png";
 import video from "../assets/image/video.png";
+import { Link } from 'react-router-dom';
 
 const Employerdashboard = () => {
   return (
@@ -25,7 +26,7 @@ const Employerdashboard = () => {
               <FaSearch />
               <input type="text" placeholder="Search..." />
             </div>
-            <button className="find-btn">Find Employee</button>
+            <button className="find-btn"><Link to="/findemployees">Find Employee</Link></button>
           </div>
 
           <div className="dashboard-body">

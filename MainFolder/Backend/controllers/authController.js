@@ -13,6 +13,46 @@ const transporter = nodemailer.createTransport({
     }
 });
 
+// 🔍 SEARCH students by name or skills or skill_level
+const searchStudents = async (req, res) => {
+  try {
+    const { query, skill, experience_level } = req.query;
+
+    let baseQuery = `
+      SELECT id, username, profile_picture_url, email, phone, course, institution, bio, experience_level, skills
+      FROM users
+      WHERE role = 'job_seeker'
+    `;
+    const values = [];
+    let count = 1;
+
+    if (query) {
+      baseQuery += ` AND (username ILIKE $${count} OR EXISTS (
+        SELECT 1 FROM unnest(skills) s WHERE s ILIKE $${count}
+      ))`;
+      values.push(`%${query}%`);
+      count++;
+    }
+
+    if (skill) {
+      baseQuery += ` AND $${count} = ANY(skills)`;
+      values.push(skill);
+      count++;
+    }
+
+    if (experience_level) {
+      baseQuery += ` AND experience_level = $${count}`;
+      values.push(experience_level);
+    }
+
+    const result = await pool.query(baseQuery, values);
+    res.json(result.rows);
+  } catch (err) {
+    console.error('Error in searchStudents:', err.message);
+    res.status(500).json({ message: 'Server error', error: err.message });
+  }
+};
+
 // Get Employer Profile
 const getEmployerProfile = async (req, res) => {
   const userId = req.params.id;
@@ -79,52 +119,83 @@ const updateEmployerProfile = async (req, res) => {
   }
 };
 
-
-// UPDATE student profile
+// Update user profile
+// Update user profile
 const updateUserProfile = async (req, res) => {
-    const userId = req.params.id;
-    const {
+  const userId = req.params.id;
+  const {
+    username,
+    email,
+    phone,
+    course,
+    institution,
+    linkedin,
+    portfolio,
+    bio,
+    experience_level,
+  } = req.body;
+
+  const profile_picture_url = req.file ? req.file.filename : null;
+
+  let skills = [];
+try {
+  if (req.body.skills) {
+    skills = JSON.parse(req.body.skills);  // parse the JSON string
+    skills = JSON.stringify(skills);       // 👈 stringify it again before DB insert
+    console.log("🧪 Final skills string to DB:", skills);
+  }
+} catch (e) {
+  console.error("❌ Invalid JSON for skills:", req.body.skills);
+  return res.status(400).json({ message: "Invalid JSON in skills" });
+}
+
+  try {
+    const result = await pool.query(
+      `UPDATE users SET
+        username = $1,
+        email = $2,
+        phone = $3,
+        profile_picture_url = COALESCE($4, profile_picture_url),
+        course = $5,
+        institution = $6,
+        linkedin = $7,
+        portfolio = $8,
+        bio = $9,
+        experience_level = $10,
+        skills = $11::jsonb
+      WHERE id = $12
+      RETURNING *`,
+      [
         username,
         email,
         phone,
+        profile_picture_url,
         course,
         institution,
         linkedin,
         portfolio,
-        bio
-    } = req.body;
+        bio,
+        experience_level,
+        skills,
+        userId,
+      ]
+    );
 
-        const profile_picture_url = req.file ? req.file.filename : null;
-
-    try {
-        const result = await pool.query(
-            `UPDATE users SET
-                username = $1,
-                email = $2,
-                phone = $3,
-                profile_picture_url = $4,
-                course = $5,
-                institution = $6,
-                linkedin = $7,
-                portfolio = $8,
-                bio = $9
-             WHERE id = $10 RETURNING *`,
-            [username, email, phone,profile_picture_url, course, institution, linkedin, portfolio, bio, userId]
-        );
-
-        res.status(200).json({ message: 'Profile updated successfully', user: result.rows[0] });
-    } catch (err) {
-        console.error('Error updating profile:', err);
-        res.status(500).json({ message: 'Server error' });
-    }
+    res.status(200).json({
+      message: "Profile updated successfully",
+      user: result.rows[0],
+    });
+  } catch (err) {
+    console.error("🔥 Error updating profile:", err);
+    res.status(500).json({ message: "Server error", error: err.message });
+  }
 };
-
 // GET student profile
 const getUserProfile = async (req, res) => {
     const userId = req.params.id;
     try {
         const result = await pool.query(
-            `SELECT id, username, email,profile_picture_url, phone, course, institution, linkedin, portfolio, bio 
+            `SELECT id, username, email,profile_picture_url, phone, course, institution, linkedin, portfolio, bio, experience_level, skills 
              FROM users WHERE id = $1`,
             [userId]
         );
@@ -320,5 +391,6 @@ module.exports = {
     getUserProfile,
     updateUserProfile,
     getEmployerProfile,
-    updateEmployerProfile
+    updateEmployerProfile,
+    searchStudents
 };
