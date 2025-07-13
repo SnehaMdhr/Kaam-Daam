@@ -1,102 +1,152 @@
-import React from "react";
-import Header from "../components/headerforstudent";
-import Sidebar from "../components/sidebarstudent";
+import React, { useEffect, useState } from "react";
+import io from "socket.io-client";
+import HeaderForStudent from "../components/headerforstudent";
+import SidebarStudent from "../components/sidebarstudent";
 import "./studentmessage.css";
 
-const studentmessage = () => {
+// Socket connection
+const socket = io("http://localhost:5000");
+
+const StudentMessage = () => {
+  const studentId = parseInt(localStorage.getItem("userId"));
+  const employerId = parseInt(localStorage.getItem("lastEmployerId")); // ✅ use last selected employer
+  const token = localStorage.getItem("token");
+
+  const [messages, setMessages] = useState([]);
+  const [newMessage, setNewMessage] = useState("");
+
+  // Handle missing data
+  if (!studentId || !employerId || !token) {
+    return (
+      <div style={{ padding: "20px", color: "red" }}>
+        ❌ Error: Missing student or employer info. Please go back and select an
+        employer.
+      </div>
+    );
+  }
+
+  // Fetch existing messages
+  useEffect(() => {
+    const fetchMessages = async () => {
+      try {
+        const response = await fetch(
+          `http://localhost:5000/api/messages/${studentId}/${employerId}`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+              "Content-Type": "application/json",
+            },
+          }
+        );
+        const data = await response.json();
+
+        if (Array.isArray(data)) {
+          setMessages(data);
+        } else {
+          console.error("Unexpected response format:", data);
+          setMessages([]);
+        }
+      } catch (error) {
+        console.error("Error fetching messages:", error);
+        setMessages([]);
+      }
+    };
+
+    fetchMessages();
+
+    // Listen for incoming messages
+    socket.on("receive_message", (message) => {
+      if (
+        (message.sender_id === studentId &&
+          message.receiver_id === employerId) ||
+        (message.sender_id === employerId && message.receiver_id === studentId)
+      ) {
+        setMessages((prev) => [...prev, message]);
+      }
+    });
+
+    return () => {
+      socket.off("receive_message");
+    };
+  }, [studentId, employerId]);
+
+  // Send a message
+  const handleSendMessage = async () => {
+    if (newMessage.trim()) {
+      const messageData = {
+        sender_id: studentId,
+        receiver_id: employerId,
+        content: newMessage,
+      };
+
+      // Emit to Socket.IO
+      socket.emit("send_message", messageData);
+
+      // Save to DB
+      try {
+        await fetch("http://localhost:5000/api/messages/send", {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(messageData),
+        });
+      } catch (err) {
+        console.error("Failed to save message:", err);
+      }
+
+      setNewMessage("");
+    }
+  };
+
   return (
     <div>
-      <Header />
+      <HeaderForStudent />
       <div className="chat-container">
-        <Sidebar />
-        {/* Sidebar */}
+        <SidebarStudent />
         <div className="sidebar1">
           <h1>Messages</h1>
           <ul>
             <li>
               <div className="avatar">E</div>
               <div className="user-info">
-                <strong>Ethan Harper</strong>
-                <br></br>
-                <span>Software Engineer</span>
-              </div>
-            </li>
-            <li>
-              <div className="avatar">S</div>
-              <div className="user-info">
-                <strong>Sophia Clark</strong>
-                <br></br>
-                <span>Data Analyst</span>
-              </div>
-            </li>
-            <li>
-              <div className="avatar">L</div>
-              <div className="user-info">
-                <strong>Liam Foster</strong>
-                <br></br>
-                <span>UX Designer</span>
-              </div>
-            </li>
-            <li>
-              <div className="avatar">O</div>
-              <div className="user-info">
-                <strong>Olivia Bennett</strong>
-                <br></br>
-                <span>Product Manager</span>
-              </div>
-            </li>
-            <li>
-              <div className="avatar">N</div>
-              <div className="user-info">
-                <strong>Noah Carter</strong>
-                <br></br>
-                <span>QA Engineer</span>
+                <strong>Employer #{employerId}</strong>
+                <br />
+                <span>Chatting</span>
               </div>
             </li>
           </ul>
         </div>
 
-        {/* Chat Area */}
         <div className="chat-box">
-          <h1>Ethan Harper</h1>
+          <h1>Chat</h1>
           <div className="messages">
-            <div className="message user-message">
-              <div className="bubble">
-                Hi, I’m really excited about the Software Engineer position at
-                KaamDaam. I’ve attached my resume for your review.
+            {messages.map((message, index) => (
+              <div
+                key={index}
+                className={`message ${
+                  message.sender_id === studentId
+                    ? "user-message"
+                    : "kaam-message"
+                }`}
+              >
+                <div className="bubble">{message.content}</div>
+                <span className="sender">
+                  {message.sender_id === studentId ? "You" : "Employer"}
+                </span>
               </div>
-              <span className="sender">Ethan Harper</span>
-            </div>
-
-            <div className="message kaam-message">
-              <div className="bubble">
-                Hi Ethan, thanks for applying! We’ll review your resume and get
-                back to you soon.
-              </div>
-              <span className="sender">KaamDaam</span>
-            </div>
-
-            <div className="message user-message">
-              <div className="bubble">
-                Great, I look forward to hearing from you.
-              </div>
-              <span className="sender">Ethan Harper</span>
-            </div>
-
-            <div className="message kaam-message">
-              <div className="bubble">
-                Hi Ethan, thanks for applying! We’ll review your resume and get
-                back to you soon.
-              </div>
-              <span className="sender">KaamDaam</span>
-            </div>
+            ))}
           </div>
 
-          {/* Input box */}
           <div className="input-box">
-            <img src="https://i.imgur.com/4M34hi2.png" alt="logo" />
-            <input type="text" placeholder="Type a message..." />
-            <button>Send</button>
+            <input
+              type="text"
+              placeholder="Type a message..."
+              value={newMessage}
+              onChange={(e) => setNewMessage(e.target.value)}
+            />
+            <button onClick={handleSendMessage}>Send</button>
           </div>
         </div>
       </div>
@@ -104,4 +154,4 @@ const studentmessage = () => {
   );
 };
 
-export default studentmessage;
+export default StudentMessage;

@@ -42,6 +42,7 @@ const StudentViewProfile = lazy(() => import("./public/StudentViewProfile"));
 const EmployerViewProfile = lazy(() => import("./public/EmployerViewProfile"));
 const AddReview = lazy(() => import("./public/AddReview"));
 const FindEmployees = lazy(() => import("./public/FindEmployees"));
+const StudentEmployerList = lazy(() => import("./public/StudentEmployerList"));
 
 function App() {
   return (
@@ -65,7 +66,10 @@ function App() {
 
           <Route path="/settingemployer" element={<SettingEmployer />} />
           <Route path="/employeranalytics" element={<EmployerAnalytics />} />
-          <Route path="/employermessage" element={<EmployerMessage />} />
+          <Route
+            path="/employer/messages/:studentId"
+            element={<EmployerMessage />}
+          />
           <Route path="/employerdashboard" element={<EmployerDashboard />} />
           <Route
             path="/employercompanyprofile"
@@ -79,7 +83,10 @@ function App() {
           <Route path="/jobdetails/:id" element={<JobDetails />} />
           <Route path="/studentdashboard" element={<StudentDashboard />} />
           <Route path="/studentjobs" element={<StudentJobs />} />
-          <Route path="/studentmessage" element={<StudentMessage />} />
+          <Route
+            path="/student/messages/:employerId"
+            element={<StudentMessage />}
+          />
           <Route
             path="/studentmyapplication"
             element={<StudentMyApplication />}
@@ -88,11 +95,18 @@ function App() {
           <Route path="/studentreview/:studentId" element={<StudentReview />} />
           <Route path="/studentsetting" element={<StudentSetting />} />
           <Route path="/studentviewjob/:id" element={<StudentViewJob />} />
-          <Route path="/studentviewprofile/:userId" element={<StudentViewProfile />} />
+          <Route
+            path="/studentviewprofile/:userId"
+            element={<StudentViewProfile />}
+          />
           <Route path="/studentviewprofile" element={<StudentViewProfile />} />
-          <Route path="/employerviewprofile" element={<EmployerViewProfile />} />
+          <Route
+            path="/employerviewprofile"
+            element={<EmployerViewProfile />}
+          />
           <Route path="/add-review/:studentId/:jobId" element={<AddReview />} />
           <Route path="/findemployees" element={<FindEmployees />} />
+          <Route path="/student/messages" element={<StudentEmployerList />} />
           {/* Add more routes as needed */}
         </Routes>
       </Suspense>

@@ -1,27 +1,27 @@
-import React, { useEffect, useState } from 'react';
-import HeaderForEmployer from '../components/headerforemployer';
-import Sidebar from '../components/sidebar';
-import { FaSearch } from 'react-icons/fa';
-import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
-import './employerapplicationmanagement.css';
+import React, { useEffect, useState } from "react";
+import HeaderForEmployer from "../components/headerforemployer";
+import Sidebar from "../components/sidebar";
+import { FaSearch } from "react-icons/fa";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import "./employerapplicationmanagement.css";
 
 const EmployerApplicationManagement = () => {
   const [applications, setApplications] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem("token");
     axios
-      .get('http://localhost:5000/api/applications/employer', {
+      .get("http://localhost:5000/api/applications/employer", {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((res) => setApplications(res.data))
-      .catch((err) => console.error('Failed to load applications', err));
+      .catch((err) => console.error("Failed to load applications", err));
   }, []);
 
   const handleStatusChange = (applicationId, newStatus) => {
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem("token");
     axios
       .put(
         `http://localhost:5000/api/applications/status/${applicationId}`,
@@ -35,7 +35,7 @@ const EmployerApplicationManagement = () => {
           )
         );
       })
-      .catch((err) => console.error('Error updating status', err));
+      .catch((err) => console.error("Error updating status", err));
   };
 
   const handleViewProfile = (userId) => {
@@ -78,9 +78,7 @@ const EmployerApplicationManagement = () => {
                 <td>
                   <select
                     value={app.status}
-                    onChange={(e) =>
-                      handleStatusChange(app.id, e.target.value)
-                    }
+                    onChange={(e) => handleStatusChange(app.id, e.target.value)}
                   >
                     <option value="Applied">Applied</option>
                     <option value="Accepted">Accepted</option>
@@ -94,10 +92,18 @@ const EmployerApplicationManagement = () => {
                   <button onClick={() => handleViewProfile(app.user_id)}>
                     View Profile
                   </button>{" "}
-                  |{" "}
-                  <button onClick={() => navigate('/messages')}>
-                    Send Message
-                  </button>{" "}
+                  {app.status === "Hired" && (
+                    <>
+                      |{" "}
+                      <button
+                        onClick={() =>
+                          navigate(`/employer/messages/${app.user_id}`)
+                        }
+                      >
+                        Send Message
+                      </button>
+                    </>
+                  )}
                   {app.status === "Past" && (
                     <>
                       |{" "}
