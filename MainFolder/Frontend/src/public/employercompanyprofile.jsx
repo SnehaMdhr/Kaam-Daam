@@ -87,22 +87,28 @@ const EmployerCompanyProfile = () => {
         <Sidebar />
         <div className="profile-main">
           <h1>Company Profile</h1>
-
-          <section className="profile-section">
+          </div>
+          <div className="profile-section">
             <form onSubmit={handleUpdate}>
               <div className="form-group">
+                <div className='bar'>
+
+              <h3>Profile Picture</h3>
+              </div>
                 <label>Upload Photo</label>
                 <input
                   type="file"
                   name="profile_picture"
+                  className='file-input'
                   onChange={(e) => setProfilePictureFile(e.target.files[0])}
                 />
-
+                <div className='preview-container'>
                 {/* Show preview if profile picture exists */}
                 {user.profile_picture_url && (
                   <img
                     src={`http://localhost:5000/uploads/${user.profile_picture_url}`}
                     alt="Profile"
+                    className='preview-img'
                     style={{
                       width: '120px',
                       height: '120px',
@@ -112,10 +118,15 @@ const EmployerCompanyProfile = () => {
                     }}
                   />
                 )}
+                </div>
               </div>
 
               {/* Company Info */}
               <div className="form-group">
+                <div className='bar'>
+
+              <h3>Basic Information</h3>
+              </div>
                 <label>Company Name</label>
                 <input
                   type="text"
@@ -179,9 +190,10 @@ const EmployerCompanyProfile = () => {
                   placeholder="Enter phone number"
                 />
               </div>
+              <div className='bar'>
 
               <h3>Social Media Links</h3>
-
+              </div>
               <div className="form-group">
                 <label>LinkedIn</label>
                 <input
@@ -208,10 +220,9 @@ const EmployerCompanyProfile = () => {
                 <button type="submit">Update Profile</button>
               </div>
             </form>
-          </section>
+          </div>
         </div>
       </div>
-    </div>
   );
 };
 

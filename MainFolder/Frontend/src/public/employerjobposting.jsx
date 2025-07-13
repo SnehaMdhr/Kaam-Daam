@@ -45,9 +45,9 @@ const EmployerJobPosting = () => {
   return (
     <div>
       <HeaderForEmployer />
-      <div style={{ display: 'flex' }}>
-        <Sidebar />
+        
         <div className="job-postings-container">
+          <Sidebar />
           <div className="job-postings-header">
             <h1>Job Postings</h1>
             <button className="new-job-btn" onClick={() => navigate('/createjob')}>
@@ -103,7 +103,7 @@ const EmployerJobPosting = () => {
           </table>
         </div>
       </div>
-    </div>
+   
   );
 };
 
