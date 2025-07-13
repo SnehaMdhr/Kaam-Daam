@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import './CreateJob.css';
 import { useNavigate } from 'react-router-dom';
+import Header from '../components/headerforemployer'
+import Sidebar from '../components/sidebar'
 
 const CreateJob = () => {
   const navigate = useNavigate();
@@ -48,9 +50,20 @@ const CreateJob = () => {
   };
 
   return (
+    <div>
+    <Header/>
+    <div className='head-container'>
+      <Sidebar/>
+      <div className='header-container'>
+        <h1>Create a New Job</h1>
+      </div>
     <div className="create-job-container">
-      <h2>Create a New Job</h2>
+      
       <form onSubmit={handleSubmit} className="job-form">
+        <div className='bar'>
+
+              <h3>Job Overview</h3>
+              </div>
         <label>Job Title</label>
         <input type="text" name="title" placeholder="Software Developer" value={job.title} onChange={handleChange} required />
 
@@ -63,6 +76,11 @@ const CreateJob = () => {
         <label>Posted Date</label>
         <input type="date" name="postedDate" value={job.postedDate} onChange={handleChange} required />
 
+        <div className='bar'>
+
+              <h3>Job Details</h3>
+              </div>
+
         <label>Job Description</label>
         <textarea name="description" placeholder="Describe the role..." value={job.description} onChange={handleChange} required />
 
@@ -71,6 +89,11 @@ const CreateJob = () => {
 
         <label>Address</label>
         <input type="text" name="address" placeholder="City, State" value={job.address} onChange={handleChange} required />
+
+        <div className='bar'>
+
+              <h3>Timings</h3>
+              </div>
 
         <label>Remote or Onsite</label>
         <select name="jobType" value={job.jobType} onChange={handleChange}>
@@ -86,6 +109,11 @@ const CreateJob = () => {
 
         <label>Shift Timing</label>
         <input type="text" name="shiftTiming" placeholder="e.g. 9 AM - 6 PM" value={job.shiftTiming} onChange={handleChange} required />
+
+        <div className='bar'>
+
+              <h3>Skills and Requirements</h3>
+              </div>
 
         <label>Category</label>
         <select name="category" value={job.category} onChange={handleChange} required>
@@ -111,8 +139,11 @@ const CreateJob = () => {
           <option value="3 months">3 months</option>
           <option value="6 months">6 months</option>
         </select>
-        <button type="submit">Post Job</button>
+        <div className='button-wrapper'>
+        <button type="submit">Post Job</button></div>
       </form>
+    </div>
+    </div>
     </div>
   );
 };
