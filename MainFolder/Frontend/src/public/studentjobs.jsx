@@ -7,14 +7,27 @@ import axios from "axios";
 
 const Jobs = () => {
   const [jobs, setJobs] = useState([]);
+  const [filters, setFilters] = useState({
+    category: "",
+    skill_level: "",
+    duration: "",
+  });
+
   const [currentPage, setCurrentPage] = useState(1);
   const jobsPerPage = 10;
 
+  const fetchFilteredJobs = async () => {
+    try {
+      const query = new URLSearchParams(filters).toString();
+      const response = await axios.get(`http://localhost:5000/api/jobs/filter?${query}`);
+      setJobs(response.data);
+    } catch (err) {
+      console.error("Failed to filter jobs", err);
+    }
+  };
+
   useEffect(() => {
-    axios
-      .get("http://localhost:5000/api/jobs/all")
-      .then((res) => setJobs(res.data))
-      .catch((err) => console.error("Failed to fetch jobs", err));
+    fetchFilteredJobs(); // Load jobs on initial render
   }, []);
 
   const indexOfLastJob = currentPage * jobsPerPage;
@@ -28,6 +41,19 @@ const Jobs = () => {
     }
   };
 
+  const handleFilterChange = (e) => {
+    const { name, value } = e.target;
+    setFilters((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
+  const handleApplyFilters = () => {
+    setCurrentPage(1);
+    fetchFilteredJobs();
+  };
+
   return (
     <div>
       <Header />
@@ -38,15 +64,34 @@ const Jobs = () => {
           <p>Explore opportunities tailored for beginner IT students.</p>
 
           <div className="filters">
-            <button>Category</button>
-            <button>Skill Level</button>
-            <button>Duration</button>
-            <button>Sort By</button>
+            <select name="category" value={filters.category} onChange={handleFilterChange}>
+              <option value="">All Categories</option>
+              <option value="Programming">Programming</option>
+              <option value="Data Science">Data Science</option>
+              <option value="Design">Design</option>
+              <option value="Marketing">Marketing</option>
+            </select>
+
+            <select name="skill_level" value={filters.skill_level} onChange={handleFilterChange}>
+              <option value="">All Skill Levels</option>
+              <option value="No Experience">No Experience</option>
+              <option value="Some Experience">Some Experience</option>
+            </select>
+
+            <select name="duration" value={filters.duration} onChange={handleFilterChange}>
+              <option value="">All Durations</option>
+              <option value="1 week">1 week</option>
+              <option value="1 month">1 month</option>
+              <option value="3 months">3 months</option>
+              <option value="6 months">6 months</option>
+            </select>
+
+            <button onClick={handleApplyFilters}>Apply Filters</button>
           </div>
 
           <div className="job-cards">
             {currentJobs.length === 0 ? (
-              <p>No jobs available.</p>
+              <p>No jobs found.</p>
             ) : (
               currentJobs.map((job) => (
                 <div className="job-card" key={job.id}>

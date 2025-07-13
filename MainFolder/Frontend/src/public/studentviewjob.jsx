@@ -12,17 +12,16 @@ const StudentViewJob = () => {
   const [job, setJob] = useState(null);
   const [alreadyApplied, setAlreadyApplied] = useState(false);
 
-  // ✅ Fetch job details & check if already applied
   useEffect(() => {
     const token = localStorage.getItem("token");
 
-    // Get job details
+    // Fetch job details
     axios
       .get(`http://localhost:5000/api/jobs/${id}`)
       .then((res) => setJob(res.data))
       .catch((err) => console.error("Failed to fetch job details", err));
 
-    // Check if user already applied
+    // Check application status
     axios
       .get(`http://localhost:5000/api/applications/check/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
@@ -106,6 +105,21 @@ const StudentViewJob = () => {
         <section className="job-section">
           <h2>People Required</h2>
           <p>{job.people_required}</p>
+        </section>
+
+        <section className="job-section">
+          <h2>Category</h2>
+          <p>{job.category || "Not specified"}</p>
+        </section>
+
+        <section className="job-section">
+          <h2>Skill Level</h2>
+          <p>{job.skill_level || "Not specified"}</p>
+        </section>
+
+        <section className="job-section">
+          <h2>Duration</h2>
+          <p>{job.duration || "Not specified"}</p>
         </section>
 
         <div className="apply-button-wrapper">

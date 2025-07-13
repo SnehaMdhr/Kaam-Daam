@@ -1,10 +1,49 @@
 const { createJob, getJobsByUser } = require('../models/jobModel');
-const pool = require('../db'); 
+const pool = require('../db');
 
+// ✅ POST a job
 const postJob = async (req, res) => {
+  const {
+    title,
+    status,
+    postedDate,
+    description,
+    peopleRequired,
+    address,
+    jobType,
+    workSchedule,
+    shiftTiming,
+    category,
+    skillLevel,
+    duration,
+    userId
+  } = req.body;
+
   try {
-    const job = await createJob(req.body);
-    res.status(201).json({ message: "Job posted successfully", job });
+    const result = await pool.query(
+      `INSERT INTO job_posts (
+        title, status, posted_date, description, people_required, address, job_type,
+        work_schedule, shift_timing, category, skill_level, duration, user_id
+      )
+      VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13)
+      RETURNING *`,
+      [
+        title,
+        status,
+        postedDate,
+        description,
+        peopleRequired,
+        address,
+        jobType,
+        workSchedule,
+        shiftTiming,
+        category,
+        skillLevel,
+        duration,
+        userId
+      ]
+    );
+    res.status(201).json({ message: "Job posted successfully", job: result.rows[0] });
   } catch (err) {
     console.error("Error posting job:", err.message);
     res.status(500).json({ error: "Server error" });
@@ -22,6 +61,7 @@ const getUserJobs = async (req, res) => {
   }
 };
 
+// ✅ Get single job by ID
 const getJobById = async (req, res) => {
   const { id } = req.params;
   try {
@@ -36,6 +76,7 @@ const getJobById = async (req, res) => {
   }
 };
 
+// ✅ Update job
 const updateJobById = async (req, res) => {
   const { id } = req.params;
   const {
@@ -47,7 +88,10 @@ const updateJobById = async (req, res) => {
     address,
     job_type,
     work_schedule,
-    shift_timing
+    shift_timing,
+    category,
+    skill_level,
+    duration
   } = req.body;
 
   try {
@@ -61,8 +105,11 @@ const updateJobById = async (req, res) => {
         address = $6,
         job_type = $7,
         work_schedule = $8,
-        shift_timing = $9
-      WHERE id = $10 RETURNING *`,
+        shift_timing = $9,
+        category = $10,
+        skill_level = $11,
+        duration = $12
+      WHERE id = $13 RETURNING *`,
       [
         title,
         status,
@@ -73,6 +120,9 @@ const updateJobById = async (req, res) => {
         job_type,
         work_schedule,
         shift_timing,
+        category,
+        skill_level,
+        duration,
         id
       ]
     );
@@ -84,7 +134,7 @@ const updateJobById = async (req, res) => {
   }
 };
 
-// DELETE a job
+// ✅ Delete job
 const deleteJobById = async (req, res) => {
   const { id } = req.params;
   try {
@@ -96,8 +146,7 @@ const deleteJobById = async (req, res) => {
   }
 };
 
-
-// GET all active job posts
+// ✅ Get all jobs with company name
 const getAllJobs = async (req, res) => {
   try {
     const result = await pool.query(`
@@ -108,10 +157,56 @@ const getAllJobs = async (req, res) => {
     `);
     res.json(result.rows);
   } catch (err) {
-  console.error("Error fetching jobs:", err); // Show full error stack
-  res.status(500).json({ error: err.message || "Server error" }); // Send real error message
-}
-
+    console.error("Error fetching jobs:", err);
+    res.status(500).json({ error: err.message || "Server error" });
+  }
 };
 
-module.exports = { postJob, getUserJobs,getJobById, deleteJobById, updateJobById, getAllJobs};
+// ✅ Get filtered jobs using query parameters
+const getFilteredJobs = async (req, res) => {
+  const { category, skill_level, duration } = req.query;
+
+  let query = `
+    SELECT job_posts.*, users.username AS company_name 
+    FROM job_posts 
+    JOIN users ON job_posts.user_id = users.id
+    WHERE 1=1
+  `;
+  const values = [];
+  let i = 1;
+
+  if (category) {
+    query += ` AND job_posts.category = $${i++}`;
+    values.push(category);
+  }
+
+  if (skill_level) {
+    query += ` AND job_posts.skill_level = $${i++}`;
+    values.push(skill_level);
+  }
+
+  if (duration) {
+    query += ` AND job_posts.duration = $${i++}`;
+    values.push(duration);
+  }
+
+  query += ` ORDER BY job_posts.created_at DESC`;
+
+  try {
+    const result = await pool.query(query, values);
+    res.json(result.rows);
+  } catch (err) {
+    console.error("Error filtering jobs:", err);
+    res.status(500).json({ error: "Server error" });
+  }
+};
+
+module.exports = {
+  postJob,
+  getUserJobs,
+  getJobById,
+  deleteJobById,
+  updateJobById,
+  getAllJobs,
+  getFilteredJobs
+};
