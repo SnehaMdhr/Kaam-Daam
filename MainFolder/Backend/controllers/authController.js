@@ -27,15 +27,21 @@ const searchStudents = async (req, res) => {
     let count = 1;
 
     if (query) {
-      baseQuery += ` AND (username ILIKE $${count} OR EXISTS (
-        SELECT 1 FROM unnest(skills) s WHERE s ILIKE $${count}
-      ))`;
+      baseQuery += ` AND (
+        username ILIKE $${count} OR EXISTS (
+          SELECT 1 FROM jsonb_array_elements(skills) AS s
+          WHERE s->>'name' ILIKE $${count}
+        )
+      )`;
       values.push(`%${query}%`);
       count++;
     }
 
     if (skill) {
-      baseQuery += ` AND $${count} = ANY(skills)`;
+      baseQuery += ` AND EXISTS (
+        SELECT 1 FROM jsonb_array_elements(skills) AS s
+        WHERE s->>'name' = $${count}
+      )`;
       values.push(skill);
       count++;
     }
