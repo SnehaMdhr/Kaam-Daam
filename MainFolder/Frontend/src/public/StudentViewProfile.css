@@ -64,3 +64,11 @@
 .review-box p {
   margin: 5px 0;
 }
+
+.skills-section ul {
+  padding-left: 20px;
+}
+
+.skills-section li {
+  margin-bottom: 6px;
+}
