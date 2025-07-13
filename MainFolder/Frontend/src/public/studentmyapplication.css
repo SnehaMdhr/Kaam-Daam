@@ -1,19 +1,28 @@
 .applications-container {
-  max-width: 800px;
-  margin: auto;
-  padding: 30px 20px;
-  font-family: "Segoe UI", sans-serif;
-  color: #222;
+  padding: 30px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  font-family: 'Segoe UI', sans-serif;
+  margin-left: 320px;
+   
 }
 
-h2 {
-  font-size: 24px;
-  font-weight: bold;
-  margin-bottom: 30px;
+.apphead {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.apphead h1 {
+   font-size: 40px;
+  margin-bottom: 20px;
+  color: #1c355e;
 }
 
 .application-card {
   display: flex;
+  width: 100%;
   justify-content: space-between;
   align-items: center;
   background: #ffffff;
@@ -56,7 +65,7 @@ h2 {
 
 .app-status.applied {
   background-color: #e0f2fe;
-  color: #0284c7;
+  color:  #1f4a5c;
 }
 
 .app-status.review {

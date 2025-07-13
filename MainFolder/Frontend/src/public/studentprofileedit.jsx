@@ -1,9 +1,15 @@
 import React from 'react'
+import Header from "../components/headerforstudent.jsx"
+import Sidebar from "../components/sidebarstudent.jsx"
+import "./studentprofileedit.css"
 
 const studentprofileedit = () => {
   return (
     <div>
-      <h1>edit</h1>
+      <Header/>
+      <Sidebar/>
+      <h1> Edit it </h1>
+      
     </div>
   )
 }

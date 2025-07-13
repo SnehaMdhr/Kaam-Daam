@@ -60,6 +60,7 @@ const StudentSetting = () => {
           {/* top bar with title + logout */}
           <div className="settings-header">
             <h1>Settings</h1>
+            </div>
             <button className="logout-btn" onClick={handleLogout}>
               Log&nbsp;Out
             </button>
@@ -143,7 +144,7 @@ const StudentSetting = () => {
           </section>
         </div>
       </div>
-    </div>
+
   );
 };
 

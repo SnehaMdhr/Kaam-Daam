@@ -36,6 +36,12 @@ const SettingEmployer = () => {
       .then(() => alert('Settings updated!'))
       .catch((err) => console.error('Update failed', err));
   };
+
+   const handleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("userId");
+    navigate("/login");
+  };
   return (
     <div>
       <HeaderForEmployer />
@@ -45,7 +51,12 @@ const SettingEmployer = () => {
         <Sidebar/>
         <div className="settings-main">
           <h1>Settings</h1>
+          <button className="logout-btn" onClick={handleLogout}>
+              Log&nbsp;Out
+            </button>
           </div>
+          
+  
           {/* Account Information */}
           <div className="settings-section">
             <h3>Account Information</h3>

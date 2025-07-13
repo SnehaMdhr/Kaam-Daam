@@ -1,9 +1,9 @@
 .job-details-container {
-  max-width: 800px;
-  margin: auto;
-  padding: 30px 20px;
-  font-family: "Segoe UI", sans-serif;
-  color: #333;
+  padding: 30px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  font-family: 'Segoe UI', sans-serif;
+  margin-left: 320px;
 }
 
 .breadcrumb {
@@ -11,6 +11,19 @@
   color: #666;
   margin-bottom: 10px;
 }
+.header-container{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+
+.header-container h1{
+  font-size: 40px;
+  margin-bottom: 20px;
+  color: #1c355e;
+} 
 
 .job-title {
   font-size: 28px;
@@ -31,35 +44,32 @@
   margin-bottom: 30px;
 }
 
-.job-section {
-  margin-bottom: 30px;
+.content p {
+  margin: 10px 0;
+  font-size: 15px;
+  margin-left: 50px;
+  color: #2c3e50;
+  margin-left: 50px;
 }
 
-.job-section h2 {
-  font-size: 20px;
-  margin-bottom: 10px;
-  color: #111;
+.content h1 {
+   font-size: 40px;
+   margin-left: 50px;
+  margin-bottom: 20px;
+  color: #1c355e;
 }
 
-.job-section p {
-  line-height: 1.6;
-  font-size: 16px;
-}
 
-.skills-list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin-top: 10px;
-}
-
-.skill-tag {
-  background-color: #f0f0f0;
-  color: #444;
-  padding: 6px 12px;
-  border-radius: 20px;
-  font-size: 14px;
-}
+ .bar{
+    background-color: #e9dbc8;  /* Light beige */
+  padding: 12px 20px;
+  border-radius: 8px;
+  margin-top: 30px;
+  margin-bottom: 20px;
+  font-weight: bold;
+  font-size: 1.1rem;
+  color: #1c355e;
+  }
 
 .apply-button-wrapper {
   display: flex;
@@ -68,7 +78,7 @@
 }
 
 .apply-button {
-  background-color: #3b82f6;
+  background-color: #1f4a5c;
   color: white;
   padding: 12px 20px;
   font-size: 16px;
@@ -79,6 +89,4 @@
   transition: background 0.3s ease;
 }
 
-.apply-button:hover {
-  background-color: #2563eb;
-}
+

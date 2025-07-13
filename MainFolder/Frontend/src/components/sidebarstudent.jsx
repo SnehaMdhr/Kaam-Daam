@@ -1,6 +1,14 @@
 import { useNavigate } from "react-router-dom";
-import "./sidebar.css";
-
+import "./sidebarforstudent.css";
+import {
+  FaHome,
+  FaSuitcase,
+  FaStar,
+  FaEnvelope,
+  FaBuilding,
+  FaCog
+} from 'react-icons/fa';
+import { MdAssignmentTurnedIn } from 'react-icons/md'; // ✅ Fixed this line
 const SidebarStudent = () => {
   const navigate = useNavigate();
   const studentId = localStorage.getItem("userId");
@@ -9,29 +17,32 @@ const SidebarStudent = () => {
     <div className="sidebar">
       <ul>
         <li>
-          <a href="/studentdashboard">Dashboard</a>
+          <a href="/studentdashboard"><FaHome className="icon" />Dashboard</a>
         </li>
         <li>
-          <a href="/studentjobs">Jobs</a>
+          <a href="/studentjobs"><FaSuitcase className="icon" />Jobs</a>
         </li>
         <li>
-          <a href={`/studentreview/${studentId}`}>Review</a>
+          <a href={`/studentreview/${studentId}`}><FaStar className="icon" />Review</a>
         </li>
         <li>
-          <span
+          <a
             style={{ cursor: "pointer" }}
             onClick={() => navigate("/student/messages")}
-          >
+          ><FaEnvelope className="icon" /> 
             Messaging
-          </span>
+          </a>
         </li>
         <li>
-          <a href="/studentprofileedit">Profile</a>
+          <a href="/studentprofileedit"><FaBuilding className="icon" />Profile</a>
         </li>
         <li>
-          <a href="/studentmyapplication">My Applications</a>
+          <a href="/studentmyapplication"><MdAssignmentTurnedIn className="icon" />My Applications</a>
         </li>
       </ul>
+      <div className="sidebar-footer">
+              <a href="/studentsetting"><FaCog className="icon" /> Settings</a>
+            </div>
     </div>
   );
 };
