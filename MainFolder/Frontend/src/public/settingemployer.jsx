@@ -45,9 +45,9 @@ const SettingEmployer = () => {
         <Sidebar/>
         <div className="settings-main">
           <h1>Settings</h1>
-
+          </div>
           {/* Account Information */}
-          <section className="settings-section">
+          <div className="settings-section">
             <h3>Account Information</h3>
             <div className="form-group">
               <label htmlFor="company-name">Company Name</label>
@@ -64,10 +64,10 @@ const SettingEmployer = () => {
             <div className="button-wrapper">
     <button onClick={handleUpdate}>Update Account</button>
   </div>
-          </section>
+          </div>
 
           {/* Notifications */}
-          <section className="settings-section">
+          <div className="settings-section">
             <h3>Notifications</h3>
             <div className="form-group">
               <label><input type="checkbox" />Job Alerts: Get notified when new job opportunities matching your interests are posted.</label>
@@ -81,10 +81,9 @@ const SettingEmployer = () => {
             <div className="button-wrapper">
     <button>Update Notification</button>
   </div>
-          </section>
+          </div>
         </div>
       </div>
-    </div>
   );
 };
 
