@@ -34,7 +34,7 @@ const SidebarStudent = () => {
           </a>
         </li>
         <li>
-          <a href="/studentprofileedit"><FaBuilding className="icon" />Profile</a>
+          <a href="/studentprofile"><FaBuilding className="icon" />Profile</a>
         </li>
         <li>
           <a href="/studentmyapplication"><MdAssignmentTurnedIn className="icon" />My Applications</a>

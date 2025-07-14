@@ -73,8 +73,9 @@ const JobDetails = () => {
         <div className='header-container'>
         <h1>Job Details</h1>
       </div>
-        <div className="p-8 job-details-content">
-          <h2 className="text-2xl font-bold mb-4">{job.title}</h2>
+        <div className="jobname">
+          <h2>{job.title}</h2>
+          </div>
           <div className='bar'>
 
               <h3>Job Overview</h3>
@@ -121,7 +122,7 @@ const JobDetails = () => {
           </div>
         </div>
       </div>
-    </div>
+  
   );
 };
 

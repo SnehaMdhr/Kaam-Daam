@@ -14,21 +14,25 @@
 
 
 .header-container h1{
-  font-size: 40px;
-  margin-bottom: 20px;
+  font-size: 25px;
   color: #1c355e;
 }
 
+.jobname h2{
+  font-size: 25px;
+  margin-bottom: 25px;
+  text-decoration: underline;
+}
 
-.job-details-content p {
+ p {
   margin: 10px 0;
   font-size: 15px;
   color: #2c3e50;
   margin-left: 50px;
 }
 
-.job-details-content h1 {
-   font-size: 40px;
+ h1 {
+   font-size: 25px;
   margin-bottom: 20px;
   color: #1c355e;
 }
@@ -64,11 +68,11 @@
 
  .bar{
     background-color: #e9dbc8;  /* Light beige */
-  padding: 12px 20px;
+  padding: 6px 20px;
   border-radius: 8px;
   margin-top: 30px;
   margin-bottom: 20px;
   font-weight: bold;
-  font-size: 1.1rem;
+  font-size: 15px;
   color: #1c355e;
   }
