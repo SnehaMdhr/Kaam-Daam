@@ -127,24 +127,27 @@ input[type="checkbox"] {
 }
 
 .file-input {
-  padding: 8px 12px;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  background-color: #f9f9f9;
-  font-size: 0.95rem;
+  width: 90%;
+  padding: 6px 12px;
   margin-left: 50px;
-  color: #333;
-  cursor: pointer;
+  margin-right: 100px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 15px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); /* subtle shadow */
+  transition: box-shadow 0.3s ease; /* smooth hover effect */
 }
 
 .file-input:hover {
-  border-color: #1c355e;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* stronger on focus */
+  outline: none; /* remove default outline */
 }
 
 .preview-container {
   display: flex;
-  align-items: center;
-  justify-content: center;
+  align-items: left;
+  justify-content: left;
+  margin-left: 50px;
 }
 
 .preview-img {
