@@ -7,7 +7,8 @@ const {
   getFilteredJobs,
   getJobById,
   updateJobById,
-  deleteJobById
+  deleteJobById,
+  updateJob
 } = require('../controllers/jobController');
 
 const { protect } = require('../middleware/authMiddleware');
@@ -22,5 +23,5 @@ router.get('/filter', getFilteredJobs);  // ✅ make sure this is before /:id
 router.get('/:id', getJobById);
 router.put('/:id', protect, updateJobById);
 router.delete('/:id', deleteJobById);
-
+router.put('/:id', protect, updateJob); // ✅ Added update route
 module.exports = router;
