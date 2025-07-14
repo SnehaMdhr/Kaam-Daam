@@ -47,6 +47,10 @@ margin: 10px 0;
   object-fit: cover;
   border-radius: 50%;
   margin: 0 auto 20px auto;
+  display: flex;
+  align-items: left;
+  justify-content: left;
+  margin-left: 50px;
 }
 
 .reviews-section{

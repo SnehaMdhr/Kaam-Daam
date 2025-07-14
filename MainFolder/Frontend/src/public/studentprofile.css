@@ -1,33 +1,44 @@
 .student-profile-container {
-  max-width: 600px;
-  margin: 30px auto;
+   padding: 30px;
+  background-color: #ffffff;
+  border-radius: 8px;
   font-family: 'Segoe UI', sans-serif;
+  margin-left: 320px;
+
 }
 
-.student-profile-container h2 {
+.student-profile-container h1 {
   color: #2b4d66;
-  margin-bottom: 20px;
+  font-size: 25px;
 }
 
 .student-profile-form {
-  display: flex;
-  flex-direction: column;
+  margin-bottom: 16px;
+  margin-left: 20px;
+  margin-right: 20px;
 }
 
 .student-profile-form label {
-  margin-bottom: 6px;
+  display: block;
+  margin-bottom: 10px;
+  margin-top: 10px;
   font-weight: 500;
+  font-size: 20px;
+  margin-left: 50px;
   color: #333;
 }
 
 .student-profile-form input,
 .student-profile-form textarea {
-  padding: 10px;
-  margin-bottom: 16px;
-  border: 1px solid #ddd;
-  border-radius: 6px;
-  font-size: 14px;
-  width: 100%;
+  width: 90%;
+  padding: 6px 12px;
+  margin-left: 50px;
+  margin-right: 100px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 15px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); /* subtle shadow */
+  transition: box-shadow 0.3s ease; /* smooth hover effect */
 }
 
 .student-profile-form textarea {
@@ -35,18 +46,89 @@
   resize: vertical;
 }
 
-.student-profile-form button {
-  background-color: #1f4e5f;
-  color: #fff;
-  padding: 10px 18px;
-  border: none;
-  border-radius: 6px;
-  font-size: 14px;
-  cursor: pointer;
-  align-self: flex-end;
-  margin-top: 10px;
+
+.student-profile-form input:focus,
+.student-profile-form textarea:focus {
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* stronger on focus */
+  outline: none; /* remove default outline */
+
 }
 
-.student-profile-form button:hover {
+.button-wrapper {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 30px; 
+} 
+
+.button-wrapper button {
+  background-color: #1c355e;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-right: 55px;
+    font-size: 1rem;
+}
+
+.button-wrapper button:hover {
   background-color: #153943;
+}
+
+ .bar{
+    background-color: #e9dbc8;  /* Light beige */
+  padding: 6px 20px;
+  border-radius: 8px;
+  margin-top: 30px;
+  margin-bottom: 20px;
+  font-weight: bold;
+  font-size: 15px;
+  color: #1c355e;
+  }
+
+
+  select[name="experience_level"] {
+  width: 90%;
+  margin-left: 50px;
+  padding: 6px 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 15px;
+  background-color: #fff;
+  color: #333;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+select[name="experience_level"]:focus {
+  border-color: #1c355e;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(28, 53, 94, 0.2);
+  background-color: #fefefe;
+}
+
+.skill-select-container {
+  display: flex;
+  gap: 10px;
+  margin-left: 50px;
+  margin-right: 55px;
+  margin-bottom: 15px;
+}
+
+.skill-select-container select {
+  flex: 1;
+  padding: 6px 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 14px;
+  background-color: #fff;
+  color: #333;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+.skill-select-container select:focus {
+  border-color: #1c355e;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(28, 53, 94, 0.2);
 }

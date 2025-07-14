@@ -88,7 +88,7 @@ const Jobs = () => {
 
             <button onClick={handleApplyFilters}>Apply Filters</button>
           </div>
-
+          <div className="appbody">
           <div className="job-cards">
             {currentJobs.length === 0 ? (
               <p>No jobs found.</p>
@@ -98,8 +98,8 @@ const Jobs = () => {
                   <div className="job-content">
                     <h3>{job.title}</h3>
                     <p>{job.description?.slice(0, 130)}...</p>
-                    <a href={`/studentviewjob/${job.id}`}>
-                      <button className="view-job-btn">View Job</button>
+                    <a href={`/studentviewjob/${job.id}`} className="view-link" style={{ color: " #1f4a5c", marginTop: "8px", display: "inline-block" }}>
+                     View Job
                     </a>
                   </div>
                   <img src={img} alt="Job" />
@@ -107,7 +107,7 @@ const Jobs = () => {
               ))
             )}
           </div>
-
+          </div>
           <div className="pagination">
             <span className="page" onClick={() => goToPage(currentPage - 1)}>&lt;</span>
             {[...Array(totalPages)].map((_, i) => (
@@ -119,6 +119,7 @@ const Jobs = () => {
                 {i + 1}
               </span>
             ))}
+            
             <span className="page" onClick={() => goToPage(currentPage + 1)}>&gt;</span>
           </div>
         </div>

@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import Header from "../components/headerforemployer"
+import Sidebar from "../components/sidebar"
+import './findemployeess.css';
 
 const FindEmployees = () => {
   const [query, setQuery] = useState("");
@@ -47,9 +50,13 @@ const FindEmployees = () => {
   };
 
   return (
-    <div style={{ padding: "20px" }}>
-      <h2>🔍 Find Employees</h2>
-
+    <div>
+      <Header />
+      <div className="profile-container">
+        <Sidebar />
+        <div className="profile-main">
+      <h1>Find Employees</h1>
+      </div>
       <div
         style={{
           display: "flex",
@@ -92,20 +99,15 @@ const FindEmployees = () => {
           Search
         </button>
       </div>
-
-      <div>
+      <div className="appbody">
+      <div className="student-card">
         {students.length === 0 ? (
           <p>No students found.</p>
         ) : (
           students.map((student) => (
             <div
               key={student.id}
-              style={{
-                marginBottom: "20px",
-                padding: "10px",
-                border: "1px solid #ddd",
-                borderRadius: "8px",
-              }}
+              
             >
               <img
                 src={`http://localhost:5000/uploads/${
@@ -144,6 +146,8 @@ const FindEmployees = () => {
           ))
         )}
       </div>
+      </div>
+    </div>
     </div>
   );
 };
