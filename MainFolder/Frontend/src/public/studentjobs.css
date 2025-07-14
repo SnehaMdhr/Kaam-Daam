@@ -6,29 +6,28 @@
   margin-left: 320px;
 }
 
-.job-listing-content{
+.job-listing-content {
   display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  margin-bottom: 20px;
-
-}
-
-.job-listings-content h1 {
-  font-size: 40px;
-  color: #1c355e;
-}
-
-.job-listings-content p {
-  display: block;
-  width: 100%;
-  clear: both;
-
-  color: #666;
+  flex-direction: column; /* stack h1 and p vertically */
+  align-items: flex-start; /* align to left */
   margin-bottom: 20px;
 }
+
+.job-listing-content h1 {
+  font-size: 28px;
+  color: #1c355e; /* deep blue for consistency */
+  margin-bottom: 10px;
+}
+
+.job-listing-content p {
+  font-size: 18px;
+  color: #555;
+  margin: 0;
+}
+
 
 .filters {
+  margin-top: 20px;
   display: flex;
   gap: 10px;
   margin-bottom: 30px;
@@ -58,6 +57,8 @@
   border-radius: 8px;
   padding: 20px;
   align-items: center;
+  margin-top: 10px;
+  margin-bottom: 10px;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
 }
 
@@ -85,20 +86,16 @@
   margin-bottom: 10px;
 }
 
-.view-job-btn {
-  padding: 8px 16px;
-  background-color: #12343b;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  font-size: 14px;
-  cursor: pointer;
+
+.view-link {
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s;
 }
 
-.view-job-btn:hover {
-  background-color: #0d262d;
+.view-link:hover {
+  color: #2563eb;
 }
-
 .pagination {
   display: flex;
   justify-content: center;
@@ -138,4 +135,11 @@
   background-color: #3b82f6;
   color: white;
   font-weight: bold;
+}
+.appbody{
+  background-color: #e9dbc8;  /* Light beige */
+  padding: 6px 20px;
+  border-radius: 8px;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
