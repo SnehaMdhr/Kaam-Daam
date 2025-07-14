@@ -1,19 +1,45 @@
 const pool = require('../db');
 
-// ✅ Apply to a job
 const applyToJob = async (req, res) => {
-  const userId = req.user.id; // student user
+  const userId = req.user.id; // From token middleware
   const { jobId } = req.body;
 
   try {
-    await pool.query(
-      'INSERT INTO job_applications (job_id, user_id) VALUES ($1, $2)',
-      [jobId, userId]
+    // ✅ Check if already applied
+    const exists = await pool.query(
+      `SELECT * FROM job_applications WHERE user_id = $1 AND job_id = $2`,
+      [userId, jobId]
     );
-    res.status(201).json({ message: 'Applied successfully' });
+
+    if (exists.rows.length > 0) {
+      return res.status(400).json({ error: "Already applied" });
+    }
+
+    // ✅ Insert application
+    await pool.query(
+      `INSERT INTO job_applications (user_id, job_id, status) VALUES ($1, $2, 'Applied')`,
+      [userId, jobId]
+    );
+
+    // ✅ Get employer info and job title
+    const jobResult = await pool.query(
+      `SELECT user_id, title FROM job_posts WHERE id = $1`,
+      [jobId]
+    );
+
+    const { user_id: employerId, title } = jobResult.rows[0];
+
+    // ✅ Insert notification for employer
+    const message = `A student applied for your job: "${title}".`;
+    await pool.query(
+      `INSERT INTO notifications (user_id, message) VALUES ($1, $2)`,
+      [employerId, message]
+    );
+
+    res.status(200).json({ message: "Applied successfully and employer notified." });
   } catch (err) {
-    console.error('Error applying to job:', err);
-    res.status(500).json({ error: 'Failed to apply' });
+    console.error("Apply error:", err.message);
+    res.status(500).json({ error: "Server error while applying" });
   }
 };
 
