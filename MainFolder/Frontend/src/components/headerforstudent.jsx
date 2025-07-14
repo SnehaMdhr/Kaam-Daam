@@ -1,16 +1,27 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { FaBell, FaUserCircle } from "react-icons/fa";
 import logo from "../assets/image/logo.png";
 import "./headerforstudent.css";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const HeaderForStudent = () => {
   const navigate = useNavigate();
   const userId = localStorage.getItem("userId");
+  const [hasUnseen, setHasUnseen] = useState(false);
 
   const goToProfile = () => {
-    navigate(`/studentviewprofile/${userId}`); // Replace ':id' with actual user ID if needed
+    navigate(`/studentviewprofile/${userId}`);
   };
+
+  useEffect(() => {
+    if (userId) {
+      axios.get(`http://localhost:5000/api/notifications/${userId}`).then((res) => {
+        const unseen = res.data.some((n) => !n.is_read);
+        setHasUnseen(unseen);
+      });
+    }
+  }, [userId]);
 
   return (
     <nav className="topbar">
@@ -20,7 +31,27 @@ const HeaderForStudent = () => {
           <h3>Kaam Daam</h3>
         </div>
         <div className="topbar-right">
-          <FaBell className="icon bell-icon" />
+          <div
+            className="notification-wrapper"
+            style={{ position: "relative", cursor: "pointer" }}
+            onClick={() => navigate("/notifications")}
+          >
+            <FaBell className="icon bell-icon" />
+            {hasUnseen && (
+              <span
+                style={{
+                  position: "absolute",
+                  top: "-2px",
+                  right: "-2px",
+                  width: "10px",
+                  height: "10px",
+                  backgroundColor: "red",
+                  borderRadius: "50%",
+                }}
+              ></span>
+            )}
+          </div>
+
           <FaUserCircle
             className="icon profile-icon"
             onClick={goToProfile}

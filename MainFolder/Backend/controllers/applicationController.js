@@ -78,21 +78,46 @@ const checkAlreadyApplied = async (req, res) => {
   }
 };
 
-
 const updateApplicationStatus = async (req, res) => {
   const { applicationId } = req.params;
   const { status } = req.body;
 
   try {
+    // ✅ 1. Update status
     await pool.query(
-      'UPDATE job_applications SET status = $1 WHERE id = $2',
+      `UPDATE job_applications SET status = $1 WHERE id = $2`,
       [status, applicationId]
     );
-    res.json({ message: "Status updated successfully" });
+
+    // ✅ 2. Get student user_id and job title
+    const result = await pool.query(
+      `SELECT ja.user_id, jp.title
+       FROM job_applications ja
+       JOIN job_posts jp ON ja.job_id = jp.id
+       WHERE ja.id = $1`,
+      [applicationId]
+    );
+
+    if (result.rows.length > 0) {
+      const { user_id, title } = result.rows[0];
+
+// ✅ 3. Only send notification for specific status values
+const notifyStatuses = ["Accepted", "Rejected", "Interview", "Hired"];
+
+if (notifyStatuses.includes(status)) {
+  const message = `Your application for "${title}" was updated to "${status}".`;
+
+  await pool.query(
+    `INSERT INTO notifications (user_id, message) VALUES ($1, $2)`,
+    [user_id, message]
+  );
+}
+    }
+
+    res.json({ message: "Status updated and notification sent." });
   } catch (err) {
-    console.error("Failed to update status", err);
+    console.error("Failed to update status and notify student", err);
     res.status(500).json({ error: "Could not update application status" });
   }
 };
-
 module.exports = { applyToJob, getApplicationsByEmployer,getApplicationsByStudent, checkAlreadyApplied, updateApplicationStatus };
