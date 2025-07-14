@@ -68,10 +68,6 @@ const SettingEmployer = () => {
               <label htmlFor="contact-email">Contact Email</label>
               <input type="email" name="email" value={user.email} onChange={handleChange} id="contact-email" placeholder="Contact Email" />
             </div>
-            <div className="form-group">
-              <label htmlFor="contact-person">Primary Contact Person</label>
-              <input type="text" id="contact-person" placeholder="Primary Contact Person" />
-            </div>
             <div className="button-wrapper">
     <button onClick={handleUpdate}>Update Account</button>
   </div>
