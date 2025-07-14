@@ -55,9 +55,30 @@ const getHiredEmployers = async (req, res) => {
   }
 };
 
+const getHiredStudents = async (req, res) => {
+  const employerId = req.params.employerId;
+
+  try {
+    const result = await pool.query(
+      `SELECT DISTINCT u.id, u.username, u.email
+       FROM job_applications ja
+       JOIN users u ON ja.user_id = u.id
+       JOIN job_posts jp ON ja.job_id = jp.id
+       WHERE jp.user_id = $1 AND ja.status = 'Hired'`,
+      [employerId]
+    );
+
+    res.status(200).json(result.rows); // ✅ Array expected by frontend
+  } catch (error) {
+    console.error("❌ Error in getHiredStudents:", error.message);
+    res.status(500).json({ error: "Internal server error" });
+  }
+};
+
 // ✅ Export properly
 module.exports = {
   sendMessage,
   getMessages,
   getHiredEmployers,
+  getHiredStudents
 };
