@@ -14,6 +14,7 @@ const jobRoutes = require('./routes/jobRoutes');
 const applicationRoutes = require('./routes/applicationRoutes');
 const reviewRoutes = require('./routes/reviewRoutes');
 const messageRoutes = require('./routes/messageRoutes');
+const notificationRoutes = require("./routes/notificationRoutes");
 
 
 
@@ -41,6 +42,8 @@ app.use('/api/employers', require('./routes/employers'));
 app.use('/api/applications', applicationRoutes);
 app.use('/api/reviews', reviewRoutes);
 app.use('/api/messages', messageRoutes);
+app.use("/api/notifications", notificationRoutes);
+
 
 
 app.use(passport.initialize());
