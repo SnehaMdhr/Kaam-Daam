@@ -201,6 +201,32 @@ const getFilteredJobs = async (req, res) => {
   }
 };
 
+// Update job
+const updateJob = async (req, res) => {
+  const { id } = req.params;
+  const {
+    title,
+    description,
+    address,
+    people_required,
+    work_schedule,
+    shift_timing,
+    status
+  } = req.body;
+
+  try {
+    const updated = await pool.query(
+      `UPDATE job_posts SET title = $1, description = $2, address = $3, people_required = $4,
+      work_schedule = $5, shift_timing = $6, status = $7 WHERE id = $8 RETURNING *`,
+      [title, description, address, people_required, work_schedule, shift_timing, status, id]
+    );
+    res.json(updated.rows[0]);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server Error");
+  }
+};
+
 module.exports = {
   postJob,
   getUserJobs,
@@ -208,5 +234,6 @@ module.exports = {
   deleteJobById,
   updateJobById,
   getAllJobs,
-  getFilteredJobs
+  getFilteredJobs,
+  updateJob
 };
