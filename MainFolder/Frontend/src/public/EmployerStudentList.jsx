@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import HeaderForEmployer from "../components/headerforemployer";
+import Sidebar from "../components/sidebar";
+import "./employerstudentlist.css"
 
 const EmployerStudentList = () => {
   const navigate = useNavigate();
@@ -49,26 +52,22 @@ const EmployerStudentList = () => {
   };
 
   return (
-    <div style={{ padding: "20px" }}>
-      <h2 style={{ marginBottom: "15px" }}>Select a Student to Chat</h2>
+    <div>
+      <HeaderForEmployer/>
+    
+    <div className="employer-student-list">
+      
+      <Sidebar/>
+      <h1>Select a Student to Chat</h1>
 
       {students.length === 0 ? (
-        <div>No students found who were hired.</div>
+        <div className="student-list">No students found who were hired.</div>
       ) : (
-        <ul style={{ listStyle: "none", padding: 0 }}>
+        <ul>
           {students.map((student) => (
             <li
               key={student.id}
               onClick={() => goToChat(student.id)}
-              style={{
-                border: "1px solid #ccc",
-                padding: "12px",
-                marginBottom: "10px",
-                borderRadius: "6px",
-                cursor: "pointer",
-                backgroundColor: "#f9f9f9",
-                transition: "background-color 0.3s ease",
-              }}
               onMouseOver={(e) =>
                 (e.currentTarget.style.backgroundColor = "#e6f7ff")
               }
@@ -81,6 +80,7 @@ const EmployerStudentList = () => {
           ))}
         </ul>
       )}
+    </div>
     </div>
   );
 };
