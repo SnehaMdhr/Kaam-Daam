@@ -14,19 +14,18 @@
 }
 
 .job-postings-header h1{
-  font-size: 40px;
-  margin-bottom: 10px;
+  font-size: 25px;
   color: #1c355e;
 }
 .job-postings-header1 h3 {
-  font-size: 1.1rem;
+  font-size: 15px;
   color: #555;
   margin-bottom: 30px;
   font-weight: 400;
 }
 
 .job-postings-header2 h2 {
-  font-size: 1.5rem;
+  font-size:15px;
   font-weight: 800;
   margin-bottom: 25px;
 }
@@ -37,7 +36,7 @@
   background-color: #e9d6bb;
   padding: 12px 20px;
   border-radius: 6px;
-  margin-bottom: 20px;
+  margin-bottom: 30px;
   gap: 10px;
 }
 

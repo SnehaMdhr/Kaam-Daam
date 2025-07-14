@@ -14,8 +14,7 @@
 }
 
 .profile-main h1 {
-  font-size: 40px;
-  margin-bottom: 20px;
+  font-size: 25px;
   color: #1c355e; 
 }
 
@@ -27,8 +26,9 @@
   .form-group label {
  display: block;
   margin-bottom: 10px;
-  margin-top: 30px;
+  margin-top: 10px;
   font-weight: 500;
+  font-size: 20px;
   margin-left: 50px;
   color: #333;
 } 
@@ -37,12 +37,24 @@ input[type="email"],
 input[type="password"],
 input[type="url"] {
   width: 90%;
-  padding: 10px 12px;
+  padding: 6px 12px;
   margin-left: 50px;
   margin-right: 100px;
   border: 1px solid #ccc;
   border-radius: 5px;
-  font-size: 1rem;
+  font-size: 15px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); /* subtle shadow */
+  transition: box-shadow 0.3s ease; /* smooth hover effect */
+
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus,
+input[type="url"]:focus {
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* stronger on focus */
+  outline: none; /* remove default outline */
+
 }
 
 input[type="checkbox"] {
@@ -66,7 +78,7 @@ input[type="checkbox"] {
     border: none;
     border-radius: 6px;
     cursor: pointer;
-    margin-right: 100px;
+    margin-right: 55px;
     font-size: 1rem;
   }
 
@@ -83,6 +95,16 @@ input[type="checkbox"] {
     resize: vertical;
     margin-left: 50px;
     min-height: 100px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); /* subtle shadow */
+  transition: box-shadow 0.3s ease; /* smooth hover effect */
+
+  }
+
+  .textarea:focus{
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* stronger on focus */
+  outline: none; /* remove default outline */
+
+
   }
 
 .profile-picture-section {
@@ -135,11 +157,11 @@ input[type="checkbox"] {
 
   .bar{
     background-color: #e9dbc8;  /* Light beige */
-  padding: 12px 20px;
+  padding: 6px 20px;
   border-radius: 8px;
   margin-top: 30px;
   margin-bottom: 20px;
   font-weight: bold;
-  font-size: 1.1rem;
+  font-size: 15px;
   color: #1c355e;
   }
