@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import io from "socket.io-client";
-import HeaderForStudent from "../components/headerforstudent";
-import SidebarStudent from "../components/sidebarstudent";
 import "./studentmessage.css";
+import Header from "../components/headerforstudent"
+import Sidebar from "../components/sidebarstudent"
+
 
 // Socket connection
 const socket = io("http://localhost:5000");
@@ -102,9 +103,9 @@ const StudentMessage = () => {
 
   return (
     <div>
-      <HeaderForStudent />
+      <Header />
       <div className="chat-container">
-        <SidebarStudent />
+        <Sidebar />
         <div className="sidebar1">
           <h1>Messages</h1>
           <ul>

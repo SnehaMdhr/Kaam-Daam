@@ -26,6 +26,7 @@ const StudentMyApplications = () => {
         <div className="apphead">
         <h1>My Applications</h1>
         </div>
+        <div className="appbody">
 
         {applications.length === 0 ? (
           <p>No applications found.</p>
@@ -53,6 +54,7 @@ const StudentMyApplications = () => {
             </div>
           ))
         )}
+        </div>
 
         <div className="view-more">+ view more</div>
       </div>

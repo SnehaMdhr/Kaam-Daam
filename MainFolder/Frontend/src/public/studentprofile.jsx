@@ -104,9 +104,13 @@ const studentprofile = () => {
       <Header />
       <div className="student-profile-container">
         <Sidebar />
-        <h2>Student Profile</h2>
+        <h1>Student Profile</h1>
 
         <form className="student-profile-form" onSubmit={handleUpdate}>
+          <div className='bar'>
+
+              <h3>Profile Picture</h3>
+              </div>
           <label>Upload Photo</label>
           <input
             type="file"
@@ -124,18 +128,18 @@ const studentprofile = () => {
                 objectFit: "cover",
                 marginTop: "10px",
                 borderRadius: "50%",
+                marginLeft: "50px"
               }}
             />
           )}
 
+          <div className='bar'>
+
+              <h3>Profile Overview</h3>
+              </div>
+
           <label>Full Name</label>
           <input type="text" name="username" value={user.username} onChange={handleChange} />
-
-          <label>Course / Program</label>
-          <input type="text" name="course" value={user.course} onChange={handleChange} />
-
-          <label>Institution / University</label>
-          <input type="text" name="institution" value={user.institution} onChange={handleChange} />
 
           <label>Email</label>
           <input type="email" name="email" value={user.email} onChange={handleChange} />
@@ -157,6 +161,21 @@ const studentprofile = () => {
             }}
           />
 
+          <div className='bar'>
+
+              <h3>Academic Background</h3>
+              </div>
+
+          <label>Course / Program</label>
+          <input type="text" name="course" value={user.course} onChange={handleChange} />
+
+          <label>Institution / University</label>
+          <input type="text" name="institution" value={user.institution} onChange={handleChange} />
+
+          <div className='bar'>
+
+              <h3>Skills and Experiences</h3>
+              </div>
           <label>Experience Level</label>
           <select
             name="experience_level"
@@ -170,7 +189,7 @@ const studentprofile = () => {
 
           <label>Skills</label>
           {user.skills.map((skill, index) => (
-            <div key={index} style={{ display: "flex", gap: "10px", marginBottom: "10px" }}>
+            <div className="skill-select-container"key={index} style={{ display: "flex", gap: "10px", marginBottom: "10px" }}>
               <select
                 value={skill.name}
                 onChange={(e) => handleSkillChange(index, "name", e.target.value)}
@@ -194,9 +213,16 @@ const studentprofile = () => {
             </div>
           ))}
 
+          <div className="button-wrapper">
           <button type="button" onClick={addSkillField}>
             + Add Skill
           </button>
+          </div> 
+
+          <div className='bar'>
+
+              <h3>Links</h3>
+              </div>
 
           <label>LinkedIn Profile</label>
           <input type="url" name="linkedin" value={user.linkedin} onChange={handleChange} />
@@ -204,10 +230,15 @@ const studentprofile = () => {
           <label>Portfolio / Website</label>
           <input type="url" name="portfolio" value={user.portfolio} onChange={handleChange} />
 
+          <div className='bar'>
+
+              <h3>Bio</h3>
+              </div>
+
           <label>Short Bio</label>
           <textarea name="bio" value={user.bio} onChange={handleChange}></textarea>
-
-          <button type="submit">Update Profile</button>
+          <div className="button-wrapper">
+          <button type="submit">Update Profile</button></div>
         </form>
       </div>
     </div>
