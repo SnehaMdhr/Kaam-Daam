@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import Header from "../components/headerforemployer";
-import Sidebar from "../components/sidebar";
+import Header from "../components/headerforstudent";
+import Sidebar from "../components/sidebarstudent";
 import { useNavigate, useParams } from "react-router-dom";
 import "./StudentViewProfile.css";
 
@@ -56,6 +56,7 @@ const StudentViewProfile = () => {
         <div className="profile-content">
           <h1>Student Profile</h1>
           </div>
+          <div className="content">
           <div className='bar'>
 
               <h3>Picture</h3>
@@ -88,7 +89,7 @@ const StudentViewProfile = () => {
           <p><strong>Portfolio:</strong> <a href={user.portfolio} target="_blank" rel="noopener noreferrer">{user.portfolio}</a></p>
           <div className='bar'>
 
-              <h3>Bio</h3>
+              <h3>Background</h3>
               </div>
           <p><strong>Bio:</strong> {user.bio}</p>
 
@@ -122,7 +123,7 @@ const StudentViewProfile = () => {
               <h3>Review</h3>
               </div>
           {/* ✅ Show reviews */}
-          <div className="reviews-section" style={{ marginTop: "30px" }}>
+          <div className="reviews-section">
             <h3>Employer Reviews</h3>
             {reviews.length === 0 ? (
               <p>No reviews yet.</p>
@@ -136,6 +137,7 @@ const StudentViewProfile = () => {
             )}
           </div>
         </div>
+      </div>
       </div>
   );
 };

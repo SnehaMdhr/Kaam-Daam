@@ -14,10 +14,12 @@
 }
 
 .job-postings-header h1{
-  font-size: 40px;
+  font-size: 25px;
   margin-bottom: 20px;
   color: #1c355e;
 }
+
+
 
 .new-job-btn {
   background-color: #d9c4a3;
