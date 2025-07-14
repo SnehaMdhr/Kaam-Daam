@@ -46,6 +46,8 @@ const StudentEmployerList = lazy(() => import("./public/StudentEmployerList"));
 const StudentProfileEdit = lazy(() => import("./public/studentprofileedit"));
 const EmployerStudentList = lazy(() => import("./public/EmployerStudentList"));
 const StudentNotifications = lazy(() => import("./public/StudentNofications"));
+const EmployerNotifications = lazy(() => import("./public/EmployerNotifications"));
+
 
 function App() {
   return (
@@ -114,6 +116,8 @@ function App() {
 
           <Route path="/employer/messages" element={<EmployerStudentList />} />
           <Route path="/notifications" element={<StudentNotifications />} />
+          <Route path="/employer/notifications" element={<EmployerNotifications />} />
+
           
          
           {/* Add more routes as needed */}
