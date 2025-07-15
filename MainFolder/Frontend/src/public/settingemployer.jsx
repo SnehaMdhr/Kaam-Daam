@@ -4,7 +4,9 @@ import { FaTachometerAlt, FaSuitcase, FaUsers, FaEnvelope, FaBuilding, FaChartBa
 import HeaderForEmployer from '../components/headerforemployer';
 import Sidebar from '../components/sidebar';
 import './settingemployer.css';
+import { useNavigate } from 'react-router-dom';
 const SettingEmployer = () => {
+  const navigate = useNavigate();
   const [user, setUser] = useState({
     username: '',
     email: '',
