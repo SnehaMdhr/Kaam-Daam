@@ -83,7 +83,7 @@ const EmployerViewStudentProfile = () => {
           <button
             className="back-button"
             style={{ marginTop: "20px" }}
-            onClick={() => navigate("/employerjobapplicationmanagement")}
+            onClick={() => navigate("/empoyerjobapplicationmanagement")}
           >
             ← Back to Applications
           </button>
