@@ -12,7 +12,7 @@
   align-items: center;
   margin-bottom: 20px;
 }
-.content h1 {
+.profile-content h1 {
   font-size: 25px;
   color: #1c355e;
 }
@@ -26,17 +26,17 @@ margin: 10px 0;
 
 
 
-.profile-content strong {
+.content strong {
   color: #222;
 }
 
-.profile-content a {
+.content a {
   color: #0a66c2;
   text-decoration: none;
   word-break: break-all;
 }
 
-.profile-content a:hover {
+.content a:hover {
   text-decoration: underline;
 }
 

@@ -32,7 +32,11 @@ const EmployerViewStudentProfile = () => {
         <Sidebar />
         <div className="profile-content">
           <h1>{user.username}'s Profile</h1>
+          </div>
+           <div className='bar'>
 
+              <h3>Picture</h3>
+              </div>
           {user.profile_picture_url && (
             <img
               src={`http://localhost:5000/uploads/${user.profile_picture_url}`}
@@ -41,20 +45,32 @@ const EmployerViewStudentProfile = () => {
             />
           )}
 
-          <h3>Personal Information</h3>
+          <div className='bar'>
+
+              <h3>Personal Information</h3>
+              </div>
           <p><strong>Full Name:</strong> {user.username}</p>
           <p><strong>Email:</strong> {user.email}</p>
           <p><strong>Phone:</strong> {user.phone}</p>
 
-          <h3>Academic Background</h3>
+          <div className='bar'>
+
+              <h3>Academic Background</h3>
+              </div>
           <p><strong>Course:</strong> {user.course}</p>
           <p><strong>Institution:</strong> {user.institution}</p>
 
-          <h3>Links</h3>
+          <div className='bar'>
+
+              <h3>Links</h3>
+              </div>
           <p><strong>LinkedIn:</strong> <a href={user.linkedin} target="_blank" rel="noopener noreferrer">{user.linkedin}</a></p>
           <p><strong>Portfolio:</strong> <a href={user.portfolio} target="_blank" rel="noopener noreferrer">{user.portfolio}</a></p>
 
-          <h3>Bio</h3>
+          <div className='bar'>
+
+              <h3>Background</h3>
+              </div>
           <p>{user.bio}</p>
 
           {user.skills && Array.isArray(user.skills) && user.skills.length > 0 && (
@@ -68,7 +84,10 @@ const EmployerViewStudentProfile = () => {
             </>
           )}
 
-          <h3>Reviews</h3>
+          <div className='bar'>
+
+              <h3>Review</h3>
+              </div>
           {reviews.length === 0 ? (
             <p>No reviews yet.</p>
           ) : (
@@ -89,7 +108,6 @@ const EmployerViewStudentProfile = () => {
           </button>
         </div>
       </div>
-    </div>
   );
 };
 

@@ -1,0 +1,119 @@
+.edit-job-container {
+  padding: 30px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  font-family: 'Segoe UI', sans-serif;
+  margin-left: 320px;
+}
+
+.edit-job-form{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+.edit-job-form h1 {
+  font-size: 25px;
+  color: #1c355e;
+}
+
+.profile-section {
+  margin-bottom: 16px;
+  margin-left: 20px;
+  margin-right: 20px;
+}
+  
+  .form-update label {
+ display: block;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  font-weight: 500;
+  font-size: 20px;
+  margin-left: 50px;
+  color: #333;
+} 
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="number"] {
+  width: 90%;
+  padding: 6px 12px;
+  margin-left: 50px;
+  margin-right: 100px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 15px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); /* subtle shadow */
+  transition: box-shadow 0.3s ease; /* smooth hover effect */
+
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus,
+input[type="url"]:focus {
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* stronger on focus */
+  outline: none; /* remove default outline */
+
+}
+
+input[type="checkbox"] {
+  margin-right: 8px;
+}  
+.password-note {
+  font-size: 0.9rem;
+  color: #666;
+  margin-bottom: 16px;
+}
+
+.button-wrapper {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 30px; 
+}   
+  button {
+    background-color: #1c355e;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-right: 55px;
+    font-size: 1rem;
+  }
+
+  button:hover {
+    background-color: #2e4c7b;
+  }
+
+  textarea {
+    width: 90%;
+    padding: 10px 12px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+    resize: vertical;
+    margin-left: 50px;
+    min-height: 100px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); /* subtle shadow */
+  transition: box-shadow 0.3s ease; /* smooth hover effect */
+
+  }
+
+  .textarea:focus{
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* stronger on focus */
+  outline: none; /* remove default outline */
+
+
+  }
+
+  .bar{
+    background-color: #e9dbc8;  /* Light beige */
+  padding: 6px 20px;
+  border-radius: 8px;
+  margin-top: 30px;
+  margin-bottom: 20px;
+  font-weight: bold;
+  font-size: 15px;
+  color: #1c355e;
+  }

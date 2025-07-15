@@ -26,7 +26,13 @@ const Profile = () => {
       <div className="profile-container">
         <Sidebar />
         <div className="profile-content">
-          <h2>Company Profile</h2>
+          <h1>Company Profile</h1>
+          </div>
+          <div className="content">
+             <div className='bar'>
+
+              <h3>Picture</h3>
+              </div>
 
           {user.profile_picture_url ? (
             <img
@@ -37,7 +43,10 @@ const Profile = () => {
           ) : (
             <div className="profile-placeholder">No profile picture</div>
           )}
+             <div className='bar'>
 
+              <h3>Personal Information</h3>
+              </div>
           <p>
             <strong>Company Name:</strong> {user.username || "N/A"}
           </p>
@@ -50,34 +59,44 @@ const Profile = () => {
           <p>
             <strong>Industry:</strong> {user.industry || "N/A"}
           </p>
+          <div className='bar'>
 
+              <h3>Links</h3>
+              </div>
+{/* 
           {user.website && (
-            <p>
-              <strong>Website:</strong>{" "}
-              <a href={user.website} type="url" target="_blank" rel="noopener noreferrer">
-                {user.website}
-              </a>
-            </p>
-          )}
+  <p>
+    <strong>Website:</strong>{" "}
+    <a href={user.website} type="url" target="_blank" rel="noopener noreferrer">
+      {user.website}
+    </a>
+  </p>
+)}
 
-          {user.linkedin && (
-            <p>
-              <strong>LinkedIn:</strong>{" "}
-              <a href={user.linkedin} target="_blank" rel="noopener noreferrer">
-                {user.linkedin}
-              </a>
-            </p>
-          )}
+{user.linkedin && (
+  <p>
+    <strong>LinkedIn:</strong>{" "}
+    <a href={user.linkedin} target="_blank" rel="noopener noreferrer">
+      {user.linkedin}
+    </a>
+  </p>
+)}
 
-          {user.facebook && (
-            <p>
-              <strong>Facebook:</strong>{" "}
-              <a href={user.facebook} target="_blank" rel="noopener noreferrer">
-                {user.facebook}
-              </a>
-            </p>
-          )}
+{user.facebook && (
+  <p>
+    <strong>Facebook:</strong>{" "}
+    <a href={user.facebook} target="_blank" rel="noopener noreferrer">
+      {user.facebook}
+    </a>
+  </p>
+)} */}
+<p><strong>Website:</strong> <a href={user.website} target="_blank" rel="noopener noreferrer">{user.website}</a></p>
+<p><strong>LinkedIn:</strong> <a href={user.linkedin} target="_blank" rel="noopener noreferrer">{user.linkedin}</a></p>
+          <p><strong>Facebook:</strong> <a href={user.facebook} target="_blank" rel="noopener noreferrer">{user.facebook}</a></p>
+          <div className='bar'>
 
+              <h3>Additional Information</h3>
+              </div>
           <p>
             <strong>Description:</strong>{" "}
             {user.comp_description ? user.comp_description : "No description available."}
