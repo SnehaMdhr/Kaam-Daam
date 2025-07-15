@@ -1,9 +1,6 @@
 
-<<<<<<< HEAD
 
 /* Profile container */
-=======
->>>>>>> kimti
 .profile-container {
   padding: 30px;
   background-color: #ffffff;
@@ -12,7 +9,6 @@
   margin-left: 320px;
 }
 
-<<<<<<< HEAD
 /* Main content */
 .profile-content {
   display: flex;
@@ -24,7 +20,7 @@
 .profile-content h2 {
    font-size: 25px;
   color: #1c355e; 
-=======
+}
 .profile-content h1 {
   font-size: 25px;
   color:#1c355e;
@@ -37,7 +33,6 @@ content p {
 
 .profile-container p {
   margin-left: 50px;
->>>>>>> kimti
 }
 
 .profile-content strong {
