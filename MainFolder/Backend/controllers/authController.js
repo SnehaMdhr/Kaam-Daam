@@ -252,27 +252,23 @@ const getUserProfile = async (req, res) => {
 };
 
 // Get current user info
+// /api/auth/me
 const getMe = async (req, res) => {
-    try {
-        // Ensure the user is authenticated and has an id
-        if (!req.params || !req.user.id) {
-            return res.status(401).json({ message: 'Unauthorized' });
-        }
+  try {
+    const userId = req.user.id; // from JWT
+    const user = await pool.query('SELECT * FROM users WHERE id = $1', [userId]);
 
-        const result = await pool.query(
-            'SELECT id, username, email, role FROM users WHERE id = $1',
-            [req.user.id]
-        );
-
-        if (result.rows.length === 0) {
-            return res.status(404).json({ message: 'User not found' });
-        }
-
-        res.json(result.rows[0]);
-    } catch (err) {
-        console.error('Error fetching user info:', err);
-        res.status(500).json({ message: 'Server error' });
+    if (user.rows.length === 0) {
+      return res.status(404).json({ message: "User not found" });
     }
+
+    const { id, role } = user.rows[0];
+
+    res.json({ userId: id, role });
+  } catch (err) {
+    console.error("Error in getMe:", err.message);
+    res.status(500).json({ message: "Server error" });
+  }
 };
 
 
