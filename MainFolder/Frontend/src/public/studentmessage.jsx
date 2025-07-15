@@ -17,6 +17,7 @@ const StudentMessage = () => {
   const [newMessage, setNewMessage] = useState("");
   const [employerInfo, setEmployerInfo] = useState(null);
   const [jobTitle, setJobTitle] = useState("");
+  const [fetchedMessages, setFetchedMessages] = useState(false); // To track if messages are already fetched
 
   if (!studentId || !employerId || !token) {
     return (
@@ -30,7 +31,7 @@ const StudentMessage = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        // ✅ Fetch messages
+        // Fetch messages from backend
         const response = await axios.get(
           `http://localhost:5000/api/messages/${studentId}/${employerId}`,
           {
@@ -41,12 +42,13 @@ const StudentMessage = () => {
           }
         );
         setMessages(Array.isArray(response.data) ? response.data : []);
+        setFetchedMessages(true); // Set flag to true after fetching messages
       } catch (error) {
         console.error("Error fetching messages:", error);
       }
 
       try {
-        // ✅ Fetch employer info
+        // Fetch employer info
         const res = await axios.get(
           `http://localhost:5000/api/users/${employerId}`,
           {
@@ -59,7 +61,7 @@ const StudentMessage = () => {
       }
 
       try {
-        // ✅ Fetch job title from first job of this employer
+        // Fetch job title
         const res = await axios.get(
           `http://localhost:5000/api/jobs/employer/${employerId}`,
           {
@@ -74,21 +76,27 @@ const StudentMessage = () => {
       }
     };
 
-    fetchData();
+    if (!fetchedMessages) {
+      fetchData();
+    }
 
-    // ✅ Listen for socket messages
+    // Listen for socket messages
     socket.on("receive_message", (message) => {
+      // Avoid adding duplicate messages
       if (
-        (message.sender_id === studentId &&
-          message.receiver_id === employerId) ||
-        (message.sender_id === employerId && message.receiver_id === studentId)
+        !messages.some(
+          (msg) =>
+            msg.sender_id === message.sender_id &&
+            msg.receiver_id === message.receiver_id &&
+            msg.content === message.content
+        )
       ) {
         setMessages((prev) => [...prev, message]);
       }
     });
 
     return () => socket.off("receive_message");
-  }, [studentId, employerId, token]);
+  }, [studentId, employerId, token, messages, fetchedMessages]);
 
   const handleSendMessage = async () => {
     if (newMessage.trim()) {
@@ -98,9 +106,11 @@ const StudentMessage = () => {
         content: newMessage,
       };
 
+      // Emit message to socket server
       socket.emit("send_message", messageData);
 
       try {
+        // Send message to backend to save in DB
         await axios.post(
           "http://localhost:5000/api/messages/send",
           messageData,
