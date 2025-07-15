@@ -99,11 +99,12 @@ const StudentViewJob = () => {
         </div>
 
         <div className="content">
-          <h1 className="job-title">{job.title}</h1>
-          <p className="posted-by">Posted by {job.company_name}</p>
+          <div className="job-title">
+          <h1>{job.title}</h1>
+          <p className="posted-by">Posted by {job.company_name}</p></div>
 
-          <img className="job-banner" src={jobbanner} alt="Job Banner" />
-
+          {/* <img className="job-banner" src={jobbanner} alt="Job Banner" /> */}
+          <div className="job-content">
           <div className="bar">
             <h3>Job Overview</h3>
           </div>
@@ -148,6 +149,7 @@ const StudentViewJob = () => {
                 Already Applied
               </button>
             )}
+            </div>
           </div>
         </div>
       </div>

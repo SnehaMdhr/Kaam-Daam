@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import Header from "../components/headerforstudent";
+import Sidebar from "../components/sidebarstudent";
+import "./studentnotification.css";
 
 const StudentNotifications = () => {
   const [notifications, setNotifications] = useState([]);
@@ -18,14 +21,19 @@ const StudentNotifications = () => {
   }, [userId]);
 
   return (
-    <div style={{ padding: "20px" }}>
-      <h2>Notifications</h2>
-      {notifications.length === 0 ? (
+    <div>
+      <Header />
+      <div className="notification-page">
+      <Sidebar />
+       <div className="notification-main">
+      <h1>Notifications</h1></div>
+       <div className="notification-content">
+              {notifications.length === 0 ? (
         <p>No notifications yet.</p>
       ) : (
-        <ul>
+        <ul className="notification-list">
           {notifications.map((n) => (
-            <li key={n.id} style={{ marginBottom: "10px" }}>
+            <li key={n.id} className="notification-item">
               {n.message} <br />
               <small>{new Date(n.created_at).toLocaleString()}</small>
               <br />
@@ -50,6 +58,9 @@ const StudentNotifications = () => {
           ))}
         </ul>
       )}
+    </div>
+    </div>
+
     </div>
   );
 };
