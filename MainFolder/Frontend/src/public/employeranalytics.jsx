@@ -1,100 +1,114 @@
-import React from 'react'
-import HeaderForEmployer from '../components/headerforemployer';
-import Sidebar from '../components/sidebar';
-import "./employeranalytics.css"
-import graph from "../assets/image/graph.png";
-
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import HeaderForEmployer from "../components/headerforemployer";
+import Sidebar from "../components/sidebar";
+import "./employeranalytics.css";
+import {
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  ResponsiveContainer,
+} from "recharts";
 
 const employeranalytics = () => {
+  const employerId = localStorage.getItem("userId"); // replace with actual logged-in employer ID
+  const [kpis, setKpis] = useState({});
+  const [trendData, setTrendData] = useState([]);
+  const [performanceData, setPerformanceData] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const res1 = await axios.get(
+        `http://localhost:5000/api/analytics/kpi/${employerId}`
+      );
+      const res2 = await axios.get(
+        `http://localhost:5000/api/analytics/trends/${employerId}`
+      );
+      const res3 = await axios.get(
+        `http://localhost:5000/api/analytics/performance/${employerId}`
+      );
+      setKpis(res1.data);
+      setTrendData(res2.data);
+      setPerformanceData(res3.data);
+    };
+
+    fetchData();
+  }, []);
+
   return (
     <div>
-        <HeaderForEmployer />
-        
+      <HeaderForEmployer />
       <div className="dashboard-container">
         <Sidebar />
-      <h1>Analytics</h1>
-      <h2> Key Performance Indicators</h2>
+        <h1>Analytics</h1>
+        <h2> Key Performance Indicators</h2>
 
-      {/* KPI Cards */}
-      <div className="kpi-section">
-        
-        <div className="kpi-card">
-          <h4>Total Job Postings</h4>
-          <p>25</p>
+        <div className="kpi-section">
+          <div className="kpi-card">
+            <h4>Total Job Postings</h4>
+            <p>{kpis.totalJobs}</p>
+          </div>
+          <div className="kpi-card">
+            <h4>Active Job Postings</h4>
+            <p>{kpis.activeJobs}</p>
+          </div>
+          <div className="kpi-card">
+            <h4>Total Applications</h4>
+            <p>{kpis.totalApplications}</p>
+          </div>
+          <div className="kpi-card">
+            <h4>Avg Applications Per Posting</h4>
+            <p>{kpis.avgApplications}</p>
+          </div>
         </div>
-        <div className="kpi-card">
-          <h4>Active Job Postings</h4>
-          <p>15</p>
+
+        <div className="trend-section">
+          <h2>Application Trends Over Time</h2>
+          <ResponsiveContainer width="100%" height={300}>
+            <LineChart data={trendData}>
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey="month" />
+              <YAxis />
+              <Tooltip />
+              <Line
+                type="monotone"
+                dataKey="applications"
+                stroke="#8884d8"
+                strokeWidth={2}
+              />
+            </LineChart>
+          </ResponsiveContainer>
         </div>
-        <div className="kpi-card">
-          <h4>Total Applications Received</h4>
-          <p>350</p>
-        </div>
-        <div className="kpi-card">
-          <h4>Average Applications Per Posting</h4>
-          <p>14</p>
-        </div>
+
+        <h4 className="section-title">Job Posting Performance</h4>
+        <table className="performance-table">
+          <thead>
+            <tr>
+              <th>Job Title</th>
+              <th>Views</th>
+              <th>Applications</th>
+              <th>Quality Score</th>
+              <th>Actions Taken</th>
+            </tr>
+          </thead>
+          <tbody>
+            {performanceData.map((job, index) => (
+              <tr key={index}>
+                <td>{job.jobTitle}</td>
+                <td>{job.views}</td>
+                <td>{job.applications}</td>
+                <td>{job.qualityScore}</td>
+                <td>{job.actions}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
-
-      {/* Application Trend */}
-      <div className="trend-section">
-        <h2>Application Trends Over Time</h2>
-        <img src={graph} alt="graph" />
-      </div>
-
-      {/* Job Posting Performance Table */}
-      <h4 className="section-title">Job Posting Performance</h4>
-      <table className="performance-table">
-        <thead>
-          <tr>
-            <th>Job Title</th>
-            <th>Views</th>
-            <th>Applications</th>
-            <th>Quality Score</th>
-            <th>Actions Taken</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Software Engineer</td>
-            <td>1200</td>
-            <td>150</td>
-            <td>85</td>
-            <td>Shortlisted: 30, Interviewed: 10</td>
-          </tr>
-          <tr>
-            <td>Data Analyst</td>
-            <td>800</td>
-            <td>100</td>
-            <td>78</td>
-            <td>Shortlisted: 20, Interviewed: 8</td>
-          </tr>
-          <tr>
-            <td>UX/UI Designer</td>
-            <td>600</td>
-            <td>80</td>
-            <td>92</td>
-            <td>Shortlisted: 15, Interviewed: 5</td>
-          </tr>
-          <tr>
-            <td>Project Manager</td>
-            <td>500</td>
-            <td>50</td>
-            <td>80</td>
-            <td>Shortlisted: 10, Interviewed: 4</td>
-          </tr>
-          <tr>
-            <td>Marketing Specialist</td>
-            <td>400</td>
-            <td>20</td>
-            <td>70</td>
-            <td>Shortlisted: 5, Interviewed: 2</td>
-          </tr>
-        </tbody>
-      </table>
     </div>
-    </div>
-  )
-}
+  );
+};
 
-export default employeranalytics
+export default employeranalytics;

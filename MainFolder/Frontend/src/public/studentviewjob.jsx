@@ -21,7 +21,10 @@ const StudentViewJob = () => {
     // Fetch job details
     axios
       .get(`http://localhost:5000/api/jobs/${id}`)
-      .then((res) => setJob(res.data))
+      .then((res) => {
+        setJob(res.data); // Set job data only once
+        incrementViewCount(); // Increment view count only once after job data is fetched
+      })
       .catch((err) => console.error("Failed to fetch job details", err));
 
     // Check if already applied
@@ -31,7 +34,16 @@ const StudentViewJob = () => {
       })
       .then((res) => setAlreadyApplied(res.data.applied))
       .catch((err) => console.error("Failed to check application status", err));
-  }, [id]);
+  }, [id]); // This will run only once when the page loads
+
+  const incrementViewCount = async () => {
+    try {
+      await axios.post(`http://localhost:5000/api/jobs/increment-view/${id}`);
+      console.log("View count updated");
+    } catch (err) {
+      console.error("Failed to update view count", err);
+    }
+  };
 
   const handleApply = () => {
     if (alreadyApplied) {
@@ -73,7 +85,10 @@ const StudentViewJob = () => {
         <Sidebar />
 
         <nav className="breadcrumb">
-          <span style={{ cursor: "pointer", color: "#007bff" }} onClick={goBack}>
+          <span
+            style={{ cursor: "pointer", color: "#007bff" }}
+            onClick={goBack}
+          >
             Browse
           </span>{" "}
           / Job Details

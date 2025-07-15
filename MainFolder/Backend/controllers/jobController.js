@@ -227,6 +227,23 @@ const updateJob = async (req, res) => {
   }
 };
 
+
+
+const incrementView = async (req, res) => {
+  const { jobId } = req.params;
+
+  try {
+    await pool.query(
+      "UPDATE job_posts SET views = views + 1 WHERE id = $1",
+      [jobId]
+    );
+    res.status(200).json({ message: "View count updated" });
+  } catch (error) {
+    console.error("View Increment Error:", error);
+    res.status(500).send("Server error");
+  }
+};
+
 module.exports = {
   postJob,
   getUserJobs,
@@ -235,5 +252,6 @@ module.exports = {
   updateJobById,
   getAllJobs,
   getFilteredJobs,
-  updateJob
+  updateJob,
+  incrementView
 };

@@ -1,38 +1,25 @@
-/* Reset and base styling */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: 'Segoe UI', sans-serif;
-}
 
-body {
-  background-color: #f4f7fa;
-  color: #333;
-}
 
 /* Profile container */
 .profile-container {
-  display: flex;
-  min-height: 100vh;
-  background-color: #f4f7fa;
+  padding: 30px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  font-family: 'Segoe UI', sans-serif;
+  margin-left: 320px;
 }
 
 /* Main content */
 .profile-content {
-  margin-left: 320px; /* Sidebar offset */
-  padding: 40px;
-  width: 100%;
-  background-color: #fff;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
 }
 
 .profile-content h2 {
-  font-size: 32px;
-  margin-bottom: 25px;
-  color: #1c355e;
-  font-weight: bold;
+   font-size: 25px;
+  color: #1c355e; 
 }
 
 .profile-picture {
