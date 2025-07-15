@@ -1,26 +1,35 @@
-.profile-container {
-   padding: 30px;
+/* GENERAL RESET */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #f5f5f5;
+}
+
+/* MAIN LAYOUT */
+.main-layout {
+  display: flex;
+  margin-top: 80px; /* enough for header height */
+}
+
+/* SIDEBAR is assumed to be fixed or absolute */
+.profile-content {
+  margin-left: 300px; /* adjust if your Sidebar width is different */
+  padding: 30px;
+  flex: 1;
   background-color: #ffffff;
   border-radius: 8px;
-  font-family: 'Segoe UI', sans-serif;
-  margin-left: 320px;
 }
 
-.profile-main {
- 
- display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 20px;
+/* HEADER SPACING (if Header is fixed) */
+h1 {
+  margin-top: 0;
 }
 
-.profile-main h1 {
-  font-size: 25px;
-  color: #1c355e; 
-}
-
+/* SEARCH BAR */
 .search-bar {
   display: flex;
+  flex-wrap: wrap;
   gap: 10px;
   margin-bottom: 20px;
 }
@@ -29,36 +38,127 @@
 .search-bar select {
   padding: 8px;
   font-size: 16px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  outline: none;
 }
 
-.students-list {
-  display: flex;
-  flex-direction: column;
+.search-bar button {
+  padding: 8px 16px;
+  background-color: #0077cc;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.search-bar button:hover {
+  background-color: #005fa3;
+}
+
+/* STUDENT CARD LAYOUT */
+.appbody {
+  background-color: #e9dbc8;
+  padding: 20px;
+  border-radius: 8px;
+}
+
+.student-card-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 20px;
 }
 
 .student-card {
-  display: flex;
-  gap: 20px;
-  padding: 15px;
-  background: white;
-  border-radius: 10px;
-  margin-top: 10px;
-  margin-bottom: 10px;
-  box-shadow: 0 0 5px rgba(0,0,0,0.05);
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, .06);
+  padding: 16px;
+  transition: transform .15s ease-in-out;
 }
 
-.profile-pic {
-  width: 100px;
-  height: 100px;
+.student-card:hover {
+  transform: translateY(-3px);
+}
+
+.student-card img {
+  display: block;
+  margin: 0 auto 12px;
+  width: 90px;
+  height: 90px;
   border-radius: 50%;
   object-fit: cover;
-} 
+}
 
-.appbody{
-  background-color: #e9dbc8;  /* Light beige */
-  padding: 6px 20px;
-  border-radius: 8px;
-  margin-top: 10px;
-  margin-bottom: 10px;
+.student-card h3 {
+  font-size: 18px;
+  color: #333;
+  text-align: center;
+}
+
+.student-card p {
+  color: #555;
+  font-size: 14px;
+}
+
+/* BUTTONS */
+.btn-row {
+  display: flex;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.view-btn {
+  background-color: #0077cc;
+  color: #fff;
+}
+
+.ping-btn {
+  background-color: #ffaa00;
+  color: #000;
+}
+
+.view-btn,
+.ping-btn {
+  flex: 1;
+  padding: 8px 0;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.view-btn:hover {
+  background-color: #005fa3;
+}
+
+.ping-btn:hover {
+  background-color: #e68a00;
+}
+
+/* RESPONSIVENESS */
+@media (max-width: 768px) {
+  .main-layout {
+    flex-direction: column;
+    margin-top: 70px;
+  }
+
+  .profile-content {
+    margin-left: 0;
+    padding: 20px;
+  }
+
+  .search-bar {
+    flex-direction: column;
+  }
+
+  .search-bar input,
+  .search-bar select,
+  .search-bar button {
+    width: 100%;
+  }
+
+  .student-card-container {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  }
 }
