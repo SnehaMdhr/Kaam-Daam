@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { use, useEffect, useState } from "react";
 import { FaBell, FaUserCircle } from "react-icons/fa";
 import logo from "../assets/image/logo.png";
 import "./headerforemployer.css";
@@ -8,6 +8,8 @@ import axios from "axios";
 const HeaderForEmployer = () => {
   const navigate = useNavigate();
   const [hasUnseen, setHasUnseen] = useState(false);
+  const [orgName, setOrgName] = useState("");
+
   const employerId = localStorage.getItem("userId");
 
   const goToProfile = () => {
@@ -16,15 +18,30 @@ const HeaderForEmployer = () => {
 
   // 🔁 Check if employer has unseen notifications
   useEffect(() => {
-    if (employerId) {
-      axios
-        .get(`http://localhost:5000/api/notifications/${employerId}`)
-        .then((res) => {
-          const unseen = res.data.some((n) => !n.is_read);
-          setHasUnseen(unseen);
-        });
+  if (employerId) {
+    // Get unread notifications
+    axios
+      .get(`http://localhost:5000/api/notifications/${employerId}`)
+      .then((res) => {
+        const unseen = res.data.some((n) => !n.is_read);
+        setHasUnseen(unseen);
+      });
+
+    // Get employer's organization name
+    axios
+  .get(`http://localhost:5000/api/users/${employerId}`)
+  .then((res) => {
+    console.log("Employer response:", res.data); // 👈 ADD THIS
+    if (res.data && res.data.username) {
+      setOrgName(res.data.username || "Your Org");
     }
-  }, [employerId]);
+  })
+  .catch((err) => {
+    console.error("Failed to load employer info", err);
+  });
+  }
+}, [employerId]);
+
 
   return (
     <nav className="topbar">
@@ -34,7 +51,7 @@ const HeaderForEmployer = () => {
           <h3>Kaam Daam</h3>
         </div>
         <div className="topbar-right">
-          <span className="org-name">Softwarica</span>
+          <span className="org-name">{orgName || "Your Org"}</span>
 
           <div
             className="notification-wrapper"
