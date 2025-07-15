@@ -48,6 +48,7 @@ const EmployerStudentList = lazy(() => import("./public/EmployerStudentList"));
 const StudentNotifications = lazy(() => import("./public/StudentNofications"));
 const EmployerNotifications = lazy(() => import("./public/EmployerNotifications"));
 const EditJob = lazy(() => import("./public/EditJob"));
+const EmployerViewStudentProfile = lazy(() => import("./public/EmployerViewStudentProfile"));
 
 function App() {
   return (
@@ -117,8 +118,7 @@ function App() {
           <Route path="/notifications" element={<StudentNotifications />} />
           <Route path="/employer/notifications" element={<EmployerNotifications />} />
           <Route path="/editjob/:id" element={<EditJob />} />
-
-          
+          <Route path="/employer/view-student/:userId" element={<EmployerViewStudentProfile />} />
          
           {/* Add more routes as needed */}
         </Routes>
