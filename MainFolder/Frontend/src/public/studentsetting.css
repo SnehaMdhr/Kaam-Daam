@@ -1,4 +1,3 @@
-
 .settings-container {
   padding: 30px;
   background-color: #ffffff;
@@ -7,35 +6,37 @@
   margin-left: 320px;
 }
 
-
 /* Main content */
 .settings-main {
- display: flex;
-  justify-content: space-between;
-  align-items: center;
-
+  display: block; /* Change to block to stack content vertically */
+  padding: 20px;
 }
 
+.settings-header {
+  margin-bottom: 20px;
+}
 
 .settings-main h1 {
   font-size: 25px;
   color: #1c355e;
 }
+
+/* Section for settings */
 .settings-section {
   background: #fff;
   padding: 20px;
-  margin: 20 0;
+  margin: 20px 0;
   border-radius: 10px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
 }
 
 .settings-section h3 {
- background-color: #e9dbc8;  /* Light beige */
+  background-color: #e9dbc8;  /* Light beige */
   padding: 6px 20px;
   border-radius: 8px;
   margin-bottom: 20px;
   font-weight: bold;
-  font-size:15px;
+  font-size: 15px;
   color: #1c355e;
 }
 
@@ -49,31 +50,26 @@
   margin-bottom: 10px;
   margin-top: 10px;
   font-weight: 500;
-  margin-left: 50px;
   color: #333;
 }
 
 input[type="text"],
 input[type="email"],
 input[type="password"] {
-  width: 90%;
+  width: 100%; /* Use full width */
   padding: 6px 12px;
   border: 1px solid #ccc;
   border-radius: 5px;
-  margin-left: 50px;
-  margin-right: 100px;
   font-size: 15px;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); /* subtle shadow */
   transition: box-shadow 0.3s ease; /* smooth hover effect */
-
 }
 
 input[type="text"]:focus,
 input[type="email"]:focus,
-input[type="password"]:focus{
+input[type="password"]:focus {
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* stronger on focus */
   outline: none; /* remove default outline */
-
 }
 
 input[type="checkbox"] {
@@ -88,8 +84,8 @@ input[type="checkbox"] {
 
 .button-wrapper {
   display: flex;
-  justify-content: flex-end;
-  margin-top: 30px; /* Optional spacing */
+  justify-content: flex-start; /* Align button left */
+  margin-top: 20px; /* Optional spacing */
 }
 
 button {
@@ -97,7 +93,6 @@ button {
   color: #fff;
   padding: 10px 20px;
   border: none;
-  margin-right: 55px;
   border-radius: 6px;
   cursor: pointer;
   font-size: 1rem;
@@ -108,7 +103,7 @@ button:hover {
 }
 
 .logout-btn {
-  background-color: #e74c3c;      /* red shade */
+  background-color: #e74c3c; /* red shade */
   color: white;
   padding: 6px 20px;
   border: none;
@@ -117,13 +112,10 @@ button:hover {
   font-weight: 500;
   cursor: pointer;
   transition: background-color 0.3s ease, transform 0.2s ease;
-  display: flex;
-  align-items: center;
-  gap: 8px;
   margin-top: 20px;
 }
 
 .logout-btn:hover {
-  background-color: #c0392b;      /* darker red on hover */
+  background-color: #c0392b; /* darker red on hover */
   transform: scale(1.03);
 }

@@ -6,8 +6,11 @@ import Sidebar from "../components/sidebarstudent";
 import jobbanner from "../assets/image/jobs.png";
 import "./studentviewjobs.css";
 
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 const StudentViewJob = () => {
-  const { id } = useParams(); // job ID from route
+  const { id } = useParams();
   const navigate = useNavigate();
   const [job, setJob] = useState(null);
   const [alreadyApplied, setAlreadyApplied] = useState(false);
@@ -21,7 +24,7 @@ const StudentViewJob = () => {
       .then((res) => setJob(res.data))
       .catch((err) => console.error("Failed to fetch job details", err));
 
-    // Check application status
+    // Check if already applied
     axios
       .get(`http://localhost:5000/api/applications/check/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
@@ -32,7 +35,7 @@ const StudentViewJob = () => {
 
   const handleApply = () => {
     if (alreadyApplied) {
-      alert("You've already applied for this job.");
+      toast.info("You've already applied for this job.");
       return;
     }
 
@@ -45,12 +48,15 @@ const StudentViewJob = () => {
         { headers: { Authorization: `Bearer ${token}` } }
       )
       .then(() => {
-        alert("Applied Successfully!");
-        navigate("/studentmyapplication");
+        toast.success("Applied successfully!");
         setAlreadyApplied(true);
+        setTimeout(() => {
+          navigate("/studentmyapplication");
+        }, 2000);
       })
       .catch((err) => {
-        alert("Failed to apply: " + err.response?.data?.error || err.message);
+        const msg = err.response?.data?.error || err.message;
+        toast.error("Failed to apply: " + msg);
       });
   };
 
@@ -65,39 +71,38 @@ const StudentViewJob = () => {
       <Header />
       <div className="job-details-container">
         <Sidebar />
+
         <nav className="breadcrumb">
-          <span
-            style={{ cursor: "pointer", color: "#007bff" }}
-            onClick={goBack}
-          >
+          <span style={{ cursor: "pointer", color: "#007bff" }} onClick={goBack}>
             Browse
           </span>{" "}
           / Job Details
         </nav>
-        <div className='header-container'>
-        <h1>Job Details</h1>
-      </div>
-      <div className="content">
-        <h1 className="job-title">{job.title}</h1>
-        <p className="posted-by">Posted by {job.company_name}</p>
 
-        <img className="job-banner" src={jobbanner} alt="Job Banner" />
+        <div className="header-container">
+          <h1>Job Details</h1>
+        </div>
 
-        <div className='bar'>
+        <div className="content">
+          <h1 className="job-title">{job.title}</h1>
+          <p className="posted-by">Posted by {job.company_name}</p>
 
-              <h3>Job Overview</h3>
-              </div>
+          <img className="job-banner" src={jobbanner} alt="Job Banner" />
+
+          <div className="bar">
+            <h3>Job Overview</h3>
+          </div>
           <p>
             <strong>Status:</strong> {job.status}
           </p>
-           <p>
+          <p>
             <strong>Posted on:</strong>{" "}
             {new Date(job.posted_date).toLocaleDateString()}
           </p>
-          <div className='bar'>
 
-              <h3>Job Details</h3>
-              </div>
+          <div className="bar">
+            <h3>Job Details</h3>
+          </div>
           <p>
             <strong>Address:</strong> {job.address}
           </p>
@@ -107,29 +112,33 @@ const StudentViewJob = () => {
           <p>
             <strong>People Required:</strong> {job.people_required}
           </p>
-          <div className='bar'>
 
-              <h3>Work Schedule</h3>
-              </div>
+          <div className="bar">
+            <h3>Work Schedule</h3>
+          </div>
           <p>
             <strong>Work Schedule:</strong> {job.work_schedule}
           </p>
           <p>
             <strong>Shift Timing:</strong> {job.shift_timing}
           </p>
-        <div className="apply-button-wrapper">
-          {!alreadyApplied ? (
-            <button className="apply-button" onClick={handleApply}>
-              Apply Now
-            </button>
-          ) : (
-            <button className="apply-button" disabled>
-              Already Applied
-            </button>
-          )}
+
+          <div className="apply-button-wrapper">
+            {!alreadyApplied ? (
+              <button className="apply-button" onClick={handleApply}>
+                Apply Now
+              </button>
+            ) : (
+              <button className="apply-button" disabled>
+                Already Applied
+              </button>
+            )}
+          </div>
         </div>
       </div>
-    </div>
+
+      {/* Toast feedback UI */}
+      <ToastContainer position="top-right" autoClose={3000} />
     </div>
   );
 };

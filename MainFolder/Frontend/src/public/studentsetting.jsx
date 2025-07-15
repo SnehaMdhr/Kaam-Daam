@@ -29,17 +29,33 @@ const StudentSetting = () => {
 
   /* ──────────────────────────────── */
   const handleChange = (e) => {
-    setUser((prev) => ({
-      ...prev,
-      [e.target.name]: e.target.value,
-    }));
+    const { name, value } = e.target;
+
+    // If the field is 'phone', validate the length to ensure it's 10 digits.
+    if (name === "phone" && value.length <= 10 && /^\d*$/.test(value)) {
+      setUser((prev) => ({
+        ...prev,
+        [name]: value,
+      }));
+    } else if (name !== "phone") {
+      setUser((prev) => ({
+        ...prev,
+        [name]: value,
+      }));
+    }
   };
 
   const handleUpdate = () => {
+    // Remove skills from the user object if it's not part of the form
+    const { skills, ...updatedUser } = user; // Exclude `skills` from the object
+
     axios
-      .put(`http://localhost:5000/api/users/${userId}`, user)
+      .put(`http://localhost:5000/api/users/${userId}`, updatedUser)
       .then(() => alert("Settings updated!"))
-      .catch((err) => console.error("Update failed", err));
+      .catch((err) => {
+        console.error("Update failed", err);
+        alert("Failed to update settings. Please try again.");
+      });
   };
 
   /* ─────────────  NEW  ──────────── */
@@ -60,11 +76,10 @@ const StudentSetting = () => {
           {/* top bar with title + logout */}
           <div className="settings-header">
             <h1>Settings</h1>
-            </div>
-            <button className="logout-btn" onClick={handleLogout}>
-              Log&nbsp;Out
-            </button>
           </div>
+          <button className="logout-btn" onClick={handleLogout}>
+            Log&nbsp;Out
+          </button>
 
           {/* Account Information */}
           <section className="settings-section">
@@ -102,6 +117,7 @@ const StudentSetting = () => {
                 value={user.phone}
                 onChange={handleChange}
                 placeholder="Contact Details"
+                maxLength={10}  // Ensure max length is 10
               />
             </div>
 
@@ -117,24 +133,21 @@ const StudentSetting = () => {
             <div className="form-group">
               <label>
                 <input type="checkbox" />
-                Job Alerts: Get notified when new job opportunities matching
-                your interests are posted.
+                Job Alerts: Get notified when new job opportunities matching your interests are posted.
               </label>
             </div>
 
             <div className="form-group">
               <label>
                 <input type="checkbox" />
-                Message Notifications: Receive alerts when employers respond to
-                your applications or messages.
+                Message Notifications: Receive alerts when employers respond to your applications or messages.
               </label>
             </div>
 
             <div className="form-group">
               <label>
                 <input type="checkbox" />
-                Platform Updates: Stay informed about new features, updates, and
-                important announcements from KaamDaam.
+                Platform Updates: Stay informed about new features, updates, and important announcements from KaamDaam.
               </label>
             </div>
 
@@ -144,7 +157,7 @@ const StudentSetting = () => {
           </section>
         </div>
       </div>
-
+    </div>
   );
 };
 

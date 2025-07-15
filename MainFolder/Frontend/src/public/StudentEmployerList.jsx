@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Header from "../components/headerforstudent";
+import Sidebar from "../components/sidebarstudent";
+import "./studentemployerlist.css"; // Optional for custom styles
 
 const StudentEmployerList = () => {
   const navigate = useNavigate();
@@ -49,38 +52,30 @@ const StudentEmployerList = () => {
   };
 
   return (
-    <div style={{ padding: "20px" }}>
-      <h2 style={{ marginBottom: "15px" }}>Select an Employer to Chat</h2>
+    <div>
+      <Header />
+      <div className="student-employer-container">
+        <Sidebar />
+        <div className="employer-list-content">
+          <h2>Select an Employer to Chat</h2>
 
-      {employers.length === 0 ? (
-        <div>No employers found who hired you.</div>
-      ) : (
-        <ul style={{ listStyle: "none", padding: 0 }}>
-          {employers.map((employer) => (
-            <li
-              key={employer.id}
-              onClick={() => goToChat(employer.id)}
-              style={{
-                border: "1px solid #ccc",
-                padding: "12px",
-                marginBottom: "10px",
-                borderRadius: "6px",
-                cursor: "pointer",
-                backgroundColor: "#f9f9f9",
-                transition: "background-color 0.3s ease",
-              }}
-              onMouseOver={(e) =>
-                (e.currentTarget.style.backgroundColor = "#e6f7ff")
-              }
-              onMouseOut={(e) =>
-                (e.currentTarget.style.backgroundColor = "#f9f9f9")
-              }
-            >
-              <strong>{employer.username}</strong> — {employer.email}
-            </li>
-          ))}
-        </ul>
-      )}
+          {employers.length === 0 ? (
+            <div>No employers found who hired you.</div>
+          ) : (
+            <ul className="employer-list">
+              {employers.map((employer) => (
+                <li
+                  key={employer.id}
+                  onClick={() => goToChat(employer.id)}
+                  className="employer-card"
+                >
+                  <strong>{employer.username}</strong> — {employer.email}
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
+      </div>
     </div>
   );
 };

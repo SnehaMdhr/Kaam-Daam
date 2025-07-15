@@ -1,0 +1,68 @@
+/* Container for the whole page with sidebar */
+.student-employer-container {
+  display: flex;
+  width: 100%; /* Ensure it takes full width of the page */
+  padding-left: 250px; /* Sidebar width */
+}
+
+.employer-list-content {
+  padding: 30px;
+  flex-grow: 1; /* Ensures content takes the remaining space */
+  background-color: #f9f9f9;
+  min-height: 100vh;
+  overflow-x: hidden; /* Prevent horizontal overflow */
+  padding-top: 20px; /* Space for header */
+}
+
+/* Ensure the sidebar has a fixed width */
+.sidebar {
+  width: 250px; /* Ensure the sidebar has a fixed width */
+  position: fixed; /* Fix it to the left */
+  top: 0;
+  left: 0;
+  bottom: 0;
+  background-color: #fff;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1); /* Optional shadow */
+  z-index: 10;
+}
+
+/* Employer list styles */
+.employer-list-content h2 {
+  margin-bottom: 20px;
+  color: #1c355e;
+}
+
+.employer-list {
+  list-style: none;
+  padding: 0;
+}
+
+.employer-card {
+  border: 1px solid #ccc;
+  padding: 12px;
+  margin-bottom: 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  background-color: #fff;
+  transition: background-color 0.3s ease;
+}
+
+.employer-card:hover {
+  background-color: #e6f7ff;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .student-employer-container {
+    padding-left: 0; /* Adjust for smaller screens */
+  }
+
+  .sidebar {
+    width: 200px; /* Adjust sidebar width for mobile */
+  }
+
+  .employer-list-content {
+    padding-left: 10px; /* Add padding to content */
+    padding-right: 10px; /* Add padding to content */
+  }
+}
