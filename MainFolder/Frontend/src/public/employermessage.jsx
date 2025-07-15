@@ -115,7 +115,8 @@ const EmployerMessage = () => {
         </div>
 
         <div className="chat-box">
-          <h1>{studentInfo?.username}</h1>
+          <div className="chat-header">
+          <h1>{studentInfo?.username}</h1></div>
           <div className="messages">
             {messages.map((msg, index) => (
               <div
