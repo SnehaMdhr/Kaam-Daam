@@ -137,7 +137,7 @@ const Register = () => {
         </p>
 
         <div className="social-auth">
-          <a href="http://localhost:5000/auth/google"><FaGoogle /></a>
+          <a href="http://localhost:5000/api/auth/google"><FaGoogle /></a>
           <a href="#"><FaFacebook /></a>
         </div>
       </div>

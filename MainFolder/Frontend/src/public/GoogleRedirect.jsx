@@ -2,34 +2,55 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 const GoogleRedirect = () => {
-    const navigate = useNavigate();
+  const navigate = useNavigate();
 
-    useEffect(() => {
-  const token = new URLSearchParams(window.location.search).get("token");
-  if (token) {
-    localStorage.setItem("token", token);
+  useEffect(() => {
+    const token = new URLSearchParams(window.location.search).get("token");
 
-    fetch("http://localhost:5000/api/auth/me", {
-      headers: {
-        Authorization: `Bearer ${token}`
-      }
-    })
-      .then(res => res.json())
-      .then(data => {
-        if (!data.user.role) {
-          navigate("/role-selection");
-        } else {
-          localStorage.setItem("role", data.user.role);
-          navigate(`/${data.user.role}_dashboard`);
-        }
-      });
+    if (token) {
+      // Store the token in localStorage
+      localStorage.setItem("token", token);
+
+      // Fetch the user data using the token to get the userId
+      fetch("http://localhost:5000/api/auth/me", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+        .then((res) => res.json())
+        .then((data) => {
+  if (!data.userId) {
+    navigate("/role-selection");
   } else {
-    alert("Login failed");
-    navigate("/login");
-  }
-}, []);
+    // Save userId in localStorage after successful login
+    localStorage.setItem("userId", data.userId);
 
-    return <p>Redirecting...</p>;
+    // If the user already has a role, navigate to the dashboard
+    if (data.role) {
+  localStorage.setItem("role", data.role);
+
+  if (data.role === "job_seeker") {
+    navigate("/studentdashboard");
+  } else if (data.role === "recruiter") {
+    navigate("/employerdashboard");
+  } else {
+    navigate("/role-selection");
+  }
+}
+  }
+})
+
+        .catch(() => {
+          alert("Login failed");
+          navigate("/login");
+        });
+    } else {
+      alert("Login failed");
+      navigate("/login");
+    }
+  }, []);
+
+  return <p>Redirecting...</p>;
 };
 
 export default GoogleRedirect;

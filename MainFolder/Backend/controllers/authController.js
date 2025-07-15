@@ -13,6 +13,42 @@ const transporter = nodemailer.createTransport({
     }
 });
 
+const handleGoogleCallback = async (req, res) => {
+  try {
+    if (!req.user) {
+      return res.status(401).send("Google login failed or no user.");
+    }
+
+    const email = req.user.email;
+    const user = await pool.query('SELECT * FROM users WHERE email = $1', [email]);
+
+    let redirectUrl;
+    let token;
+
+    if (user.rows.length > 0) {
+      const existingUser = user.rows[0];
+      // Generate token for the existing user
+      token = jwt.sign({ id: existingUser.id, role: existingUser.role }, process.env.JWT_SECRET, { expiresIn: '1d' });
+      redirectUrl = `http://localhost:5173/google-redirect?token=${token}`;
+    } else {
+      // Create a new user if none exists
+      const newUser = await pool.query(
+        'INSERT INTO users (username, email) VALUES ($1, $2) RETURNING *',
+        [req.user.displayName, req.user.email]
+      );
+
+      token = jwt.sign({ id: newUser.rows[0].id }, process.env.JWT_SECRET, { expiresIn: '1d' });
+      redirectUrl = `http://localhost:5173/google-redirect?token=${token}`;
+    }
+
+    // Redirect with token
+    res.redirect(redirectUrl);
+  } catch (err) {
+    console.error("Error during Google login callback:", err);
+    res.status(500).json({ message: "Server error", error: err.message });
+  }
+};
+
 // 🔍 SEARCH students by name or skills or skill_level
 const searchStudents = async (req, res) => {
   try {
@@ -126,7 +162,6 @@ const updateEmployerProfile = async (req, res) => {
 };
 
 // Update user profile
-// Update user profile
 const updateUserProfile = async (req, res) => {
   const userId = req.params.id;
   const {
@@ -216,28 +251,35 @@ const getUserProfile = async (req, res) => {
     }
 };
 
-// GET current user info
+// Get current user info
 const getMe = async (req, res) => {
     try {
+        // Ensure the user is authenticated and has an id
+        if (!req.params || !req.user.id) {
+            return res.status(401).json({ message: 'Unauthorized' });
+        }
+
         const result = await pool.query(
             'SELECT id, username, email, role FROM users WHERE id = $1',
             [req.user.id]
         );
 
-        if (result.rows.length === 0)
+        if (result.rows.length === 0) {
             return res.status(404).json({ message: 'User not found' });
+        }
 
-res.json(result.rows[0]);
+        res.json(result.rows[0]);
     } catch (err) {
         console.error('Error fetching user info:', err);
         res.status(500).json({ message: 'Server error' });
     }
 };
 
+
 // UPDATE user role
 const updateRole = async (req, res) => {
     const { role } = req.body;
-    const userId = req.user.id;
+    const userId = req.user.id; // Access userId from the decoded JWT in req.user
 
     if (!role || (role !== 'job_seeker' && role !== 'recruiter'))
         return res.status(400).json({ message: 'Invalid role selected' });
@@ -245,7 +287,7 @@ const updateRole = async (req, res) => {
     try {
         const result = await pool.query(
             'UPDATE users SET role = $1 WHERE id = $2 RETURNING *',
-            [role, userId]
+            [role, userId] // Use the userId from req.user
         );
 
         if (result.rows.length > 0) {
@@ -258,6 +300,7 @@ const updateRole = async (req, res) => {
         return res.status(500).json({ message: 'Server error' });
     }
 };
+
 
 // REGISTER new user
 const register = async (req, res) => {
@@ -398,5 +441,6 @@ module.exports = {
     updateUserProfile,
     getEmployerProfile,
     updateEmployerProfile,
-    searchStudents
+    searchStudents,
+    handleGoogleCallback
 };
