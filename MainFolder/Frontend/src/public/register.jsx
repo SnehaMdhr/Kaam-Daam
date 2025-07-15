@@ -3,6 +3,8 @@ import "./Register.css";
 import { FaGoogle, FaFacebook } from "react-icons/fa";
 import registered from "../assets/image/register.png";
 import logo from "../assets/image/logo.png";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Register = () => {
   const [username, setUsername] = useState('');
@@ -16,26 +18,32 @@ const Register = () => {
 
     // Validate phone number length
     if (phone.length !== 10) {
-      alert("Phone number must be exactly 10 digits.");
+      toast.error("Phone number must be exactly 10 digits.");
       return;
     }
 
-    const response = await fetch('http://localhost:5000/api/auth/register', {
-      method: 'POST',
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({ username, email, phone, role, password })
-    });
+    try {
+      const response = await fetch('http://localhost:5000/api/auth/register', {
+        method: 'POST',
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ username, email, phone, role, password })
+      });
 
-    const data = await response.json();
-    console.log(data);
+      const data = await response.json();
+      console.log(data);
 
-    if (response.ok) {
-      alert("Registration Successful! Redirecting to login page...");
-      window.location.href = "/login";
-    } else {
-      alert(data.message || "Registration failed. Please try again.");
+      if (response.ok) {
+        toast.success("Registration Successful! Redirecting...");
+        setTimeout(() => {
+          window.location.href = "/login";
+        }, 2000);
+      } else {
+        toast.error(data.message || "Registration failed. Please try again.");
+      }
+    } catch (err) {
+      toast.error("Something went wrong. Please try again.");
     }
   };
 
@@ -48,9 +56,7 @@ const Register = () => {
         </div>
 
         <h2>Register to Kaam Daam</h2>
-        <p className="subtitle">
-          Start your first career job now.
-        </p>
+        <p className="subtitle">Start your first career job now.</p>
 
         <form onSubmit={handleSubmit} className="register-form">
           <label htmlFor="name">Name</label>
@@ -139,6 +145,9 @@ const Register = () => {
       <div className="register-right">
         <img src={registered} alt="Registration Illustration" />
       </div>
+
+      {/* ✅ Toast container for success/failure messages */}
+      <ToastContainer position="top-right" autoClose={3000} />
     </div>
   );
 };

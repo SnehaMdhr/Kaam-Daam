@@ -1,7 +1,9 @@
-import { React, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Header from "../components/headerforstudent";
 import Sidebar from "../components/sidebarstudent";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css"; // Import toast styles
 import "./studentprofile.css";
 
 const studentprofile = () => {
@@ -37,7 +39,10 @@ const studentprofile = () => {
             experience_level: fetchedUser.experience_level || "",
           }));
         })
-        .catch((err) => console.error("Failed to load profile", err));
+        .catch((err) => {
+          console.error("Failed to load profile", err);
+          toast.error("Failed to load profile. Please try again.");
+        });
     }
   }, [userId]);
 
@@ -68,7 +73,7 @@ const studentprofile = () => {
     e.preventDefault();
 
     if (user.phone.length !== 10) {
-      alert("Phone number must be exactly 10 digits.");
+      toast.error("Phone number must be exactly 10 digits.");
       return;
     }
 
@@ -93,9 +98,10 @@ const studentprofile = () => {
           "Content-Type": "multipart/form-data",
         },
       });
-      alert("Profile updated!");
+      toast.success("Profile updated successfully!");
     } catch (err) {
       console.error("Update failed", err);
+      toast.error("Failed to update profile. Please try again.");
     }
   };
 
@@ -108,9 +114,8 @@ const studentprofile = () => {
 
         <form className="student-profile-form" onSubmit={handleUpdate}>
           <div className='bar'>
-
-              <h3>Profile Picture</h3>
-              </div>
+            <h3>Profile Picture</h3>
+          </div>
           <label>Upload Photo</label>
           <input
             type="file"
@@ -134,9 +139,8 @@ const studentprofile = () => {
           )}
 
           <div className='bar'>
-
-              <h3>Profile Overview</h3>
-              </div>
+            <h3>Profile Overview</h3>
+          </div>
 
           <label>Full Name</label>
           <input type="text" name="username" value={user.username} onChange={handleChange} />
@@ -162,9 +166,8 @@ const studentprofile = () => {
           />
 
           <div className='bar'>
-
-              <h3>Academic Background</h3>
-              </div>
+            <h3>Academic Background</h3>
+          </div>
 
           <label>Course / Program</label>
           <input type="text" name="course" value={user.course} onChange={handleChange} />
@@ -173,9 +176,8 @@ const studentprofile = () => {
           <input type="text" name="institution" value={user.institution} onChange={handleChange} />
 
           <div className='bar'>
-
-              <h3>Skills and Experiences</h3>
-              </div>
+            <h3>Skills and Experiences</h3>
+          </div>
           <label>Experience Level</label>
           <select
             name="experience_level"
@@ -189,7 +191,7 @@ const studentprofile = () => {
 
           <label>Skills</label>
           {user.skills.map((skill, index) => (
-            <div className="skill-select-container"key={index} style={{ display: "flex", gap: "10px", marginBottom: "10px" }}>
+            <div className="skill-select-container" key={index} style={{ display: "flex", gap: "10px", marginBottom: "10px" }}>
               <select
                 value={skill.name}
                 onChange={(e) => handleSkillChange(index, "name", e.target.value)}
@@ -214,15 +216,14 @@ const studentprofile = () => {
           ))}
 
           <div className="button-wrapper">
-          <button type="button" onClick={addSkillField}>
-            + Add Skill
-          </button>
-          </div> 
+            <button type="button" onClick={addSkillField}>
+              + Add Skill
+            </button>
+          </div>
 
           <div className='bar'>
-
-              <h3>Links</h3>
-              </div>
+            <h3>Links</h3>
+          </div>
 
           <label>LinkedIn Profile</label>
           <input type="url" name="linkedin" value={user.linkedin} onChange={handleChange} />
@@ -231,15 +232,19 @@ const studentprofile = () => {
           <input type="url" name="portfolio" value={user.portfolio} onChange={handleChange} />
 
           <div className='bar'>
-
-              <h3>Bio</h3>
-              </div>
+            <h3>Bio</h3>
+          </div>
 
           <label>Short Bio</label>
           <textarea name="bio" value={user.bio} onChange={handleChange}></textarea>
+
           <div className="button-wrapper">
-          <button type="submit">Update Profile</button></div>
+            <button type="submit">Update Profile</button>
+          </div>
         </form>
+
+        {/* Toast Notifications */}
+        <ToastContainer />
       </div>
     </div>
   );

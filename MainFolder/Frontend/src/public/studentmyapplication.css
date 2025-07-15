@@ -7,6 +7,31 @@
    
 }
 
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.page-button {
+  border: 1px solid #ccc;
+  padding: 5px 10px;
+  margin: 0 5px;
+  cursor: pointer;
+  background-color: #f9f9f9;
+  transition: background-color 0.3s ease;
+}
+
+.page-button.active {
+  background-color: #1f4a5c;
+  color: white;
+}
+
+.page-button:hover {
+  background-color: #e6f7ff;
+}
+
+
 .apphead {
   display: flex;
   justify-content: space-between;
