@@ -26,7 +26,9 @@ const Employerdashboard = () => {
               <FaSearch />
               <input type="text" placeholder="Search..." />
             </div>
-            <button className="find-btn"><Link to="/findemployees">Find Employee</Link></button>
+            <Link to="/findemployees" className="button-link">Find Employee</Link>
+
+
           </div>
 
           <div className="dashboard-body">
@@ -80,15 +82,7 @@ const Employerdashboard = () => {
                   </ul>
                 </div>
 
-                {/* Reminders Card */}
-                <div className="reminders-card">
-                  <h4>Reminders</h4>
-                  <ul>
-                    <li><FaRegClock /> Interview with Ethan Harper</li>
-                    <li><FaRegClock /> Review 5 new applications</li>
-                    <li><FaRegFileAlt /> Job Posting: Junior Developer</li>
-                  </ul>
-                </div>
+               
               </div>
             </div>
 
