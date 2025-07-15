@@ -5,6 +5,8 @@ import { FaSearch, FaRegClock, FaRegFileAlt } from 'react-icons/fa';
 import studentImg from '../assets/image/kimti.png'; 
 import { Link } from 'react-router-dom';
 import './studentdashboard.css'; // Assuming you have some styles for this component
+import AppliedJobs from "../assets/image/applied jobs.png";
+import RecommendJobs from "../assets/image/recommend jobs.png";
 const studentdashboard = () => {
   return (
     <div>
@@ -40,7 +42,7 @@ const studentdashboard = () => {
               {/* Quick Access Cards */}
               <div className="category-boxes">
                 <div className="job-card">
-                  <FaRegFileAlt size={30} />
+                  <img src={AppliedJobs} alt="student" className="profile-img" />
                   <p>Applied Jobs</p>
                 </div>
                 <div className="job-card">
@@ -48,7 +50,7 @@ const studentdashboard = () => {
                   <p>Saved Jobs</p>
                 </div>
                 <div className="job-card">
-                  <FaSearch size={30} />
+                  <img src={RecommendJobs} alt="student" className="profile-img" />
                   <p>Job Recommendations</p>
                 </div>
               </div>
