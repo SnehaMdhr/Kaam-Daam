@@ -35,9 +35,9 @@ const GoogleRedirect = () => {
                 navigate("/studentdashboard");
               } else if (data.role === "recruiter") {
                 navigate("/employerdashboard");
-              } else {
-                navigate("/role-selection");
               }
+            } else {
+              navigate("/role-selection");
             }
           }
         })
