@@ -15,48 +15,61 @@ const EmployerMessage = () => {
   const [messages, setMessages] = useState([]);
   const [newMsg, setNewMsg] = useState("");
   const [studentInfo, setStudentInfo] = useState(null);
+  const [fetchedMessages, setFetchedMessages] = useState(false); // To track if messages are already fetched
 
   useEffect(() => {
     if (!employerId || !token) return;
 
-    // ✅ Fetch chat messages
-    axios
-      .get(`http://localhost:5000/api/messages/${employerId}/${studentId}`, {
-        headers: { Authorization: `Bearer ${token}` },
-      })
-      .then((res) => setMessages(res.data))
-      .catch((err) => {
-        console.error("Error fetching messages:", err.response?.data || err);
-      });
-
-    // ✅ Fetch student info
-    axios
-      .get(`http://localhost:5000/api/users/${studentId}`, {
-        headers: { Authorization: `Bearer ${token}` },
-      })
-      .then((res) => setStudentInfo(res.data))
-      .catch((err) => {
-        console.error(
-          "Error fetching student info:",
-          err.response?.data || err
+    const fetchData = async () => {
+      try {
+        // Fetch chat messages
+        const response = await axios.get(
+          `http://localhost:5000/api/messages/${employerId}/${studentId}`,
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
         );
-      });
-  }, [studentId, employerId, token]);
+        setMessages(Array.isArray(response.data) ? response.data : []);
+        setFetchedMessages(true); // Set flag to true after fetching messages
+      } catch (error) {
+        console.error("Error fetching messages:", error);
+      }
 
-  useEffect(() => {
-    socket.on("receive_message", (data) => {
+      try {
+        // Fetch student info
+        const res = await axios.get(
+          `http://localhost:5000/api/users/${studentId}`,
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        );
+        setStudentInfo(res.data);
+      } catch (err) {
+        console.error("Error fetching student info:", err);
+      }
+    };
+
+    if (!fetchedMessages) {
+      fetchData();
+    }
+
+    // Listen for socket messages
+    socket.on("receive_message", (message) => {
+      // Avoid adding duplicate messages
       if (
-        (data.sender_id === Number(employerId) &&
-          data.receiver_id === Number(studentId)) ||
-        (data.sender_id === Number(studentId) &&
-          data.receiver_id === Number(employerId))
+        !messages.some(
+          (msg) =>
+            msg.sender_id === message.sender_id &&
+            msg.receiver_id === message.receiver_id &&
+            msg.content === message.content
+        )
       ) {
-        setMessages((prev) => [...prev, data]);
+        setMessages((prev) => [...prev, message]);
       }
     });
 
     return () => socket.off("receive_message");
-  }, [studentId, employerId]);
+  }, [studentId, employerId, token, messages, fetchedMessages]);
 
   const sendMessage = () => {
     if (!newMsg.trim()) return;
@@ -67,6 +80,7 @@ const EmployerMessage = () => {
       content: newMsg,
     };
 
+    // Emit message to socket server
     socket.emit("send_message", messageData);
 
     // Optional: save to DB
@@ -86,7 +100,6 @@ const EmployerMessage = () => {
       <HeaderForEmployer />
       <div className="chat-container">
         <Sidebar />
-
         <div className="sidebar1">
           <h1>Messages</h1>
           <ul>
