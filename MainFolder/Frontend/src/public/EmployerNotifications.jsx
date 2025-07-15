@@ -31,6 +31,8 @@ const EmployerNotifications = () => {
       <Sidebar />
       <div className="notification-main">
         <h1>Notifications</h1>
+        </div>
+        <div className="notification-content">
         {notifications.length === 0 ? (
           <p>No notifications yet.</p>
         ) : (
@@ -43,9 +45,9 @@ const EmployerNotifications = () => {
             ))}
           </ul>
         )}
+        </div>
       </div>
     </div>
-  </div>
 );
 };
 

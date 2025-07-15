@@ -1,6 +1,9 @@
 // pages/EditJob.js
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import "./editjobs.css"
+import Header from "../components/headerforemployer";
+import Sidebar from "../components/sidebar";
 
 const EditJob = () => {
   const { id } = useParams();
@@ -53,32 +56,60 @@ const EditJob = () => {
   };
 
   return (
+    <div>
+      <Header />
+      <div className="edit-job-container">
     <div className="edit-job-form">
-      <h2>Edit Job</h2>
-      <form onSubmit={handleSubmit}>
-        <label>Title:
+      <Sidebar/>
+      <h1>Edit Job</h1>
+      </div>
+      <div className="profile-section">
+      <form className="form-update" onSubmit={handleSubmit}>
+        <div className='bar'>
+
+              <h3>Job Details</h3>
+              </div>
+        <label>Title:</label>
           <input type="text" name="title" value={job.title} onChange={handleChange} />
-        </label>
-        <label>Description:
+        
+        <label>Description:</label>
           <textarea name="description" value={job.description} onChange={handleChange} />
-        </label>
-        <label>Address:
-          <input type="text" name="address" value={job.address} onChange={handleChange} />
-        </label>
-        <label>People Required:
+
+          <label>People Required:</label>
           <input type="number" name="people_required" value={job.people_required} onChange={handleChange} />
-        </label>
-        <label>Work Schedule:
+        
+          <div className='bar'>
+
+              <h3>Location</h3>
+              </div>
+        <label>Address:</label>
+          <input type="text" name="address" value={job.address} onChange={handleChange} />
+
+          <div className='bar'>
+
+              <h3>Schedule and Timing</h3>
+              </div>
+        
+        <label>Work Schedule:</label>
           <input type="text" name="work_schedule" value={job.work_schedule} onChange={handleChange} />
-        </label>
-        <label>Shift Timing:
+        
+        <label>Shift Timing:</label>
           <input type="text" name="shift_timing" value={job.shift_timing} onChange={handleChange} />
-        </label>
-        <label>Status:
+      
+
+        <div className='bar'>
+
+              <h3>Job Status</h3>
+              </div>
+        <label>Status:</label>
           <input type="text" name="status" value={job.status} onChange={handleChange} />
-        </label>
-        <button type="submit">Update Job</button>
+        
+        <div className="button-wrapper">
+                <button type="submit">Update Job</button>
+              </div>
       </form>
+      </div>
+    </div>
     </div>
   );
 };

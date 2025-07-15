@@ -61,7 +61,7 @@ const EmployerStudentList = () => {
       <div className="header">
       <h1>Select a Student to Chat</h1>
       </div>
-      
+      <div className="student-list-container">
       {students.length === 0 ? (
         <div className="student-list">No students found who were hired.</div>
       ) : (
@@ -82,6 +82,7 @@ const EmployerStudentList = () => {
           ))}
         </ul>
       )}
+      </div>
     </div>
     </div>
   );

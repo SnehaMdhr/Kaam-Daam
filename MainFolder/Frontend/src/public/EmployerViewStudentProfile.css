@@ -1,86 +1,97 @@
-/* General Styles */
-body {
-  font-family: 'Segoe UI', sans-serif;
-  background-color: #f5f5f5;
-  margin: 0;
-  padding: 0;
-}
 
 .profile-container {
   padding: 30px;
   background-color: #ffffff;
   border-radius: 8px;
+  font-family: 'Segoe UI', sans-serif;
   margin-left: 320px;
 }
 
-.profile-content {
-  padding: 20px;
-}
-
 .profile-content h1 {
-  font-size: 28px;
-  color: #1c355e;
-  margin-bottom: 20px;
+  font-size: 25px;
+  color:#1c355e;
 }
-
-.profile-picture {
-  width: 150px;
-  height: 150px;
-  border-radius: 50%;
-  object-fit: cover;
-  margin-bottom: 20px;
-}
-
-.profile-content h3 {
-  font-size: 22px;
-  color: #1c355e;
-  margin-top: 20px;
-  margin-bottom: 10px;
-}
-
 .profile-content p {
-  font-size: 16px;
-  color: #333;
-  margin-bottom: 10px;
+  margin: 10px 0;
+  font-size: 15px;
+  color: #2c3e50;
+}
+
+.profile-container p {
+  margin-left: 50px;
+}
+
+.profile-content strong {
+  color: #222;
 }
 
 .profile-content a {
-  color: #0077cc;
+  color: #2c3e50;
   text-decoration: none;
+  word-break: break-all;
 }
 
 .profile-content a:hover {
   text-decoration: underline;
 }
 
-/* Review Box Styles */
+.profile-picture {
+  display: block;
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 50%;
+  margin: 0 auto 20px auto;
+  display: flex;
+  align-items: left;
+  justify-content: left;
+  margin-left: 50px;
+}
+
+.reviews-section{
+  margin-left: 50px;
+}
 .review-box {
-  background-color: #f9f9f9;
+  border: 1px solid #ddd;
   padding: 12px;
-  border-radius: 8px;
-  margin-top: 15px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border-radius: 6px;
+  margin-bottom: 12px;
+  background-color: #f9f9f9;
 }
 
 .review-box strong {
-  font-size: 18px;
+  font-size: 16px;
   color: #333;
 }
 
-.review-box p {
-  font-size: 14px;
-  color: #555;
+.skills-section{
+  margin-left: 50px;
 }
 
-.review-box em {
-  font-style: italic;
-  color: #ff9900;
+
+.skills-section ul {
+  padding-left: 20px;
 }
 
+.skills-section li {
+  margin-bottom: 6px;
+}
+
+
+ .bar{
+    background-color: #e9dbc8;  /* Light beige */
+  padding: 6px 20px;
+  border-radius: 8px;
+  margin-top: 30px;
+  margin-bottom: 20px;
+  font-weight: bold;
+  font-size: 15px;
+  color: #1c355e;
+  } 
 /* Button Styles */
 .back-button {
   padding: 10px 20px;
-  background-color: #0077cc;
+  background-color: #1c355e;
   color: #fff;
   border: none;
   border-radius: 6px;
@@ -90,42 +101,5 @@ body {
 }
 
 .back-button:hover {
-  background-color: #005fa3;
-}
-
-/* Responsive Styles */
-@media (max-width: 768px) {
-  .profile-container {
-    margin-left: 0;
-  }
-
-  .profile-content h1 {
-    font-size: 24px;
-  }
-
-  .profile-content h3 {
-    font-size: 20px;
-  }
-
-  .profile-content p {
-    font-size: 14px;
-  }
-
-  .profile-content a {
-    font-size: 14px;
-  }
-
-  .profile-picture {
-    width: 120px;
-    height: 120px;
-  }
-
-  .review-box {
-    padding: 10px;
-  }
-
-  .back-button {
-    width: 100%;
-    padding: 12px;
-  }
+  background-color: #2c3e50;
 }
