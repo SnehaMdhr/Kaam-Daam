@@ -151,7 +151,8 @@ const StudentMessage = () => {
         </div>
 
         <div className="chat-box">
-          <h1>{employerInfo?.username || "Employer"}</h1>
+            <div className="chat-header">
+          <h1>{employerInfo?.username || "Employer"}</h1></div>
           <div className="messages">
             {messages.map((message, index) => (
               <div
@@ -173,6 +174,7 @@ const StudentMessage = () => {
           </div>
 
           <div className="input-box">
+            <img src="https://i.imgur.com/4M34hi2.png" alt="logo" />
             <input
               type="text"
               placeholder="Type a message..."
