@@ -38,10 +38,6 @@ const GoogleRedirect = () => {
               } else {
                 navigate("/role-selection");
               }
-            
-              }
-            } else {
-              navigate("/role-selection");
             }
           }
         })
