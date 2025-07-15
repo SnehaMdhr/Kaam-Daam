@@ -39,7 +39,7 @@ const EmployerApplicationManagement = () => {
   };
 
   const handleViewProfile = (userId) => {
-    navigate(`/studentviewprofile/${userId}`);
+    navigate(`/employer/view-student/${userId}`);
   };
 
   return (
