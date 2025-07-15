@@ -19,26 +19,28 @@ const GoogleRedirect = () => {
       })
         .then((res) => res.json())
         .then((data) => {
-  if (!data.userId) {
-    navigate("/role-selection");
-  } else {
-    // Save userId in localStorage after successful login
-    localStorage.setItem("userId", data.userId);
+          localStorage.setItem("userId", data.userId); // ✅ set it now
+          localStorage.setItem("role", data.role);
+          if (!data.userId) {
+            navigate("/role-selection");
+          } else {
+            // Save userId in localStorage after successful login
+            localStorage.setItem("userId", data.userId);
 
-    // If the user already has a role, navigate to the dashboard
-    if (data.role) {
-  localStorage.setItem("role", data.role);
+            // If the user already has a role, navigate to the dashboard
+            if (data.role) {
+              localStorage.setItem("role", data.role);
 
-  if (data.role === "job_seeker") {
-    navigate("/studentdashboard");
-  } else if (data.role === "recruiter") {
-    navigate("/employerdashboard");
-  } else {
-    navigate("/role-selection");
-  }
-}
-  }
-})
+              if (data.role === "job_seeker") {
+                navigate("/studentdashboard");
+              } else if (data.role === "recruiter") {
+                navigate("/employerdashboard");
+              } else {
+                navigate("/role-selection");
+              }
+            }
+          }
+        })
 
         .catch(() => {
           alert("Login failed");
