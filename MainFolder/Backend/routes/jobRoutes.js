@@ -8,7 +8,8 @@ const {
   getJobById,
   updateJobById,
   deleteJobById,
-  updateJob
+  updateJob,
+  incrementView
 } = require('../controllers/jobController');
 
 const { protect } = require('../middleware/authMiddleware');
@@ -24,4 +25,6 @@ router.get('/:id', getJobById);
 router.put('/:id', protect, updateJobById);
 router.delete('/:id', deleteJobById);
 router.put('/:id', protect, updateJob); // ✅ Added update route
+router.post("/increment-view/:jobId", incrementView);
+
 module.exports = router;
