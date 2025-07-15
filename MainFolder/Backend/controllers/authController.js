@@ -233,22 +233,20 @@ try {
 };
 // GET student profile
 const getUserProfile = async (req, res) => {
-    const userId = req.params.id;
-    try {
-        const result = await pool.query(
-            `SELECT id, username, email,profile_picture_url, phone, course, institution, linkedin, portfolio, bio, experience_level, skills 
-             FROM users WHERE id = $1`,
-            [userId]
-        );
+  const { id } = req.params;
 
-        if (result.rows.length === 0)
-            return res.status(404).json({ message: 'User not found' });
+  try {
+    const result = await pool.query("SELECT * FROM users WHERE id = $1", [id]);
 
-        res.json(result.rows[0]);
-    } catch (err) {
-        console.error('Error fetching profile:', err);
-        res.status(500).json({ message: 'Server error' });
+    if (result.rows.length === 0) {
+      return res.status(404).json({ error: "User not found" });
     }
+
+    res.json(result.rows[0]);
+  } catch (error) {
+    console.error("Error fetching user profile:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
 };
 
 // Get current user info

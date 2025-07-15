@@ -1,22 +1,23 @@
 import React, { useEffect, useState } from "react";
 import io from "socket.io-client";
 import "./studentmessage.css";
-import Header from "../components/headerforstudent"
-import Sidebar from "../components/sidebarstudent"
-
+import Header from "../components/headerforstudent";
+import Sidebar from "../components/sidebarstudent";
+import axios from "axios";
 
 // Socket connection
 const socket = io("http://localhost:5000");
 
 const StudentMessage = () => {
   const studentId = parseInt(localStorage.getItem("userId"));
-  const employerId = parseInt(localStorage.getItem("lastEmployerId")); // ✅ use last selected employer
+  const employerId = parseInt(localStorage.getItem("lastEmployerId"));
   const token = localStorage.getItem("token");
 
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState("");
+  const [employerInfo, setEmployerInfo] = useState(null);
+  const [jobTitle, setJobTitle] = useState("");
 
-  // Handle missing data
   if (!studentId || !employerId || !token) {
     return (
       <div style={{ padding: "20px", color: "red" }}>
@@ -26,11 +27,11 @@ const StudentMessage = () => {
     );
   }
 
-  // Fetch existing messages
   useEffect(() => {
-    const fetchMessages = async () => {
+    const fetchData = async () => {
       try {
-        const response = await fetch(
+        // ✅ Fetch messages
+        const response = await axios.get(
           `http://localhost:5000/api/messages/${studentId}/${employerId}`,
           {
             headers: {
@@ -39,23 +40,43 @@ const StudentMessage = () => {
             },
           }
         );
-        const data = await response.json();
-
-        if (Array.isArray(data)) {
-          setMessages(data);
-        } else {
-          console.error("Unexpected response format:", data);
-          setMessages([]);
-        }
+        setMessages(Array.isArray(response.data) ? response.data : []);
       } catch (error) {
         console.error("Error fetching messages:", error);
-        setMessages([]);
+      }
+
+      try {
+        // ✅ Fetch employer info
+        const res = await axios.get(
+          `http://localhost:5000/api/users/${employerId}`,
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        );
+        setEmployerInfo(res.data);
+      } catch (err) {
+        console.error("Error fetching employer info:", err);
+      }
+
+      try {
+        // ✅ Fetch job title from first job of this employer
+        const res = await axios.get(
+          `http://localhost:5000/api/jobs/employer/${employerId}`,
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        );
+        if (Array.isArray(res.data) && res.data.length > 0) {
+          setJobTitle(res.data[0].title);
+        }
+      } catch (err) {
+        console.error("Error fetching job title:", err);
       }
     };
 
-    fetchMessages();
+    fetchData();
 
-    // Listen for incoming messages
+    // ✅ Listen for socket messages
     socket.on("receive_message", (message) => {
       if (
         (message.sender_id === studentId &&
@@ -66,12 +87,9 @@ const StudentMessage = () => {
       }
     });
 
-    return () => {
-      socket.off("receive_message");
-    };
-  }, [studentId, employerId]);
+    return () => socket.off("receive_message");
+  }, [studentId, employerId, token]);
 
-  // Send a message
   const handleSendMessage = async () => {
     if (newMessage.trim()) {
       const messageData = {
@@ -80,19 +98,19 @@ const StudentMessage = () => {
         content: newMessage,
       };
 
-      // Emit to Socket.IO
       socket.emit("send_message", messageData);
 
-      // Save to DB
       try {
-        await fetch("http://localhost:5000/api/messages/send", {
-          method: "POST",
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(messageData),
-        });
+        await axios.post(
+          "http://localhost:5000/api/messages/send",
+          messageData,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+              "Content-Type": "application/json",
+            },
+          }
+        );
       } catch (err) {
         console.error("Failed to save message:", err);
       }
@@ -110,18 +128,20 @@ const StudentMessage = () => {
           <h1>Messages</h1>
           <ul>
             <li>
-              <div className="avatar">E</div>
+              <div className="avatar">{employerInfo?.username?.[0] || "E"}</div>
               <div className="user-info">
-                <strong>Employer #{employerId}</strong>
+                <strong>
+                  {employerInfo?.username || `Employer #${employerId}`}
+                </strong>
                 <br />
-                <span>Chatting</span>
+                <span>{jobTitle || "Loading job..."}</span>
               </div>
             </li>
           </ul>
         </div>
 
         <div className="chat-box">
-          <h1>Chat</h1>
+          <h1>{employerInfo?.username || "Employer"}</h1>
           <div className="messages">
             {messages.map((message, index) => (
               <div
@@ -134,7 +154,9 @@ const StudentMessage = () => {
               >
                 <div className="bubble">{message.content}</div>
                 <span className="sender">
-                  {message.sender_id === studentId ? "You" : "Employer"}
+                  {message.sender_id === studentId
+                    ? "You"
+                    : employerInfo?.username}
                 </span>
               </div>
             ))}
