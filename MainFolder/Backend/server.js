@@ -53,41 +53,6 @@ app.use(passport.session());
 const authRoutes = require('./routes/authRoutes');
 app.use('/api/auth', authRoutes);
 
-// Google routes
-app.get('/auth/google',
-    passport.authenticate('google', { scope: ['profile', 'email'] })
-);
-
-app.get('/auth/google/callback',
-    passport.authenticate('google', { failureRedirect: '/login' }),
-    async (req, res) => {
-        console.log("Google login success, user:", req.user); 
-
-        if (!req.user) {
-            return res.status(401).send("Google login failed or no user.");
-        }
-
-        const email = req.user.email;
-        const user = await pool.query('SELECT * FROM users WHERE email = $1', [email]);
-
-        if (user.rows.length > 0) {
-            const existingUser  = user.rows[0];
-            const token = jwt.sign({ id: existingUser .id }, process.env.JWT_SECRET, { expiresIn: '1d' });
-            const redirectUrl = existingUser .role ? 
-                `http://localhost:5173/${existingUser .role}_dashboard?token=${token}` : 
-                `http://localhost:5173/google-redirect?token=${token}`;
-            res.redirect(redirectUrl);
-        } else {
-            const newUser  = await pool.query(
-                'INSERT INTO users (username, email) VALUES ($1, $2) RETURNING *',
-                [req.user.displayName, req.user.email]
-            );
-
-            const token = jwt.sign({ id: newUser .rows[0].id }, process.env.JWT_SECRET, { expiresIn: '1d' });
-            res.redirect(`http://localhost:5173/google-redirect?token=${token}`);
-        }
-    }
-);
 
 // WebSocket (Socket.io) setup
 const server = http.createServer(app);

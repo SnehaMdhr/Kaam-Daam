@@ -31,8 +31,8 @@ const RoleSelection = () => {
       return;
     }
 
-    const response = await fetch("http://localhost:5000/api/auth/update-role", {
-      method: "POST",
+    const response = await fetch("http://localhost:5000/api/auth/role", {
+      method: "PUT",
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
