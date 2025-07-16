@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useParams, useNavigate } from 'react-router-dom';
-
+import "./addreview.css";
+import Header from "../components/headerforemployer";
+import Sidebar from "../components/sidebar";
 const AddReview = () => {
   const { studentId, jobId } = useParams();
   const navigate = useNavigate();
@@ -24,13 +26,20 @@ const AddReview = () => {
   };
 
   return (
-    <div className="review-form">
-      <h2>Give Review</h2>
+    <div className='review-form'>
+      <Header />
+    <div className="review">
+      <Sidebar />
+      <h1>Give Review</h1>
+      </div>
+      <div className="form-group">
       <label>Rating (1–5)</label>
       <input type="number" value={rating} min={1} max={5} onChange={e => setRating(e.target.value)} />
       <label>Comment</label>
       <textarea value={comment} onChange={e => setComment(e.target.value)} />
-      <button onClick={handleSubmit}>Submit Review</button>
+        <div className='button-wrapper'>
+      <button onClick={handleSubmit}>Submit Review</button></div>
+    </div>
     </div>
   );
 };
