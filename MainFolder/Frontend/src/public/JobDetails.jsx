@@ -1,13 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react"; 
 import { useParams, useNavigate } from "react-router-dom";
 import HeaderForEmployer from "../components/headerforemployer";
 import Sidebar from "../components/sidebar";
 import "./jobdetails.css";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const JobDetails = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [job, setJob] = useState(null);
+
   useEffect(() => {
     const fetchJob = async () => {
       try {
@@ -16,46 +19,42 @@ const JobDetails = () => {
           headers: { Authorization: `Bearer ${token}` },
         });
 
-        if (!response.ok) {
-          throw new Error("Job not found");
-        }
+        if (!response.ok) throw new Error("Job not found");
 
-        alert("Job Found");
         const data = await response.json();
-        setJob(data); // Should set the state with job data
+        setJob(data);
+
+        // Only show the success toast if the job is fetched successfully
+        toast.success("Job loaded successfully!");
+
       } catch (err) {
-        console.error("Error loading job details:", err.message); // Add this line to see the error
+        console.error("Error loading job details:", err.message);
+        toast.error("Failed to load job details");
         setJob(null);
       }
     };
 
     fetchJob();
-  }, [id]);
+  }, [id]); // Dependency array ensures this runs only once when the component is mounted
 
   const handleDelete = async () => {
-    const confirmDelete = window.confirm(
-      "Are you sure you want to delete this job?"
-    );
-    if (!confirmDelete) return;
-
+    toast.info("Deleting job...");
     try {
       const token = localStorage.getItem("token");
       const response = await fetch(`http://localhost:5000/api/jobs/${id}`, {
         method: "DELETE",
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+        headers: { Authorization: `Bearer ${token}` },
       });
 
       if (response.ok) {
-        alert("Job deleted successfully!");
-        navigate("/employerjobposting");
+        toast.success("Job deleted successfully!");
+        setTimeout(() => navigate("/employerjobposting"), 1500);
       } else {
-        alert("Failed to delete job");
+        toast.error("Failed to delete job");
       }
     } catch (err) {
       console.error(err);
-      alert("Error deleting job");
+      toast.error("Error deleting job");
     }
   };
 
@@ -67,62 +66,47 @@ const JobDetails = () => {
 
   return (
     <div>
+      <ToastContainer position="top-center" autoClose={3000} />
       <HeaderForEmployer />
       <div className="head-title">
         <Sidebar />
-        <div className='header-container'>
-        <h1>Job Details</h1>
-      </div>
+        <div className="header-container">
+          <h1>Job Details</h1>
+        </div>
         <div className="jobname">
           <h2>{job.title}</h2>
-          </div>
-          <div className='bar'>
+        </div>
+        <div className="bar">
+          <h3>Job Overview</h3>
+        </div>
+        <p><strong>Status:</strong> {job.status}</p>
+        <p><strong>Deadline:</strong> {new Date(job.deadline).toLocaleDateString()}</p>
 
-              <h3>Job Overview</h3>
-              </div>
-          <p>
-            <strong>Status:</strong> {job.status}
-          </p>
-           <p>
-            <strong>Posted on:</strong>{" "}
-            {new Date(job.posted_date).toLocaleDateString()}
-          </p>
-          <div className='bar'>
+        <div className="bar"><h3>Job Details</h3></div>
+        <p><strong>Address:</strong> {job.address}</p>
+        <p><strong>Description:</strong> {job.description}</p>
+        <p><strong>People Required:</strong> {job.people_required}</p>
 
-              <h3>Job Details</h3>
-              </div>
-          <p>
-            <strong>Address:</strong> {job.address}
-          </p>
-          <p>
-            <strong>Description:</strong> {job.description}
-          </p>
-          <p>
-            <strong>People Required:</strong> {job.people_required}
-          </p>
-          <div className='bar'>
+        <div className="bar"><h3>Work Schedule</h3></div>
+        <p><strong>Work Schedule:</strong> {job.work_schedule}</p>
+        <p><strong>Shift Timing:</strong> {job.shift_timing}</p>
 
-              <h3>Work Schedule</h3>
-              </div>
-          <p>
-            <strong>Work Schedule:</strong> {job.work_schedule}
-          </p>
-          <p>
-            <strong>Shift Timing:</strong> {job.shift_timing}
-          </p>
-         
-
-          <div className="button-group">
-            <button className="btn btn-blue" onClick={handleUpdate}>
-              Update
-            </button>
-            <button className="btn btn-red" onClick={handleDelete}>
-              Delete
-            </button>
-          </div>
+        <div className="button-group">
+          <button className="btn btn-blue" onClick={handleUpdate}>Update</button>
+          <button
+            className="btn btn-red"
+            onClick={() =>
+              toast.info("Click again to confirm delete", {
+                onClose: () => handleDelete(),
+                autoClose: 1500,
+              })
+            }
+          >
+            Delete
+          </button>
         </div>
       </div>
-  
+    </div>
   );
 };
 
