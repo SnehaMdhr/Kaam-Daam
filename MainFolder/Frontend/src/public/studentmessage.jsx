@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import io from "socket.io-client";
 import "./studentmessage.css";
 import Header from "../components/headerforstudent";
@@ -18,6 +18,8 @@ const StudentMessage = () => {
   const [employerInfo, setEmployerInfo] = useState(null);
   const [jobTitle, setJobTitle] = useState("");
   const [fetchedMessages, setFetchedMessages] = useState(false);
+
+  const bottomRef = useRef(null); // ✅ for auto scroll
 
   if (!studentId || !employerId || !token) {
     return (
@@ -80,7 +82,6 @@ const StudentMessage = () => {
       fetchData();
     }
 
-    // ⚠️ Register socket listener only once
     const handleReceive = (message) => {
       setMessages((prev) => {
         const exists = prev.some(
@@ -88,7 +89,7 @@ const StudentMessage = () => {
             msg.sender_id === message.sender_id &&
             msg.receiver_id === message.receiver_id &&
             msg.content === message.content &&
-            Math.abs(new Date(msg.timestamp) - new Date(message.timestamp)) < 2000 // optional strict check
+            Math.abs(new Date(msg.timestamp) - new Date(message.timestamp)) < 2000
         );
         return exists ? prev : [...prev, message];
       });
@@ -101,21 +102,33 @@ const StudentMessage = () => {
     };
   }, [studentId, employerId, token, fetchedMessages]);
 
+  // ✅ Auto scroll to bottom when messages update
+  useEffect(() => {
+    if (bottomRef.current) {
+      bottomRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [messages]);
+
   const handleSendMessage = () => {
     if (newMessage.trim()) {
       const messageData = {
         sender_id: studentId,
         receiver_id: employerId,
         content: newMessage,
-        timestamp: new Date().toISOString(), // ⏱️ Needed for duplication check
+        timestamp: new Date().toISOString(),
       };
 
-      // 🔁 Emit to socket (handled by backend for DB save)
       socket.emit("send_message", messageData);
-
-      // 🚫 DO NOT also send via Axios to avoid duplicate
-      setMessages((prev) => [...prev, messageData]); // Optimistic update
+      setMessages((prev) => [...prev, messageData]);
       setNewMessage("");
+    }
+  };
+
+  // ✅ Send on Enter key press
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      handleSendMessage();
     }
   };
 
@@ -163,6 +176,7 @@ const StudentMessage = () => {
                 </span>
               </div>
             ))}
+            <div ref={bottomRef}></div> {/* 👈 Anchor to scroll to */}
           </div>
 
           <div className="input-box">
@@ -172,6 +186,7 @@ const StudentMessage = () => {
               placeholder="Type a message..."
               value={newMessage}
               onChange={(e) => setNewMessage(e.target.value)}
+              onKeyDown={handleKeyDown}
             />
             <button onClick={handleSendMessage}>Send</button>
           </div>

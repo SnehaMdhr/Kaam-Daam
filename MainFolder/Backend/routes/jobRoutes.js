@@ -29,7 +29,7 @@ router.get('/employer/:employerId', async (req, res) => {
 
   try {
     const jobs = await pool.query(
-      'SELECT * FROM job_posts WHERE user_id = $1 ORDER BY posted_date DESC',
+      'SELECT * FROM job_posts WHERE user_id = $1 ORDER BY created_at DESC',
       [employerId]
     );
     res.json(jobs.rows);

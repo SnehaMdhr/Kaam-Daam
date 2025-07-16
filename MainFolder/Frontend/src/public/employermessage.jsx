@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import HeaderForEmployer from "../components/headerforemployer";
 import Sidebar from "../components/sidebar";
 import "./employermessage.css";
@@ -18,6 +18,8 @@ const EmployerMessage = () => {
   const [newMsg, setNewMsg] = useState("");
   const [studentInfo, setStudentInfo] = useState(null);
   const [fetchedMessages, setFetchedMessages] = useState(false);
+
+  const bottomRef = useRef(null); // 👈 for auto scroll
 
   useEffect(() => {
     if (!employerId || !token) return;
@@ -53,7 +55,7 @@ const EmployerMessage = () => {
       fetchData();
     }
 
-    // Listen for incoming socket messages
+    // Listen for incoming messages
     const handleReceive = (message) => {
       setMessages((prev) => {
         const exists = prev.some(
@@ -68,9 +70,15 @@ const EmployerMessage = () => {
     };
 
     socket.on("receive_message", handleReceive);
-
     return () => socket.off("receive_message", handleReceive);
   }, [studentId, employerId, token, fetchedMessages]);
+
+  // ✅ Auto scroll to bottom when messages update
+  useEffect(() => {
+    if (bottomRef.current) {
+      bottomRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [messages]);
 
   const sendMessage = () => {
     if (!newMsg.trim()) return;
@@ -82,13 +90,17 @@ const EmployerMessage = () => {
       timestamp: new Date().toISOString(),
     };
 
-    // Emit message to socket server (server saves it)
     socket.emit("send_message", messageData);
-
-    // Optimistically add message to UI
     setMessages((prev) => [...prev, messageData]);
-
     setNewMsg("");
+  };
+
+  // ✅ Send on Enter key press
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      sendMessage();
+    }
   };
 
   return (
@@ -114,6 +126,7 @@ const EmployerMessage = () => {
           <div className="chat-header">
             <h1>{studentInfo?.username}</h1>
           </div>
+
           <div className="messages">
             {messages.map((msg, index) => (
               <div
@@ -132,6 +145,7 @@ const EmployerMessage = () => {
                 </span>
               </div>
             ))}
+            <div ref={bottomRef}></div> {/* 👈 Auto scroll anchor */}
           </div>
 
           <div className="input-box">
@@ -140,6 +154,7 @@ const EmployerMessage = () => {
               type="text"
               value={newMsg}
               onChange={(e) => setNewMsg(e.target.value)}
+              onKeyDown={handleKeyDown}
               placeholder="Type a message..."
             />
             <button onClick={sendMessage}>Send</button>
