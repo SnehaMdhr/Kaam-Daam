@@ -1,7 +1,7 @@
 const pool = require('../db');
 
 const applyToJob = async (req, res) => {
-  const userId = req.user.id; // From token middleware
+  const userId = req.user.id; // Student ID from token
   const { jobId } = req.body;
 
   try {
@@ -26,14 +26,23 @@ const applyToJob = async (req, res) => {
       `SELECT user_id, title FROM job_posts WHERE id = $1`,
       [jobId]
     );
-
     const { user_id: employerId, title } = jobResult.rows[0];
 
-    // ✅ Insert notification for employer
-    const message = `A student applied for your job: "${title}".`;
+    // ✅ Get student name
+    const studentRes = await pool.query(
+      `SELECT username FROM users WHERE id = $1`,
+      [userId]  // fixed from studentId to userId
+    );
+    const studentName = studentRes.rows[0]?.username || "A student";
+
+    // ✅ Create message with name
+    const message = `${studentName} applied for your job: "${title}".`;
+
+    // ✅ Insert notification with sender_id
     await pool.query(
-      `INSERT INTO notifications (user_id, message) VALUES ($1, $2)`,
-      [employerId, message]
+      `INSERT INTO notifications (user_id, sender_id, message, is_read, created_at, type)
+       VALUES ($1, $2, $3, FALSE, NOW(), 'application')`,
+      [employerId, userId, message]
     );
 
     res.status(200).json({ message: "Applied successfully and employer notified." });
@@ -42,6 +51,7 @@ const applyToJob = async (req, res) => {
     res.status(500).json({ error: "Server error while applying" });
   }
 };
+
 
 // ✅ Employer sees all applicants to their jobs
 const getApplicationsByEmployer = async (req, res) => {
@@ -146,4 +156,28 @@ if (notifyStatuses.includes(status)) {
     res.status(500).json({ error: "Could not update application status" });
   }
 };
-module.exports = { applyToJob, getApplicationsByEmployer,getApplicationsByStudent, checkAlreadyApplied, updateApplicationStatus };
+
+
+
+// controllers/applicationController.js
+const getNewApplicants = async (req, res) => {
+  const employerId = req.params.employerId;
+
+  try {
+    const result = await pool.query(`
+      SELECT u.id, u.username, u.skills, u.experience_level
+      FROM job_applications a
+      JOIN job_posts j ON a.job_id = j.id
+      JOIN users u ON a.user_id = u.id
+      WHERE j.user_id = $1
+      ORDER BY a.applied_at DESC
+      LIMIT 3
+    `, [employerId]);
+
+    res.json(result.rows);
+  } catch (err) {
+    console.error("Failed to fetch applicants", err.message);
+    res.status(500).json({ error: "Server error" });
+  }
+};
+module.exports = { applyToJob, getApplicationsByEmployer,getApplicationsByStudent, checkAlreadyApplied, updateApplicationStatus, getNewApplicants };

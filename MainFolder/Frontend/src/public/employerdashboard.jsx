@@ -1,40 +1,101 @@
-import React from 'react';
-import './employerdashboard.css';
-import { FaSearch, FaStar, FaRegClock, FaRegFileAlt } from 'react-icons/fa';
-import girl from '../assets/image/employerdashboard.png';
-import HeaderForEmployer from '../components/headerforemployer';
-import Sidebar from '../components/sidebar';
+import React, { useEffect, useState } from "react";
+import "./employerdashboard.css";
+import { FaSearch, FaStar } from "react-icons/fa";
+import girl from "../assets/image/employerdashboard.png";
+import HeaderForEmployer from "../components/headerforemployer";
+import Sidebar from "../components/sidebar";
 import tech from "../assets/image/tech.png";
-import design from "../assets/image/design.png";    
+import design from "../assets/image/design.png";
 import writing from "../assets/image/writing.png";
 import marketing from "../assets/image/marketing.png";
 import video from "../assets/image/video.png";
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 
 const Employerdashboard = () => {
+  const [notifications, setNotifications] = useState([]);
+  const [applicants, setApplicants] = useState([]);
+  const userId = localStorage.getItem("userId");
+  const token = localStorage.getItem("token");
+
+  useEffect(() => {
+    const fetchNotifications = async () => {
+      try {
+        const res = await fetch(
+          `http://localhost:5000/api/notifications/recent/${userId}`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        const data = await res.json();
+        setNotifications(data);
+      } catch (err) {
+        console.error("Failed to fetch notifications", err);
+      }
+    };
+
+    const fetchApplicants = async () => {
+      try {
+        const res = await fetch(
+          `http://localhost:5000/api/applications/new-applicants/${userId}`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        const data = await res.json();
+        setApplicants(data);
+      } catch (err) {
+        console.error("Failed to fetch applicants", err);
+      }
+    };
+
+    fetchNotifications();
+    fetchApplicants();
+  }, [userId, token]);
+
+  const handleMarkAllAsRead = async () => {
+    try {
+      await fetch(
+        `http://localhost:5000/api/notifications/${userId}/mark-read`,
+        {
+          method: "PUT",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      const updated = notifications.map((note) => ({
+        ...note,
+        is_read: true,
+      }));
+      setNotifications(updated);
+    } catch (err) {
+      console.error("Failed to mark notifications as read", err);
+    }
+  };
+
   return (
     <div>
       <HeaderForEmployer />
-
       <div className="dashboard-container">
         <Sidebar />
 
         <div className="dashboard-content">
-          {/* Top Search Bar */}
           <div className="dashboard-header">
             <div className="search-box">
               <FaSearch />
               <input type="text" placeholder="Search..." />
             </div>
-            <Link to="/findemployees" className="button-link">Find Employee</Link>
-
-
+            <Link to="/findemployees" className="button-link">
+              Find Employee
+            </Link>
           </div>
 
           <div className="dashboard-body">
-            {/* Left Side */}
             <div className="dashboard-main">
-              {/* Profile Card */}
               <div className="profile-card">
                 <div className="profile-info">
                   <h2>Softwarica College</h2>
@@ -44,76 +105,105 @@ const Employerdashboard = () => {
                 <img src={girl} alt="student" className="profile-img" />
               </div>
 
-              {/* Category Cards */}
               <div className="category-boxes">
-                <div className="job-card">
-    <img src={tech} alt="tech" />
-    <p>Technology & IT</p>
-  </div>
-  <div className="job-card">
-    <img src={design} alt="design" />
-    <p>Design & Creativity</p>
-  </div>
-  <div className="job-card">
-    <img src={writing} alt="writing" />
-    <p>Writing & Content Creation</p>
-  </div>
-  <div className="job-card">
-    <img src={marketing} alt="marketing" />
-    <p>Digital Marketing</p>
-  </div>
-  <div className="job-card">
-    <img src={video} alt="video" />
-    <p>Video & Photography</p>
-  </div></div>
+                {[
+                  { img: tech, label: "Technology & IT" },
+                  { img: design, label: "Design & Creativity" },
+                  { img: writing, label: "Writing & Content Creation" },
+                  { img: marketing, label: "Digital Marketing" },
+                  { img: video, label: "Video & Photography" },
+                ].map(({ img, label }) => (
+                  <div className="job-card" key={label}>
+                    <img src={img} alt={label} />
+                    <p>{label}</p>
+                  </div>
+                ))}
+              </div>
 
-              {/* Ratings & Reminders Side-by-side */}
               <div className="cards-row">
-                {/* Ratings Card */}
                 <div className="ratings-card">
                   <h4>Ratings & Reviews</h4>
-                  <p className="rating"><FaStar color="#FFD700" /> 4.7 – 125 reviews</p>
+                  <p className="rating">
+                    <FaStar color="#FFD700" /> 4.7 – 125 reviews
+                  </p>
                   <ul className="stars-breakdown">
-                    <li>5 ★ <div className="bar" style={{ width: '50%' }}></div></li>
-                    <li>4 ★ <div className="bar" style={{ width: '30%' }}></div></li>
-                    <li>3 ★ <div className="bar" style={{ width: '10%' }}></div></li>
-                    <li>2 ★ <div className="bar" style={{ width: '5%' }}></div></li>
-                    <li>1 ★ <div className="bar" style={{ width: '5%' }}></div></li>
+                    <li>
+                      5 ★ <div className="bar" style={{ width: "50%" }}></div>
+                    </li>
+                    <li>
+                      4 ★ <div className="bar" style={{ width: "30%" }}></div>
+                    </li>
+                    <li>
+                      3 ★ <div className="bar" style={{ width: "10%" }}></div>
+                    </li>
+                    <li>
+                      2 ★ <div className="bar" style={{ width: "5%" }}></div>
+                    </li>
+                    <li>
+                      1 ★ <div className="bar" style={{ width: "5%" }}></div>
+                    </li>
                   </ul>
                 </div>
-
-               
               </div>
             </div>
 
-            {/* Right Sidebar */}
+            {/* RIGHT SIDEBAR */}
             <div className="dashboard-sidebar">
               <h3>Notifications</h3>
-              <p><strong>New Application:</strong> Owen Bennett</p>
-              <p><strong>Status Update:</strong> Chloe Harris</p>
-              <p><strong>New Message:</strong> Liam Carter</p>
+              {notifications.length > 0 ? (
+                <>
+                  {notifications.slice(0, 3).map((note, index) => (
+                    <p
+                      key={index}
+                      style={{
+                        fontWeight: note.is_read ? "normal" : "bold",
+                        marginBottom: "6px",
+                      }}
+                    >
+                      <strong>
+                        {note.sender_name && note.sender_id ? (
+                          <Link to={`/employer/view-student/${note.sender_id}`}>
+                            {note.sender_name}
+                          </Link>
+                        ) : (
+                          "Notification"
+                        )}
+                        {": "}
+                      </strong>
+                      {note.message}
+                    </p>
+                  ))}
+                  <button
+                    onClick={handleMarkAllAsRead}
+                    className="mark-read-btn"
+                  >
+                    Mark all as read
+                  </button>
+                </>
+              ) : (
+                <p>No new notifications</p>
+              )}
 
               <h3>New Applicants</h3>
-              <div className="applicant-card">
-                <strong>Liam Harper</strong>
-                <p>Junior Web Developer</p>
-              </div>
-              <div className="applicant-card">
-                <strong>Olivia Bennett</strong>
-                <p>Entry-Level Data Analyst</p>
-              </div>
-              <div className="applicant-card">
-                <strong>Noah Foster</strong>
-                <p>IT Support Specialist</p>
-              </div>
-              <div className="applicant-card">
-                <strong>Olivia Bennett</strong>
-                <p>Entry-Level Data Analyst</p>
-              </div>
-              <div className="applicant-card">
-                <strong>Noah Foster</strong>
-                <p>IT Support Specialist</p>
-              </div>
+              {applicants.length > 0 ? (
+                applicants.map((app, index) => (
+                  <Link
+                    to={`/employer/view-student/${app.id}`} // or app.user_id if that's what you return
+                    key={index}
+                    className="applicant-card"
+                    style={{ textDecoration: "none", color: "inherit" }}
+                  >
+                    <strong>{app.username}</strong>
+                    <p>
+                      {app.skills && app.skills.length > 0
+                        ? `${app.skills[0].name} - ${app.skills[0].level}`
+                        : "No Skills Listed"}
+                    </p>
+                  </Link>
+                ))
+              ) : (
+                <p>No recent applicants</p>
+              )}
             </div>
           </div>
         </div>
