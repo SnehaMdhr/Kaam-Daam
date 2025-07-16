@@ -1,0 +1,54 @@
+.role-selection-container {
+  max-width: 400px;
+  margin: 100px auto;
+  padding: 40px 30px;
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+  font-family: 'Segoe UI', sans-serif;
+  text-align: center;
+}
+
+.role-selection-container h2 {
+  font-size: 24px;
+  color: #1c355e;
+  margin-bottom: 25px;
+}
+
+.role-selection-container form {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 15px;
+}
+
+.role-selection-container label {
+  font-size: 16px;
+  color: #333;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+}
+
+.role-selection-container input[type="radio"] {
+  accent-color: #1c355e;
+  transform: scale(1.1);
+}
+
+.role-selection-container button {
+  margin-top: 25px;
+  padding: 12px 20px;
+  font-size: 16px;
+  background-color: #1c355e;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  width: 100%;
+}
+
+.role-selection-container button:hover {
+  background-color: #0d2a4b;
+}

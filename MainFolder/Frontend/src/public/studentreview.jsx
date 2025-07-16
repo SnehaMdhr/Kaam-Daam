@@ -3,7 +3,8 @@ import axios from "axios";
 import { useParams } from "react-router-dom";
 import Header from "../components/headerforstudent";  // You can also use a different header for employer if needed
 import Sidebar from "../components/sidebarstudent";   // Optional: show sidebar if desired
-import "./StudentViewProfile.css"; // Reuse CSS styles
+import "./studentreview.css"; // Assuming you have some styles for this component
+
 
 const StudentReviewsPage = () => {
   const { studentId } = useParams();
@@ -30,15 +31,18 @@ const StudentReviewsPage = () => {
     <div>
       <Header />
       <div className="profile-container">
-        <Sidebar />
+        
         <div className="profile-content">
-          <h2>Reviews for {studentName}</h2>
+          <Sidebar />
+          <h1>Reviews for {studentName}</h1>
+          </div>
+          <div className="content">
 
           {reviews.length === 0 ? (
             <p>No reviews yet.</p>
           ) : (
             reviews.map((r) => (
-              <div key={r.id} className="review-box" style={styles.reviewBox}>
+              <div key={r.id} className="review-box">
                 <strong>{r.employer_name}</strong> ({r.rating}/5)
                 <p>{r.comment}</p>
               </div>
