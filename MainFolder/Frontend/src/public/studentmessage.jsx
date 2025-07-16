@@ -5,7 +5,7 @@ import Header from "../components/headerforstudent";
 import Sidebar from "../components/sidebarstudent";
 import axios from "axios";
 
-// Socket connection
+// 🔌 Socket connection (only one instance globally)
 const socket = io("http://localhost:5000");
 
 const StudentMessage = () => {
@@ -17,7 +17,7 @@ const StudentMessage = () => {
   const [newMessage, setNewMessage] = useState("");
   const [employerInfo, setEmployerInfo] = useState(null);
   const [jobTitle, setJobTitle] = useState("");
-  const [fetchedMessages, setFetchedMessages] = useState(false); // To track if messages are already fetched
+  const [fetchedMessages, setFetchedMessages] = useState(false);
 
   if (!studentId || !employerId || !token) {
     return (
@@ -31,7 +31,7 @@ const StudentMessage = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        // Fetch messages from backend
+        // Fetch chat history
         const response = await axios.get(
           `http://localhost:5000/api/messages/${studentId}/${employerId}`,
           {
@@ -42,7 +42,7 @@ const StudentMessage = () => {
           }
         );
         setMessages(Array.isArray(response.data) ? response.data : []);
-        setFetchedMessages(true); // Set flag to true after fetching messages
+        setFetchedMessages(true);
       } catch (error) {
         console.error("Error fetching messages:", error);
       }
@@ -80,51 +80,41 @@ const StudentMessage = () => {
       fetchData();
     }
 
-    // Listen for socket messages
-    socket.on("receive_message", (message) => {
-      // Avoid adding duplicate messages
-      if (
-        !messages.some(
+    // ⚠️ Register socket listener only once
+    const handleReceive = (message) => {
+      setMessages((prev) => {
+        const exists = prev.some(
           (msg) =>
             msg.sender_id === message.sender_id &&
             msg.receiver_id === message.receiver_id &&
-            msg.content === message.content
-        )
-      ) {
-        setMessages((prev) => [...prev, message]);
-      }
-    });
+            msg.content === message.content &&
+            Math.abs(new Date(msg.timestamp) - new Date(message.timestamp)) < 2000 // optional strict check
+        );
+        return exists ? prev : [...prev, message];
+      });
+    };
 
-    return () => socket.off("receive_message");
-  }, [studentId, employerId, token, messages, fetchedMessages]);
+    socket.on("receive_message", handleReceive);
 
-  const handleSendMessage = async () => {
+    return () => {
+      socket.off("receive_message", handleReceive);
+    };
+  }, [studentId, employerId, token, fetchedMessages]);
+
+  const handleSendMessage = () => {
     if (newMessage.trim()) {
       const messageData = {
         sender_id: studentId,
         receiver_id: employerId,
         content: newMessage,
+        timestamp: new Date().toISOString(), // ⏱️ Needed for duplication check
       };
 
-      // Emit message to socket server
+      // 🔁 Emit to socket (handled by backend for DB save)
       socket.emit("send_message", messageData);
 
-      try {
-        // Send message to backend to save in DB
-        await axios.post(
-          "http://localhost:5000/api/messages/send",
-          messageData,
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-              "Content-Type": "application/json",
-            },
-          }
-        );
-      } catch (err) {
-        console.error("Failed to save message:", err);
-      }
-
+      // 🚫 DO NOT also send via Axios to avoid duplicate
+      setMessages((prev) => [...prev, messageData]); // Optimistic update
       setNewMessage("");
     }
   };
@@ -151,8 +141,10 @@ const StudentMessage = () => {
         </div>
 
         <div className="chat-box">
-            <div className="chat-header">
-          <h1>{employerInfo?.username || "Employer"}</h1></div>
+          <div className="chat-header">
+            <h1>{employerInfo?.username || "Employer"}</h1>
+          </div>
+
           <div className="messages">
             {messages.map((message, index) => (
               <div
