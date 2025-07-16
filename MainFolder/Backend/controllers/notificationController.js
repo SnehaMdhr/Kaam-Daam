@@ -71,6 +71,26 @@ LIMIT 5`,
 };
 
 
+// In notificationsController.js
+const getRecentNotificationsForStudent = async (req, res) => {
+  const studentId = req.params.id;
+
+  try {
+    const result = await pool.query(
+      `SELECT * FROM notifications 
+       WHERE user_id = $1 
+       ORDER BY created_at DESC 
+       LIMIT 5`,
+      [studentId]
+    );
+
+    res.json(result.rows);
+  } catch (err) {
+    console.error("Error fetching student notifications", err);
+    res.status(500).json({ error: "Failed to load notifications" });
+  }
+};
 
 
-module.exports = { getUserNotifications, markAllAsRead, sendPing,getRecentNotifications };
+
+module.exports = { getUserNotifications, markAllAsRead, sendPing,getRecentNotifications, getRecentNotificationsForStudent };
