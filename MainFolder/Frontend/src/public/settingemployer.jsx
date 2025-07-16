@@ -4,6 +4,8 @@ import HeaderForEmployer from '../components/headerforemployer';
 import Sidebar from '../components/sidebar';
 import './settingemployer.css';
 import { useNavigate } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const SettingEmployer = () => {
   const navigate = useNavigate();
@@ -15,16 +17,17 @@ const SettingEmployer = () => {
 
   const userId = localStorage.getItem('userId');
 
-  // Fetch user data on load
   useEffect(() => {
     if (userId) {
       axios.get(`http://localhost:5000/api/users/${userId}`)
         .then((res) => setUser(res.data))
-        .catch((err) => console.error('Failed to load settings', err));
+        .catch((err) => {
+          console.error('Failed to load settings', err);
+          toast.error('Failed to load user settings');
+        });
     }
   }, [userId]);
 
-  // Handle input change
   const handleChange = (e) => {
     setUser((prev) => ({
       ...prev,
@@ -32,13 +35,11 @@ const SettingEmployer = () => {
     }));
   };
 
-  // Handle profile update with FormData
   const handleUpdate = async () => {
     const formData = new FormData();
     formData.append('username', user.username);
     formData.append('email', user.email);
     formData.append('phone', user.phone);
-    // If you want to add file upload later, you can also append profile_picture here.
 
     try {
       await axios.put(`http://localhost:5000/api/users/${userId}`, formData, {
@@ -46,13 +47,13 @@ const SettingEmployer = () => {
           'Content-Type': 'multipart/form-data'
         }
       });
-      alert('Settings updated!');
+      toast.success('Settings updated successfully!');
     } catch (err) {
       console.error('Update failed', err);
+      toast.error('Failed to update settings');
     }
   };
 
-  // Logout
   const handleLogout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("userId");
@@ -61,6 +62,7 @@ const SettingEmployer = () => {
 
   return (
     <div>
+      <ToastContainer position="top-center" autoClose={3000} />
       <HeaderForEmployer />
       <div className="settings-container">
         <Sidebar />

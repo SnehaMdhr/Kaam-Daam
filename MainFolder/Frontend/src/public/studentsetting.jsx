@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Header from "../components/headerforstudent";
 import Sidebar from "../components/sidebarstudent";
+import { ToastContainer, toast } from "react-toastify"; // Added ToastContainer
+import "react-toastify/dist/ReactToastify.css"; // Importing Toastify styles
 import "./studentsetting.css";
 
 const StudentSetting = () => {
@@ -13,7 +15,7 @@ const StudentSetting = () => {
   });
 
   const navigate = useNavigate();
-  const userId = localStorage.getItem("userId");   // saved during login
+  const userId = localStorage.getItem("userId"); // saved during login
 
   /* ──────────────────────────────────
       Fetch user data on first render
@@ -23,7 +25,10 @@ const StudentSetting = () => {
       axios
         .get(`http://localhost:5000/api/users/${userId}`)
         .then((res) => setUser(res.data))
-        .catch((err) => console.error("Failed to load settings", err));
+        .catch((err) => {
+          console.error("Failed to load settings", err);
+          toast.error("Failed to load settings. Please try again.");
+        });
     }
   }, [userId]);
 
@@ -31,12 +36,14 @@ const StudentSetting = () => {
   const handleChange = (e) => {
     const { name, value } = e.target;
 
-    // If the field is 'phone', validate the length to ensure it's 10 digits.
-    if (name === "phone" && value.length <= 10 && /^\d*$/.test(value)) {
-      setUser((prev) => ({
-        ...prev,
-        [name]: value,
-      }));
+    // If the field is 'phone', validate the length to ensure it's exactly 10 digits.
+    if (name === "phone") {
+      if (value.length <= 10 && /^\d*$/.test(value)) { // Allow only numeric characters and limit to 10 digits
+        setUser((prev) => ({
+          ...prev,
+          [name]: value,
+        }));
+      }
     } else if (name !== "phone") {
       setUser((prev) => ({
         ...prev,
@@ -49,12 +56,19 @@ const StudentSetting = () => {
     // Remove skills from the user object if it's not part of the form
     const { skills, ...updatedUser } = user; // Exclude `skills` from the object
 
+    if (user.phone.length !== 10) {
+      toast.error("Phone number must be exactly 10 digits.");
+      return;
+    }
+
     axios
       .put(`http://localhost:5000/api/users/${userId}`, updatedUser)
-      .then(() => alert("Settings updated!"))
+      .then(() => {
+        toast.success("Settings updated successfully!"); // Use toast for success
+      })
       .catch((err) => {
         console.error("Update failed", err);
-        alert("Failed to update settings. Please try again.");
+        toast.error("Failed to update settings. Please try again."); // Use toast for error
       });
   };
 
@@ -67,6 +81,7 @@ const StudentSetting = () => {
 
   return (
     <div>
+      <ToastContainer position="top-center" autoClose={3000} /> {/* Add ToastContainer here */}
       <Header />
 
       <div className="settings-container">
@@ -117,7 +132,7 @@ const StudentSetting = () => {
                 value={user.phone}
                 onChange={handleChange}
                 placeholder="Contact Details"
-                maxLength={10}  // Ensure max length is 10
+                maxLength={10} // Ensure max length is 10
               />
             </div>
 
