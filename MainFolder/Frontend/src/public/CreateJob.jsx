@@ -10,7 +10,7 @@ const CreateJob = () => {
   const [job, setJob] = useState({
     title: '',
     status: 'open',
-    postedDate: '',
+    deadline: '',
     description: '',
     peopleRequired: '',
     address: '',
@@ -73,8 +73,8 @@ const CreateJob = () => {
           <option value="closed">Closed</option>
         </select>
 
-        <label>Posted Date</label>
-        <input type="date" name="postedDate" value={job.postedDate} onChange={handleChange} required />
+        <label>Deadline</label>
+        <input type="date" name="deadline" value={job.deadline} onChange={handleChange} required />
 
         <div className='bar'>
 

@@ -271,6 +271,7 @@ body {
 
 .applicant-card:hover {
   background-color: #e2e8f0;
+  cursor: pointer;
 }
 
 .applicant-card strong {

@@ -86,7 +86,7 @@ const EmployerJobPosting = () => {
                       </span>
                     </td>
                     <td>{job.applicants_count || 0}</td>
-                    <td>{formatDate(job.posted_date)}</td>
+                    <td>{formatDate(job.deadline)}</td>
                     <td>
                       <a href={`/jobdetails/${job.id}`}>View Details</a>
                     </td>

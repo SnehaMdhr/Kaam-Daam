@@ -9,7 +9,8 @@ const {
   updateJobById,
   deleteJobById,
   updateJob,
-  incrementView
+  incrementView,
+  getUpcomingJobs
 } = require('../controllers/jobController');
 
 const { protect } = require('../middleware/authMiddleware');
@@ -19,6 +20,8 @@ router.post('/create', postJob);
 router.get('/my-jobs', protect, getUserJobs);
 router.get('/all', getAllJobs);
 router.get('/filter', getFilteredJobs);  // ✅ make sure this is before /:id
+router.get('/upcoming', getUpcomingJobs);
+
 // ✅ Get all jobs posted by a specific employer
 router.get('/employer/:employerId', async (req, res) => {
   const { employerId } = req.params;
