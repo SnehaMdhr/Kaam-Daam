@@ -4,6 +4,8 @@ import Sidebar from "../components/sidebarstudent";
 import img from "../assets/image/jobs.png";
 import "./studentjobs.css";
 import axios from "axios";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Jobs = () => {
   const [jobs, setJobs] = useState([]);
@@ -54,6 +56,22 @@ const Jobs = () => {
     fetchFilteredJobs();
   };
 
+  const handleSaveJob = async (jobId) => {
+  const token = localStorage.getItem("token");
+  try {
+    await axios.post(
+      "http://localhost:5000/api/saved-jobs/save",
+      { jobId },
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      }
+    );
+    toast.success("Job saved successfully!");
+  } catch (err) {
+    toast.error(err.response?.data?.msg || "Failed to save job");
+  }
+};
+
   return (
     <div>
       <Header />
@@ -100,6 +118,12 @@ const Jobs = () => {
                     <p>{job.description?.slice(0, 130)}...</p>
                     <a href={`/studentviewjob/${job.id}`} className="view-link" style={{ color: " #1f4a5c", marginTop: "8px", display: "inline-block" }}>
                      View Job
+                    </a>
+                    <a
+                      className="save-button"
+                      onClick={() => handleSaveJob(job.id)}
+                    >
+                      Save Job
                     </a>
                   </div>
                   <img src={img} alt="Job" />

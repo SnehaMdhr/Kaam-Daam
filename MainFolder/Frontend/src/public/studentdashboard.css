@@ -299,3 +299,19 @@ body {
 .view-profile-btn:hover {
   background-color: #1d4ed8;
 }
+
+@media screen and (max-width: 768px) {
+  .profile-card {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .profile-img {
+    align-self: center;
+  }
+
+  .dashboard-header {
+    flex-direction: column;
+    gap: 10px;
+  }
+}

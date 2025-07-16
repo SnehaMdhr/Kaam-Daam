@@ -1,5 +1,7 @@
 import React, { lazy, Suspense } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const DashboardWithoutLogin = lazy(() =>
   import("./public/dashboardWithoutLogin")
@@ -49,11 +51,23 @@ const StudentNotifications = lazy(() => import("./public/StudentNofications"));
 const EmployerNotifications = lazy(() => import("./public/EmployerNotifications"));
 const EditJob = lazy(() => import("./public/EditJob"));
 const EmployerViewStudentProfile = lazy(() => import("./public/EmployerViewStudentProfile"));
+const StudentSavedJobs = lazy(() => import("./public/StudentSavedJobs"));
 
 function App() {
   return (
     <Router>
       <Suspense fallback={<div>Loading...</div>}>
+      <ToastContainer
+          position="top-right"
+          autoClose={3000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="colored"
+        />
         <Routes>
           <Route path="/" element={<DashboardWithoutLogin />} />
           <Route path="/dashboardWithout" element={<DashboardWithoutLogin />} />
@@ -119,6 +133,7 @@ function App() {
           <Route path="/employer/notifications" element={<EmployerNotifications />} />
           <Route path="/editjob/:id" element={<EditJob />} />
           <Route path="/employer/view-student/:userId" element={<EmployerViewStudentProfile />} />
+          <Route path="/studentsavedjobs" element={<StudentSavedJobs />} />
          
           {/* Add more routes as needed */}
         </Routes>
