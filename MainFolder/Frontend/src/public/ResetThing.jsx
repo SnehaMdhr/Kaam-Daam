@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import "./roleselection.css"
 
 const ResetThing = () => {
   const [email, setEmail] = useState('');
@@ -36,10 +37,10 @@ const ResetThing = () => {
   };
 
   return (
-    <div style={{ padding: '2rem', maxWidth: '400px', margin: 'auto' }}>
+    <div className='role-selection-container'>
       <h2>Reset Your Password</h2>
 
-      {message && <p style={{ color: message.includes('successful') ? 'green' : 'red' }}>{message}</p>}
+      {message && <p>{message}</p>}
 
       <form onSubmit={handleSubmit}>
         <input
@@ -48,18 +49,9 @@ const ResetThing = () => {
           value={newPassword}
           onChange={(e) => setNewPassword(e.target.value)}
           required
-          style={{ width: '100%', padding: '0.5rem', marginBottom: '1rem' }}
         />
         <button
           type="submit"
-          style={{
-            width: '100%',
-            padding: '0.5rem',
-            backgroundColor: '#007BFF',
-            color: '#fff',
-            border: 'none',
-            cursor: 'pointer',
-          }}
         >
           Reset Password
         </button>

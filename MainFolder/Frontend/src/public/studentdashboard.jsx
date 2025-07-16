@@ -170,8 +170,8 @@ const StudentDashboard = () => {
                   <p
                     key={index}
                     style={{
-                      fontWeight: note.is_read ? "normal" : "bold",
-                      cursor: "pointer",
+                      fontWeight: note.is_read ? "normal" : "normal",
+                      cursor: "pointer", marginBottom:"30px",
                     }}
                     onClick={handleNotificationClick}
                   >

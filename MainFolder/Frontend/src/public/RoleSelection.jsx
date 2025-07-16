@@ -55,7 +55,7 @@ const RoleSelection = () => {
   };
 
   return (
-    <div>
+    <div className="role-selection-container">
       <h2>Choose Your Role</h2>
       <form onSubmit={handleRoleSelection}>
         <label>

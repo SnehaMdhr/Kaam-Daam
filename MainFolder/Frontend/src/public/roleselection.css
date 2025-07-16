@@ -31,9 +31,18 @@
   cursor: pointer;
 }
 
-.role-selection-container input[type="radio"] {
+.role-selection-container input[type="radio"]
+ {
   accent-color: #1c355e;
   transform: scale(1.1);
+}
+.role-selection-container input[type="password"]{
+  width: 95%;
+  padding: 10px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  margin-bottom: 15px; 
 }
 
 .role-selection-container button {
