@@ -6,23 +6,24 @@ import { useParams } from "react-router-dom";
 import { io } from "socket.io-client";
 import axios from "axios";
 
+// Socket connection
 const socket = io("http://localhost:5000");
 
 const EmployerMessage = () => {
   const { studentId } = useParams(); // from route: /employer/messages/:studentId
-  const employerId = localStorage.getItem("userId"); // ✅ Corrected
-  const token = localStorage.getItem("token"); // ✅ Required for auth
+  const employerId = localStorage.getItem("userId");
+  const token = localStorage.getItem("token");
+
   const [messages, setMessages] = useState([]);
   const [newMsg, setNewMsg] = useState("");
   const [studentInfo, setStudentInfo] = useState(null);
-  const [fetchedMessages, setFetchedMessages] = useState(false); // To track if messages are already fetched
+  const [fetchedMessages, setFetchedMessages] = useState(false);
 
   useEffect(() => {
     if (!employerId || !token) return;
 
     const fetchData = async () => {
       try {
-        // Fetch chat messages
         const response = await axios.get(
           `http://localhost:5000/api/messages/${employerId}/${studentId}`,
           {
@@ -30,13 +31,12 @@ const EmployerMessage = () => {
           }
         );
         setMessages(Array.isArray(response.data) ? response.data : []);
-        setFetchedMessages(true); // Set flag to true after fetching messages
+        setFetchedMessages(true);
       } catch (error) {
         console.error("Error fetching messages:", error);
       }
 
       try {
-        // Fetch student info
         const res = await axios.get(
           `http://localhost:5000/api/users/${studentId}`,
           {
@@ -53,23 +53,24 @@ const EmployerMessage = () => {
       fetchData();
     }
 
-    // Listen for socket messages
-    socket.on("receive_message", (message) => {
-      // Avoid adding duplicate messages
-      if (
-        !messages.some(
+    // Listen for incoming socket messages
+    const handleReceive = (message) => {
+      setMessages((prev) => {
+        const exists = prev.some(
           (msg) =>
             msg.sender_id === message.sender_id &&
             msg.receiver_id === message.receiver_id &&
-            msg.content === message.content
-        )
-      ) {
-        setMessages((prev) => [...prev, message]);
-      }
-    });
+            msg.content === message.content &&
+            Math.abs(new Date(msg.timestamp) - new Date(message.timestamp)) < 2000
+        );
+        return exists ? prev : [...prev, message];
+      });
+    };
 
-    return () => socket.off("receive_message");
-  }, [studentId, employerId, token, messages, fetchedMessages]);
+    socket.on("receive_message", handleReceive);
+
+    return () => socket.off("receive_message", handleReceive);
+  }, [studentId, employerId, token, fetchedMessages]);
 
   const sendMessage = () => {
     if (!newMsg.trim()) return;
@@ -78,19 +79,14 @@ const EmployerMessage = () => {
       sender_id: Number(employerId),
       receiver_id: Number(studentId),
       content: newMsg,
+      timestamp: new Date().toISOString(),
     };
 
-    // Emit message to socket server
+    // Emit message to socket server (server saves it)
     socket.emit("send_message", messageData);
 
-    // Optional: save to DB
-    axios
-      .post("http://localhost:5000/api/messages/send", messageData, {
-        headers: { Authorization: `Bearer ${token}` },
-      })
-      .catch((err) => {
-        console.error("Error sending message:", err.response?.data || err);
-      });
+    // Optimistically add message to UI
+    setMessages((prev) => [...prev, messageData]);
 
     setNewMsg("");
   };
@@ -116,7 +112,8 @@ const EmployerMessage = () => {
 
         <div className="chat-box">
           <div className="chat-header">
-          <h1>{studentInfo?.username}</h1></div>
+            <h1>{studentInfo?.username}</h1>
+          </div>
           <div className="messages">
             {messages.map((msg, index) => (
               <div
