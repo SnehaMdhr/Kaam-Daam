@@ -1,21 +1,36 @@
-import React from "react";
+import { React, useState, useEffect } from "react";
 import Header from "../components/headerforstudent";
 import Sidebar from "../components/sidebarstudent";
-import { FaSearch, FaRegClock, FaRegFileAlt } from 'react-icons/fa';
+import { FaSearch, FaRegClock } from 'react-icons/fa';
 import studentImg from '../assets/image/kimti.png'; 
 import { Link } from 'react-router-dom';
-import './studentdashboard.css'; // Assuming you have some styles for this component
+import './studentdashboard.css';
 import AppliedJobs from "../assets/image/applied jobs.png";
 import RecommendJobs from "../assets/image/recommend jobs.png";
-const studentdashboard = () => {
+import axios from "axios";
+
+const StudentDashboard = () => {
+  const [studentInfo, setStudentInfo] = useState(null);
+
+  useEffect(() => {
+    const studentId = localStorage.getItem("userId");
+    const token = localStorage.getItem("token");
+
+    if (studentId && token) {
+      axios
+        .get(`http://localhost:5000/api/users/${studentId}`, {
+          headers: { Authorization: `Bearer ${token}` },
+        })
+        .then((res) => setStudentInfo(res.data))
+        .catch((err) => console.error("Failed to fetch student info", err));
+    }
+  }, []);
+
   return (
     <div>
-      <div>
       <Header />
-
       <div className="dashboard-container">
         <Sidebar />
-
         <div className="dashboard-content">
           {/* Top Search Bar */}
           <div className="dashboard-header">
@@ -32,25 +47,35 @@ const studentdashboard = () => {
               {/* Welcome Card */}
               <div className="profile-card">
                 <div className="profile-info">
-                  <h2>Welcome, Kimti 👋</h2>
+                  <h2>Welcome, {studentInfo?.username || "Student"} 👋</h2>
                   <p>Your career journey starts here.</p>
                   <strong>Find jobs that match your skills!</strong>
                 </div>
-                <img src={studentImg} alt="student" className="profile-img" />
+                <img
+                  src={
+                    studentInfo?.profile_picture_url
+                      ? `http://localhost:5000/uploads/${studentInfo.profile_picture_url}`
+                      : studentImg
+                  }
+                  alt="Profile"
+                  className="profile-img"
+                />
               </div>
 
               {/* Quick Access Cards */}
               <div className="category-boxes">
-                <div className="job-card">
-                  <img src={AppliedJobs} alt="student" className="profile-img" />
+                <Link to="/studentmyapplication" className="job-card">
+                  <img src={AppliedJobs} alt="Applied" className="profile-img" />
                   <p>Applied Jobs</p>
-                </div>
+                </Link>
+
+                <Link to="/studentsavedjobs" className="job-card">
+  <FaRegClock size={30} />
+  <p>Saved Jobs</p>
+</Link>
+
                 <div className="job-card">
-                  <FaRegClock size={30} />
-                  <p>Saved Jobs</p>
-                </div>
-                <div className="job-card">
-                  <img src={RecommendJobs} alt="student" className="profile-img" />
+                  <img src={RecommendJobs} alt="Recommendation" className="profile-img" />
                   <p>Job Recommendations</p>
                 </div>
               </div>
@@ -94,8 +119,7 @@ const studentdashboard = () => {
         </div>
       </div>
     </div>
-    </div>
   );
 };
 
-export default studentdashboard;
+export default StudentDashboard;

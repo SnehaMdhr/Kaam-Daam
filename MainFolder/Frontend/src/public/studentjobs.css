@@ -96,6 +96,19 @@
 .view-link:hover {
   color: #2563eb;
 }
+
+.save-button {
+  text-decoration: none;
+  font-weight: 500;
+  margin-left: 10px;
+  transition: color 0.2s;
+  cursor: pointer;
+}
+
+.save-button:hover {
+  color: #2563eb;
+}
+
 .pagination {
   display: flex;
   justify-content: center;
