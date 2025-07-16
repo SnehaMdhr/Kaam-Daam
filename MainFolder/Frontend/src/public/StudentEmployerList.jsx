@@ -54,20 +54,21 @@ const StudentEmployerList = () => {
   return (
     <div>
       <Header />
-      <div className="student-employer-container">
+      <div className="employer-student-list">
         <Sidebar />
-        <div className="employer-list-content">
-          <h2>Select an Employer to Chat</h2>
+        <div className="header">
+          <h1>Select an Employer to Chat</h1>
+          </div>
+      <div className="student-list-container">
 
           {employers.length === 0 ? (
-            <div>No employers found who hired you.</div>
+            <div className="student-list">No employers found who hired you.</div>
           ) : (
-            <ul className="employer-list">
+            <ul>
               {employers.map((employer) => (
                 <li
                   key={employer.id}
                   onClick={() => goToChat(employer.id)}
-                  className="employer-card"
                 >
                   <strong>{employer.username}</strong> — {employer.email}
                 </li>
