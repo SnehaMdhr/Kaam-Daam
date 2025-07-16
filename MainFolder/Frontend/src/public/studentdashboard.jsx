@@ -3,14 +3,18 @@ import Header from "../components/headerforstudent";
 import Sidebar from "../components/sidebarstudent";
 import { FaSearch, FaRegClock } from 'react-icons/fa';
 import studentImg from '../assets/image/kimti.png'; 
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import './studentdashboard.css';
+import StudentReviews from "../components/StudentReviews"; 
 import AppliedJobs from "../assets/image/applied jobs.png";
 import RecommendJobs from "../assets/image/recommend jobs.png";
 import axios from "axios";
 
 const StudentDashboard = () => {
   const [studentInfo, setStudentInfo] = useState(null);
+  const [upcomingJobs, setUpcomingJobs] = useState([]);
+  const studentId = localStorage.getItem("userId");
+  const navigate = useNavigate();  // To use navigation for redirect
 
   useEffect(() => {
     const studentId = localStorage.getItem("userId");
@@ -24,7 +28,18 @@ const StudentDashboard = () => {
         .then((res) => setStudentInfo(res.data))
         .catch((err) => console.error("Failed to fetch student info", err));
     }
+
+    // Fetch upcoming jobs
+    axios
+      .get("http://localhost:5000/api/jobs/upcoming")
+      .then((res) => setUpcomingJobs(res.data))
+      .catch((err) => console.error("Failed to fetch upcoming jobs", err));
   }, []);
+
+  // Handle navigation to job application page
+  const handleJobClick = (jobId) => {
+    navigate(`/studentviewjob/${jobId}`);
+  };
 
   return (
     <div>
@@ -70,15 +85,17 @@ const StudentDashboard = () => {
                 </Link>
 
                 <Link to="/studentsavedjobs" className="job-card">
-  <FaRegClock size={30} />
-  <p>Saved Jobs</p>
-</Link>
+                  <FaRegClock size={30} />
+                  <p>Saved Jobs</p>
+                </Link>
 
                 <div className="job-card">
                   <img src={RecommendJobs} alt="Recommendation" className="profile-img" />
                   <p>Job Recommendations</p>
                 </div>
               </div>
+
+              <StudentReviews studentId={studentId} />
 
               {/* Resume Stats or Skills */}
               <div className="cards-row">
@@ -102,18 +119,16 @@ const StudentDashboard = () => {
               <p><strong>Message:</strong> HR from Codemate</p>
 
               <h3>Upcoming Deadlines</h3>
-              <div className="applicant-card">
-                <strong>Frontend Intern – Apply by Aug 20</strong>
-                <p>Dursikshya Tech</p>
-              </div>
-              <div className="applicant-card">
-                <strong>Marketing Trainee – Apply by Aug 18</strong>
-                <p>Digital Gurkha</p>
-              </div>
-              <div className="applicant-card">
-                <strong>IT Assistant – Apply by Aug 25</strong>
-                <p>CodeLogic Nepal</p>
-              </div>
+              {upcomingJobs.length === 0 ? (
+                <p>No upcoming deadlines.</p>
+              ) : (
+                upcomingJobs.map((job) => (
+                  <div key={job.id} className="applicant-card" onClick={() => handleJobClick(job.id)}>
+                    <strong>{job.title} – Apply by {new Date(job.deadline).toLocaleDateString('en-GB')}</strong>
+                    <p>{job.company_name}</p>
+                  </div>
+                ))
+              )}
             </div>
           </div>
         </div>

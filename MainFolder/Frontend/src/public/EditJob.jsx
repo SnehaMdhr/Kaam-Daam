@@ -15,7 +15,8 @@ const EditJob = () => {
     people_required: "",
     work_schedule: "",
     shift_timing: "",
-    status: ""
+    status: "",
+    deadline: ""
   });
 
   useEffect(() => {
@@ -104,6 +105,10 @@ const EditJob = () => {
         <label>Status:</label>
           <input type="text" name="status" value={job.status} onChange={handleChange} />
         
+      <label>Deadline:</label>
+<input type="date" name="deadline" value={job.deadline} onChange={handleChange} />
+
+
         <div className="button-wrapper">
                 <button type="submit">Update Job</button>
               </div>

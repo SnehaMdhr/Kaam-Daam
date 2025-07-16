@@ -6,7 +6,7 @@ const postJob = async (req, res) => {
   const {
     title,
     status,
-    postedDate,
+    deadline,
     description,
     peopleRequired,
     address,
@@ -22,7 +22,7 @@ const postJob = async (req, res) => {
   try {
     const result = await pool.query(
       `INSERT INTO job_posts (
-        title, status, posted_date, description, people_required, address, job_type,
+        title, status, deadline, description, people_required, address, job_type,
         work_schedule, shift_timing, category, skill_level, duration, user_id
       )
       VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13)
@@ -30,7 +30,7 @@ const postJob = async (req, res) => {
       [
         title,
         status,
-        postedDate,
+        deadline,
         description,
         peopleRequired,
         address,
@@ -82,7 +82,7 @@ const updateJobById = async (req, res) => {
   const {
     title,
     status,
-    posted_date,
+    deadline,
     description,
     people_required,
     address,
@@ -99,7 +99,7 @@ const updateJobById = async (req, res) => {
       `UPDATE job_posts SET
         title = $1,
         status = $2,
-        posted_date = $3,
+        deadline = $3,
         description = $4,
         people_required = $5,
         address = $6,
@@ -113,7 +113,7 @@ const updateJobById = async (req, res) => {
       [
         title,
         status,
-        posted_date,
+        deadline,
         description,
         people_required,
         address,
@@ -211,14 +211,15 @@ const updateJob = async (req, res) => {
     people_required,
     work_schedule,
     shift_timing,
-    status
+    status,
+    deadline
   } = req.body;
 
   try {
     const updated = await pool.query(
       `UPDATE job_posts SET title = $1, description = $2, address = $3, people_required = $4,
-      work_schedule = $5, shift_timing = $6, status = $7 WHERE id = $8 RETURNING *`,
-      [title, description, address, people_required, work_schedule, shift_timing, status, id]
+      work_schedule = $5, shift_timing = $6, status = $7, deadline = $8 WHERE id = $9 RETURNING *`,
+      [title, description, address, people_required, work_schedule, shift_timing, status, deadline, id]
     );
     res.json(updated.rows[0]);
   } catch (err) {
@@ -244,6 +245,25 @@ const incrementView = async (req, res) => {
   }
 };
 
+// Get upcoming jobs by deadline (for student dashboard)
+const getUpcomingJobs = async (req, res) => {
+  try {
+    const result = await pool.query(`
+      SELECT job_posts.*, users.username AS company_name 
+      FROM job_posts
+      JOIN users ON job_posts.user_id = users.id
+      WHERE job_posts.status = 'open' AND job_posts.deadline >= CURRENT_DATE
+      ORDER BY job_posts.deadline ASC
+      LIMIT 5
+    `);
+    res.json(result.rows);
+  } catch (err) {
+    console.error("Error fetching upcoming jobs:", err);
+    res.status(500).json({ error: "Server error" });
+  }
+};
+
+
 module.exports = {
   postJob,
   getUserJobs,
@@ -253,5 +273,6 @@ module.exports = {
   getAllJobs,
   getFilteredJobs,
   updateJob,
-  incrementView
+  incrementView,
+  getUpcomingJobs
 };

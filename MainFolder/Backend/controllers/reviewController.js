@@ -48,4 +48,32 @@ const getReviewsForStudent = async (req, res) => {
   }
 };
 
-module.exports = { addReview, getReviewsForStudent };
+// Controller to get reviews and average rating for a student
+const getReviewsAndAverageRating = async (req, res) => {
+  const { studentId } = req.params;
+
+  try {
+    const reviews = await pool.query(
+      'SELECT * FROM reviews WHERE student_id = $1',
+      [studentId]
+    );
+
+    const avgRatingResult = await pool.query(
+      'SELECT AVG(rating) AS average_rating FROM reviews WHERE student_id = $1',
+      [studentId]
+    );
+
+    let averageRating = parseFloat(avgRatingResult.rows[0].average_rating);
+    if (isNaN(averageRating)) averageRating = 0;
+
+    res.json({
+      reviews: reviews.rows,
+      averageRating,
+    });
+  } catch (err) {
+    console.error("Error fetching reviews", err);
+    res.status(500).send("Server error");
+  }
+};
+
+module.exports = { addReview, getReviewsForStudent, getReviewsAndAverageRating };
