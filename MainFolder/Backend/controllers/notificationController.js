@@ -43,6 +43,34 @@ const sendPing = async (req, res) => {
   }
 };
 
+const getRecentNotifications = async (req, res) => {
+  const { userId } = req.params;
+
+  try {
+    const result = await pool.query(
+    `SELECT 
+  n.message,
+  n.type,
+  n.is_read,
+  n.created_at,
+  u.username AS sender_name,
+  u.id AS sender_id  -- ✅ add this line
+FROM notifications n
+LEFT JOIN users u ON n.sender_id = u.id
+WHERE n.user_id = $1
+ORDER BY n.created_at DESC
+LIMIT 5`,
+      [userId]
+    );
+
+    res.json(result.rows);
+  } catch (err) {
+    console.error("Notification fetch error:", err);
+    res.status(500).json({ error: "Failed to fetch notifications" });
+  }
+};
 
 
-module.exports = { getUserNotifications, markAllAsRead, sendPing };
+
+
+module.exports = { getUserNotifications, markAllAsRead, sendPing,getRecentNotifications };
