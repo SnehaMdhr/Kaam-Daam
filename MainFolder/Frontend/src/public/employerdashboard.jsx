@@ -156,8 +156,8 @@ const Employerdashboard = () => {
                     <p
                       key={index}
                       style={{
-                        fontWeight: note.is_read ? "normal" : "bold",
-                        marginBottom: "6px",
+                        fontWeight: note.is_read ? "normal" : "normal",
+                      cursor: "pointer", marginBottom:"30px",
                       }}
                     >
                       <strong>
@@ -174,9 +174,10 @@ const Employerdashboard = () => {
                     </p>
                   ))}
                   <button
-                    onClick={handleMarkAllAsRead}
-                    className="mark-read-btn"
-                  >
+  onClick={handleMarkAllAsRead}
+  className="mark-read-btn"
+  style={{ marginBottom: "10px" }}
+>
                     Mark all as read
                   </button>
                 </>
