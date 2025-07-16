@@ -10,7 +10,12 @@
   padding: 20px;
   border-right: 1px solid #ddd;
   position: fixed;
+  top: 70px;       /* Start from 320px from the top */
+  left: 320px;
+  height:calc(100vh - 70px);/* Fill the remaining vertical space */
+  background-color: #fff;      /* Optional for clarity */
 }
+
 
 .sidebar1 h1 {
   font-size: 20px;

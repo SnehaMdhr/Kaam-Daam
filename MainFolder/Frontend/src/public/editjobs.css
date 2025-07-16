@@ -35,7 +35,8 @@
 input[type="text"],
 input[type="email"],
 input[type="password"],
-input[type="number"] {
+input[type="number"],
+input[type="date"] {
   width: 90%;
   padding: 6px 12px;
   margin-left: 50px;
@@ -51,7 +52,8 @@ input[type="number"] {
 input[type="text"]:focus,
 input[type="email"]:focus,
 input[type="password"]:focus,
-input[type="url"]:focus {
+input[type="url"]:focus ,
+input [type="date"]:focus{
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* stronger on focus */
   outline: none; /* remove default outline */
 

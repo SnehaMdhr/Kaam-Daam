@@ -13,10 +13,13 @@
 }
 
 .settings-header {
+ display: flex;
+  justify-content: space-between;
+  align-items: center;
   margin-bottom: 20px;
 }
 
-.settings-main h1 {
+.settings-header h1 {
   font-size: 25px;
   color: #1c355e;
 }
@@ -84,8 +87,8 @@ input[type="checkbox"] {
 
 .button-wrapper {
   display: flex;
-  justify-content: flex-start; /* Align button left */
-  margin-top: 20px; /* Optional spacing */
+  justify-content: flex-end;
+  margin-top: 30px; /* Optional spacing */
 }
 
 button {
@@ -93,6 +96,7 @@ button {
   color: #fff;
   padding: 10px 20px;
   border: none;
+  margin-right: 55px;
   border-radius: 6px;
   cursor: pointer;
   font-size: 1rem;

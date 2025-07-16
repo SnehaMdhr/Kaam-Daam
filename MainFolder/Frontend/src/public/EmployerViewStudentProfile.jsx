@@ -98,14 +98,15 @@ const EmployerViewStudentProfile = () => {
               </div>
             ))
           )}
-
-          <button
+          <div className="button-wrapper">          <button
             className="back-button"
             style={{ marginTop: "20px" }}
             onClick={() => navigate("/findemployees")}
           >
             ← Back to Applications
           </button>
+          </div>
+
         </div>
       </div>
   );

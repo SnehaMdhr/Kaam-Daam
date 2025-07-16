@@ -44,9 +44,10 @@ const employeranalytics = () => {
       <div className="dashboard-container">
         <Sidebar />
         <h1>Analytics</h1>
+        
         <h2> Key Performance Indicators</h2>
-
         <div className="kpi-section">
+          
           <div className="kpi-card">
             <h4>Total Job Postings</h4>
             <p>{kpis.totalJobs}</p>

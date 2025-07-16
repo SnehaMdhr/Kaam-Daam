@@ -44,7 +44,7 @@ const StudentNotifications = () => {
                   style={{
                     marginTop: "6px",
                     padding: "6px 12px",
-                    backgroundColor: "#0077cc",
+                    backgroundColor: "#1c355e",
                     color: "#fff",
                     border: "none",
                     borderRadius: "4px",

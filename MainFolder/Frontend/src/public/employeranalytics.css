@@ -7,7 +7,7 @@
 }
 
 .dashboard-container h1{
- font-size: 40px;
+ font-size: 25px;
   margin-bottom: 40px;
   color: #1c355e;
 }
@@ -18,7 +18,7 @@
   margin-bottom: 40px;
   flex-wrap: wrap;
 }
-.kpi-section h2 {
+.h2 {
   font-size: 14px;
   color: #444;
   margin-bottom: 8px;

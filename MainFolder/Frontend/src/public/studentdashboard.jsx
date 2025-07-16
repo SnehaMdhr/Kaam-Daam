@@ -9,6 +9,7 @@ import StudentReviews from "../components/StudentReviews";
 import AppliedJobs from "../assets/image/applied jobs.png";
 import RecommendJobs from "../assets/image/recommend jobs.png";
 import axios from "axios";
+import SaveJob from "../assets/image/savejob.png"
 
 const StudentDashboard = () => {
   const [studentInfo, setStudentInfo] = useState(null);
@@ -119,7 +120,11 @@ const StudentDashboard = () => {
                 </Link>
 
                 <Link to="/studentsavedjobs" className="job-card">
-                  <FaRegClock size={30} />
+                  <img
+                    src={SaveJob}
+                    alt="Recommendation"
+                    className="profile-img"
+                  />
                   <p>Saved Jobs</p>
                 </Link>
 
