@@ -113,3 +113,9 @@ h2 {
   font-size: 14px;
   color: #666;
 } 
+
+@media (max-width: 900px) {
+  .help-container {
+    padding: 50px 50px;
+  }
+}
