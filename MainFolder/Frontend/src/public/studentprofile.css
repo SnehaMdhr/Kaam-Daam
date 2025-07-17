@@ -1,33 +1,34 @@
-/* Student Profile Responsive Styles - Modern & Polished */
+/* Student Profile - Styled like Employer Company Profile */
 
 .student-profile-container {
-  padding: clamp(8px, 3vw, 30px);
-  background-color: #ffffff;
-  border-radius: 8px;
+  padding: clamp(16px, 4vw, 40px);
+  background-color: #fff;
+  border-radius: 12px;
   font-family: 'Segoe UI', sans-serif;
-  margin-left: clamp(0px, 20vw, 320px);
+  margin-left: clamp(70px, 20vw, 320px);
+  box-shadow: 0 2px 12px rgba(28, 53, 94, 0.07);
+  transition: margin-left 0.3s cubic-bezier(.4,0,.2,1);
   min-height: 100vh;
+  margin-bottom: clamp(12px, 2vw, 32px);
 }
 
 .student-profile-container h1 {
-  color: #2b4d66;
-  font-size: clamp(1.1rem, 4vw, 2rem);
-  margin-bottom: clamp(10px, 2vw, 20px);
+  font-size: clamp(1.3rem, 2.5vw, 2.2rem);
+  color: #1c355e;
+  font-weight: 700;
+  margin: 0;
 }
 
 .student-profile-form {
-  margin-bottom: clamp(10px, 2vw, 20px);
+  margin-bottom: clamp(10px, 2vw, 24px);
   margin-left: clamp(0px, 2vw, 20px);
   margin-right: clamp(0px, 2vw, 20px);
-  display: flex;
-  flex-direction: column;
-  gap: clamp(10px, 2vw, 20px);
 }
 
 .student-profile-form label {
   display: block;
-  margin-bottom: clamp(4px, 1vw, 10px);
-  margin-top: clamp(4px, 1vw, 10px);
+  margin-bottom: clamp(6px, 1vw, 12px);
+  margin-top: clamp(6px, 1vw, 12px);
   font-weight: 500;
   font-size: clamp(1rem, 2vw, 1.2rem);
   margin-left: clamp(0px, 3vw, 50px);
@@ -37,14 +38,14 @@
 .student-profile-form input,
 .student-profile-form textarea {
   width: 90%;
-  padding: clamp(6px, 1vw, 12px);
+  padding: clamp(6px, 1vw, 14px) clamp(10px, 2vw, 18px);
   margin-left: clamp(0px, 3vw, 50px);
   margin-right: clamp(0px, 6vw, 100px);
   border: 1px solid #ccc;
-  border-radius: 5px;
+  border-radius: 7px;
   font-size: clamp(0.95rem, 2vw, 1.1rem);
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-  transition: box-shadow 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+  transition: box-shadow 0.3s, border-color 0.3s
 }
 
 .student-profile-form textarea {
@@ -54,57 +55,59 @@
 
 .student-profile-form input:focus,
 .student-profile-form textarea:focus {
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 16px rgba(28, 53, 94, 0.13);
+  border-color: #1c355e;
   outline: none;
 }
 
 .button-wrapper {
   display: flex;
   justify-content: flex-end;
-  margin-top: clamp(16px, 3vw, 30px);
-  gap: clamp(8px, 2vw, 20px);
+  margin-top: clamp(18px, 3vw, 40px);
 }
 
 .button-wrapper button {
   background-color: #1c355e;
   color: #fff;
-  padding: clamp(8px, 2vw, 16px) clamp(16px, 4vw, 32px);
+  padding: clamp(8px, 1.5vw, 14px) clamp(18px, 3vw, 32px);
   border: none;
-  border-radius: 6px;
+  border-radius: 8px;
   cursor: pointer;
-  margin-right: clamp(0px, 3vw, 55px);
+  margin-right: clamp(0px, 4vw, 55px);
   font-size: clamp(1rem, 2vw, 1.1rem);
+  font-weight: 600;
+  box-shadow: 0 2px 8px rgba(28, 53, 94, 0.08);
   transition: background 0.2s, box-shadow 0.2s;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
 }
 
 .button-wrapper button:hover {
-  background-color: #153943;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  background-color: #2e4c7b;
+  box-shadow: 0 4px 16px rgba(28, 53, 94, 0.13);
 }
 
 .bar {
   background-color: #e9dbc8;
-  padding: clamp(4px, 1vw, 20px) clamp(8px, 2vw, 20px);
+  padding: clamp(4px, 1vw, 12px) clamp(10px, 2vw, 24px);
   border-radius: 8px;
-  margin-top: clamp(10px, 2vw, 30px);
-  margin-bottom: clamp(8px, 2vw, 20px);
+  margin-top: clamp(12px, 2vw, 30px);
+  margin-bottom: clamp(8px, 1vw, 20px);
   font-weight: bold;
-  font-size: clamp(1rem, 2vw, 1.1rem);
+  font-size: clamp(0.95rem, 2vw, 1.1rem);
   color: #1c355e;
+  box-shadow: 0 2px 8px rgba(28, 53, 94, 0.07);
 }
 
 select[name="experience_level"] {
   width: 90%;
   margin-left: clamp(0px, 3vw, 50px);
-  padding: clamp(6px, 1vw, 12px);
+  padding: clamp(6px, 1vw, 14px) clamp(10px, 2vw, 18px);
   border: 1px solid #ccc;
-  border-radius: 6px;
+  border-radius: 7px;
   font-size: clamp(0.95rem, 2vw, 1.1rem);
   background-color: #fff;
   color: #333;
-  transition: border-color 0.3s ease, box-shadow 0.3s ease;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  transition: border-color 0.3s, box-shadow 0.3s;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.07);
 }
 
 select[name="experience_level"]:focus {
@@ -124,14 +127,14 @@ select[name="experience_level"]:focus {
 
 .skill-select-container select {
   flex: 1;
-  padding: clamp(6px, 1vw, 12px);
+  padding: clamp(6px, 1vw, 14px) clamp(10px, 2vw, 18px);
   border: 1px solid #ccc;
-  border-radius: 6px;
+  border-radius: 7px;
   font-size: clamp(0.9rem, 2vw, 1rem);
   background-color: #fff;
   color: #333;
-  transition: border-color 0.3s ease, box-shadow 0.3s ease;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  transition: border-color 0.3s, box-shadow 0.3s;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.07);
 }
 
 .skill-select-container select:focus {
@@ -140,69 +143,100 @@ select[name="experience_level"]:focus {
   box-shadow: 0 0 0 3px rgba(28, 53, 94, 0.2);
 }
 
-/* Responsive tweaks for extra small screens */
+.profile-picture-section {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: clamp(16px, 3vw, 40px);
+  margin-top: clamp(10px, 2vw, 24px);
+}
+
+.upload-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.upload-label {
+  font-weight: 600;
+  margin-bottom: clamp(6px, 1vw, 12px);
+  color: #1c355e;
+}
+
+.file-input {
+  width: 90%;
+  padding: clamp(6px, 1vw, 14px) clamp(10px, 2vw, 18px);
+  margin-left: clamp(0px, 3vw, 50px);
+  margin-right: clamp(0px, 6vw, 100px);
+  border: 1px solid #ccc;
+  border-radius: 7px;
+  font-size: clamp(0.95rem, 2vw, 1.1rem);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+  transition: box-shadow 0.3s, border-color 0.3s;
+}
+
+.file-input:hover,
+.file-input:focus {
+  box-shadow: 0 4px 16px rgba(28, 53, 94, 0.13);
+  border-color: #1c355e;
+  outline: none;
+}
+
+.preview-container {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  margin-left: clamp(0px, 3vw, 50px);
+  margin-top: clamp(6px, 1vw, 12px);
+}
+
+.preview-img {
+  width: clamp(70px, 10vw, 120px);
+  height: clamp(70px, 10vw, 120px);
+  object-fit: cover;
+  border-radius: 50%;
+  border: 2px solid #ccc;
+  box-shadow: 0 2px 8px rgba(28, 53, 94, 0.08);
+}
+
 @media (max-width: 1500px) {
   .student-profile-container {
-    padding: 20px;
-    margin-left:320px;
-  }
-  .student-profile-form {
-    margin-left: 0;
-    margin-right: 0;
-  }
-  .student-profile-form label,
-  .student-profile-form input,
-  .student-profile-form textarea,
-  select[name="experience_level"],
-  .skill-select-container {
-    margin-left: 0;
-    margin-right: 0;
-    width: 100%;
+    margin-left: 320px;
   }
 }
-/* 
-@media (max-width: 900px) {
+
+@media (max-width: 700px) {
   .student-profile-container {
-    padding: 8px 2vw;
-    margin-left: 350px;
+    margin-left: 70px;
+    padding: clamp(8px, 4vw, 18px);
+    border-radius: 0;
+    min-height: unset;
+  }
+  .student-profile-container h1 {
+    font-size: clamp(1.1rem, 4vw, 1.5rem);
   }
   .student-profile-form {
-    padding: 0;
+    margin-left: 0;
+    margin-right: 0;
   }
   .student-profile-form label,
   .student-profile-form input,
   .student-profile-form textarea,
   select[name="experience_level"],
   .skill-select-container {
-    font-size: 0.95rem;
     margin-left: 0;
     margin-right: 0;
     width: 100%;
+    font-size: clamp(0.95rem, 3vw, 1.1rem);
   }
   .button-wrapper {
     justify-content: center;
-    margin-right: 0;
-  }
-} */
-
-@media (max-width: 800px) {
-  .student-profile-container {
-    padding: 4px 1vw;
-    margin-left: 70px;
-    margin-right: 10px;
-  }
-  .student-profile-form label,
-  .student-profile-form input,
-  .student-profile-form textarea,
-  select[name="experience_level"],
-  .skill-select-container {
-    font-size: 0.9rem;
-    margin-left: 0;
-    margin-right: 0;
-    width: 100%;
+    margin-top: clamp(12px, 2vw, 24px);
   }
   .bar {
-    font-size: 0.95rem;
-    padding: 8px 2px;
+    font-size: clamp(0.9rem, 3vw, 1rem);
+    padding: clamp(4px, 2vw, 10px) clamp(8px, 4vw, 16px);
+  }
+  .preview-container {
+    margin-left: 0;
   }
 }

@@ -151,12 +151,18 @@ button:hover {
     padding: 0;
   }
   .settings-header {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 10px;
+    display: flex;
+    flex-direction: row; /* ensures h1 and button are on the same line */
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-bottom: clamp(8px, 2vw, 18px);
+    gap: clamp(8px, 3vw, 16px);
+    flex-wrap: nowrap; /* prevent wrapping */
   }
   .button-wrapper {
     justify-content: center;
     margin-right: 0;
   }
 }
+  

@@ -1,50 +1,112 @@
+/* Modern & Responsive Employer Student List Styles */
+
 .employer-student-list {
-  padding: 30px;
+  padding: clamp(8px, 3vw, 30px);
   background-color: #ffffff;
   border-radius: 8px;
   font-family: 'Segoe UI', sans-serif;
-  margin-left: 320px;
+  margin-left: clamp(0px, 20vw, 320px);
+  min-height: 100vh;
 }
 
 .header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 20px;
+  margin-bottom: clamp(10px, 2vw, 20px);
 }
 
-.header h1{
-  font-size: 25px;
-  margin-bottom: 20px;
+.header h1 {
+  font-size: clamp(1.1rem, 4vw, 2rem);
   color: #1c355e;
+  margin-bottom: 0;
 }
+
+.student-list-container {
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(10px, 2vw, 20px);
+}
+
 .student-list-container ul {
   list-style-type: none;
   padding: 0;
   margin: 0;
+  width: 100%;
 }
 
 .student-list-container li {
   background-color: #f9f9f9;
   border: 1px solid #e0e0e0;
-  padding: 12px 16px;
-  margin-bottom: 10px;
-  border-radius: 6px;
+  padding: clamp(10px, 2vw, 20px) clamp(12px, 3vw, 32px);
+  margin-bottom: clamp(8px, 2vw, 16px);
+  border-radius: 8px;
   cursor: pointer;
-  transition: background-color 0.3s;
+  transition: background-color 0.3s, box-shadow 0.3s;
+  font-size: clamp(1rem, 2vw, 1.2rem);
+  display: flex;
+  align-items: center;
+  gap: clamp(8px, 2vw, 20px);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.04);
 }
 
 .student-list-container li strong {
   color: #1c355e;
+  font-size: clamp(1.05rem, 2vw, 1.25rem);
 }
 
 .student-list-container li:hover {
-  background-color: #e9dbc8; /* Soft blue hover effect */
+  background-color: #e9dbc8;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
 }
 
 .student-list {
   text-align: center;
   color: #777;
   font-style: italic;
-  padding: 20px;
+  padding: clamp(16px, 4vw, 32px);
+  font-size: clamp(1rem, 2vw, 1.2rem);
+}
+
+@media (max-width: 1500px) {
+  .employer-student-list {
+    padding: 20px;
+    margin-left: 320px;
+  }
+  .student-list-container {
+    max-width: 100%;
+    padding: 0 2vw;
+  }
+  .student-list-container li {
+    padding: 12px 8px;
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 1000px) {
+  .employer-student-list {
+    padding: 16px 8px;
+    margin-left: 320px;
+  }
+  .student-list-container li {
+    font-size: 0.95rem;
+    padding: 10px 6px;
+  }
+}
+
+@media (max-width: 800px) {
+  .employer-student-list {
+    padding: 4px 1vw;
+    margin-left: 70px;
+  }
+  .student-list-container li {
+    font-size: 0.85rem;
+    padding: 6px 2px;
+  }
+  .student-list {
+    font-size: 0.95rem;
+    padding: 10px 2px;
+  }
 }
