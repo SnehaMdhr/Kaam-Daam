@@ -1,33 +1,88 @@
-/* studentreviews.css */
+/* Responsive Student Reviews Styles */
+
 .student-reviews {
-  margin-top: 30px;
-  padding: 20px;
+  margin-top: clamp(16px, 4vw, 30px);
+  padding: clamp(10px, 3vw, 20px);
   background-color: #fff;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 .average-rating {
-  margin-bottom: 20px;
+  margin-bottom: clamp(10px, 2vw, 20px);
 }
 
 .stars {
   display: flex;
+  gap: clamp(2px, 1vw, 8px);
 }
 
 .review-card {
   background-color: #f9f9f9;
-  padding: 15px;
-  margin-bottom: 15px;
+  padding: clamp(8px, 2vw, 15px);
+  margin-bottom: clamp(8px, 2vw, 15px);
   border-radius: 8px;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
 }
 
 .review-rating {
   display: flex;
+  gap: clamp(2px, 1vw, 8px);
 }
 
 .review-card p {
-  font-size: 14px;
+  font-size: clamp(0.85rem, 1vw, 1rem);
   color: #555;
+}
+
+/* Responsive tweaks for tablets and small screens */
+@media (max-width: 1200px) {
+  .student-reviews {
+    padding: 12px;
+  }
+  .review-card {
+    padding: 10px;
+  }
+}
+
+@media (max-width: 900px) {
+  .student-reviews {
+    padding: 8px;
+  }
+  .review-card {
+    padding: 6px;
+  }
+}
+
+@media (max-width: 700px) {
+  .profile-container{
+    margin-left: 20px;
+  }
+  .student-reviews {
+    margin-top: 10px;
+    
+  }
+  .review-card {
+    padding: 2vw;
+    margin-bottom: 2vw;
+  }
+  .stars {
+    gap: 4px;
+  }
+  .review-rating {
+    gap: 4px;
+  }
+}
+
+@media (max-width: 400px) {
+  .student-reviews {
+    padding: 2vw;
+  }
+  .review-card {
+    padding: 1vw;
+    margin-bottom: 1vw;
+  }
+  .review-card p {
+    font-size: 0.8rem;
+  }
 }

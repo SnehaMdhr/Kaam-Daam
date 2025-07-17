@@ -1,44 +1,50 @@
+/* Student Profile Responsive Styles - Modern & Polished */
+
 .student-profile-container {
-   padding: 30px;
+  padding: clamp(8px, 3vw, 30px);
   background-color: #ffffff;
   border-radius: 8px;
   font-family: 'Segoe UI', sans-serif;
-  margin-left: 320px;
-
+  margin-left: clamp(0px, 20vw, 320px);
+  min-height: 100vh;
 }
 
 .student-profile-container h1 {
   color: #2b4d66;
-  font-size: 25px;
+  font-size: clamp(1.1rem, 4vw, 2rem);
+  margin-bottom: clamp(10px, 2vw, 20px);
 }
 
 .student-profile-form {
-  margin-bottom: 16px;
-  margin-left: 20px;
-  margin-right: 20px;
+  margin-bottom: clamp(10px, 2vw, 20px);
+  margin-left: clamp(0px, 2vw, 20px);
+  margin-right: clamp(0px, 2vw, 20px);
+  display: flex;
+  flex-direction: column;
+  gap: clamp(10px, 2vw, 20px);
 }
 
 .student-profile-form label {
   display: block;
-  margin-bottom: 10px;
-  margin-top: 10px;
+  margin-bottom: clamp(4px, 1vw, 10px);
+  margin-top: clamp(4px, 1vw, 10px);
   font-weight: 500;
-  font-size: 20px;
-  margin-left: 50px;
+  font-size: clamp(1rem, 2vw, 1.2rem);
+  margin-left: clamp(0px, 3vw, 50px);
   color: #333;
 }
 
 .student-profile-form input,
 .student-profile-form textarea {
   width: 90%;
-  padding: 6px 12px;
-  margin-left: 50px;
-  margin-right: 100px;
+  padding: clamp(6px, 1vw, 12px);
+  margin-left: clamp(0px, 3vw, 50px);
+  margin-right: clamp(0px, 6vw, 100px);
   border: 1px solid #ccc;
   border-radius: 5px;
-  font-size: 15px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); /* subtle shadow */
-  transition: box-shadow 0.3s ease; /* smooth hover effect */
+  font-size: clamp(0.95rem, 2vw, 1.1rem);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease;
 }
 
 .student-profile-form textarea {
@@ -46,54 +52,55 @@
   resize: vertical;
 }
 
-
 .student-profile-form input:focus,
 .student-profile-form textarea:focus {
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* stronger on focus */
-  outline: none; /* remove default outline */
-
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  outline: none;
 }
 
 .button-wrapper {
   display: flex;
   justify-content: flex-end;
-  margin-top: 30px; 
-} 
+  margin-top: clamp(16px, 3vw, 30px);
+  gap: clamp(8px, 2vw, 20px);
+}
 
 .button-wrapper button {
   background-color: #1c355e;
-    color: #fff;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    margin-right: 55px;
-    font-size: 1rem;
+  color: #fff;
+  padding: clamp(8px, 2vw, 16px) clamp(16px, 4vw, 32px);
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-right: clamp(0px, 3vw, 55px);
+  font-size: clamp(1rem, 2vw, 1.1rem);
+  transition: background 0.2s, box-shadow 0.2s;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
 }
 
 .button-wrapper button:hover {
   background-color: #153943;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
 }
 
- .bar{
-    background-color: #e9dbc8;  /* Light beige */
-  padding: 6px 20px;
+.bar {
+  background-color: #e9dbc8;
+  padding: clamp(4px, 1vw, 20px) clamp(8px, 2vw, 20px);
   border-radius: 8px;
-  margin-top: 30px;
-  margin-bottom: 20px;
+  margin-top: clamp(10px, 2vw, 30px);
+  margin-bottom: clamp(8px, 2vw, 20px);
   font-weight: bold;
-  font-size: 15px;
+  font-size: clamp(1rem, 2vw, 1.1rem);
   color: #1c355e;
-  }
+}
 
-
-  select[name="experience_level"] {
+select[name="experience_level"] {
   width: 90%;
-  margin-left: 50px;
-  padding: 6px 12px;
+  margin-left: clamp(0px, 3vw, 50px);
+  padding: clamp(6px, 1vw, 12px);
   border: 1px solid #ccc;
   border-radius: 6px;
-  font-size: 15px;
+  font-size: clamp(0.95rem, 2vw, 1.1rem);
   background-color: #fff;
   color: #333;
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
@@ -109,18 +116,18 @@ select[name="experience_level"]:focus {
 
 .skill-select-container {
   display: flex;
-  gap: 10px;
-  margin-left: 50px;
-  margin-right: 55px;
-  margin-bottom: 15px;
+  gap: clamp(6px, 2vw, 20px);
+  margin-left: clamp(0px, 3vw, 50px);
+  margin-right: clamp(0px, 3vw, 55px);
+  margin-bottom: clamp(8px, 2vw, 15px);
 }
 
 .skill-select-container select {
   flex: 1;
-  padding: 6px 12px;
+  padding: clamp(6px, 1vw, 12px);
   border: 1px solid #ccc;
   border-radius: 6px;
-  font-size: 14px;
+  font-size: clamp(0.9rem, 2vw, 1rem);
   background-color: #fff;
   color: #333;
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
@@ -131,4 +138,71 @@ select[name="experience_level"]:focus {
   border-color: #1c355e;
   outline: none;
   box-shadow: 0 0 0 3px rgba(28, 53, 94, 0.2);
+}
+
+/* Responsive tweaks for extra small screens */
+@media (max-width: 1500px) {
+  .student-profile-container {
+    padding: 20px;
+    margin-left:320px;
+  }
+  .student-profile-form {
+    margin-left: 0;
+    margin-right: 0;
+  }
+  .student-profile-form label,
+  .student-profile-form input,
+  .student-profile-form textarea,
+  select[name="experience_level"],
+  .skill-select-container {
+    margin-left: 0;
+    margin-right: 0;
+    width: 100%;
+  }
+}
+/* 
+@media (max-width: 900px) {
+  .student-profile-container {
+    padding: 8px 2vw;
+    margin-left: 350px;
+  }
+  .student-profile-form {
+    padding: 0;
+  }
+  .student-profile-form label,
+  .student-profile-form input,
+  .student-profile-form textarea,
+  select[name="experience_level"],
+  .skill-select-container {
+    font-size: 0.95rem;
+    margin-left: 0;
+    margin-right: 0;
+    width: 100%;
+  }
+  .button-wrapper {
+    justify-content: center;
+    margin-right: 0;
+  }
+} */
+
+@media (max-width: 800px) {
+  .student-profile-container {
+    padding: 4px 1vw;
+    margin-left: 70px;
+    margin-right: 10px;
+  }
+  .student-profile-form label,
+  .student-profile-form input,
+  .student-profile-form textarea,
+  select[name="experience_level"],
+  .skill-select-container {
+    font-size: 0.9rem;
+    margin-left: 0;
+    margin-right: 0;
+    width: 100%;
+  }
+  .bar {
+    font-size: 0.95rem;
+    padding: 8px 2px;
+  }
 }

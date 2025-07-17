@@ -1,30 +1,37 @@
+/* Student View Profile Responsive Styles - Modern & Polished */
+
 .profile-container {
-  padding: 30px;
+  padding: clamp(8px, 3vw, 30px);
   background-color: #ffffff;
   border-radius: 8px;
   font-family: 'Segoe UI', sans-serif;
-  margin-left: 320px;
+  margin-left: clamp(0px, 20vw, 320px);
+  min-height: 100vh;
 }
 
 .profile-content {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 20px;
+  margin-bottom: clamp(10px, 2vw, 20px);
 }
+
 .profile-content h1 {
-  font-size: 25px;
+  font-size: clamp(1.1rem, 4vw, 2rem);
   color: #1c355e;
 }
 
-.content p {
-margin: 10px 0;
-  font-size: 15px;
-  color: #2c3e50;
-  margin-left: 50px;
+.content {
+  margin: 0;
+  padding: 0;
 }
 
-
+.content p {
+  margin: clamp(6px, 1vw, 10px) 0;
+  font-size: clamp(0.95rem, 2vw, 1.1rem);
+  color: #2c3e50;
+  margin-left: clamp(0px, 3vw, 50px);
+}
 
 .content strong {
   color: #222;
@@ -42,54 +49,93 @@ margin: 10px 0;
 
 .profile-picture {
   display: block;
-  width: 120px;
-  height: 120px;
+  width: clamp(60px, 20vw, 120px);
+  height: clamp(60px, 20vw, 120px);
   object-fit: cover;
   border-radius: 50%;
-  margin: 0 auto 20px auto;
+  margin: 0 auto clamp(16px, 2vw, 20px) auto;
   display: flex;
   align-items: left;
   justify-content: left;
-  margin-left: 50px;
+  margin-left: clamp(0px, 3vw, 50px);
 }
 
-.reviews-section{
-  margin-left: 50px;
+.bar {
+  background-color: #e9dbc8;
+  padding: clamp(4px, 1vw, 20px) clamp(8px, 2vw, 20px);
+  border-radius: 8px;
+  margin-top: clamp(10px, 2vw, 30px);
+  margin-bottom: clamp(8px, 2vw, 20px);
+  font-weight: bold;
+  font-size: clamp(1rem, 2vw, 1.1rem);
+  color: #1c355e;
 }
+
+.skills-section {
+  margin-left: clamp(0px, 3vw, 50px);
+  margin-top: clamp(10px, 2vw, 20px);
+}
+
+.skills-section ul {
+  padding-left: clamp(10px, 2vw, 20px);
+}
+
+.skills-section li {
+  margin-bottom: clamp(4px, 1vw, 8px);
+}
+
+.reviews-section {
+  margin-left: clamp(0px, 3vw, 50px);
+}
+
 .review-box {
   border: 1px solid #ddd;
-  padding: 12px;
-  border-radius: 6px;
-  margin-bottom: 12px;
+  padding: clamp(8px, 2vw, 16px);
+  border-radius: 8px;
+  margin-bottom: clamp(8px, 2vw, 16px);
   background-color: #f9f9f9;
 }
 
 .review-box strong {
-  font-size: 16px;
+  font-size: clamp(1rem, 2vw, 1.1rem);
   color: #333;
 }
 
-.skills-section{
-  margin-left: 50px;
+/* Responsive tweaks for extra small screens */
+@media (max-width: 1500px) {
+  .profile-container {
+    padding: 20px;
+    margin-left: 320px;
+  }
+  .profile-content {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+  .profile-picture {
+    margin-left: 0;
+  }
+  .skills-section, .reviews-section {
+    margin-left: 0;
+  }
+  .content p {
+    margin-left: 20px;
+  }
 }
 
-
-.skills-section ul {
-  padding-left: 20px;
+@media (max-width: 800px) {
+  .profile-container {
+    padding: 8px 2vw;
+    margin-left: 70px;
+  }
+  .profile-content {
+    padding: 0;
+  }
+  .skills-section, .reviews-section {
+    margin-left: 0;
+  }
+  .content p {
+    font-size: 0.95rem;
+    margin-left: 20px;
+  }
 }
-
-.skills-section li {
-  margin-bottom: 6px;
-}
-
-
- .bar{
-    background-color: #e9dbc8;  /* Light beige */
-  padding: 6px 20px;
-  border-radius: 8px;
-  margin-top: 30px;
-  margin-bottom: 20px;
-  font-weight: bold;
-  font-size: 15px;
-  color: #1c355e;
-  } 
