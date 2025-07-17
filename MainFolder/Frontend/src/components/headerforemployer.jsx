@@ -1,4 +1,4 @@
-import React, { use, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FaBell, FaUserCircle } from "react-icons/fa";
 import logo from "../assets/image/logo.png";
 import "./headerforemployer.css";
@@ -16,32 +16,29 @@ const HeaderForEmployer = () => {
     navigate("/employerviewprofile");
   };
 
-  // 🔁 Check if employer has unseen notifications
   useEffect(() => {
-  if (employerId) {
-    // Get unread notifications
-    axios
-      .get(`http://localhost:5000/api/notifications/${employerId}`)
-      .then((res) => {
-        const unseen = res.data.some((n) => !n.is_read);
-        setHasUnseen(unseen);
-      });
+    if (employerId) {
+      // Get unread notifications
+      axios
+        .get(`http://localhost:5000/api/notifications/${employerId}`)
+        .then((res) => {
+          const unseen = res.data.some((n) => !n.is_read);
+          setHasUnseen(unseen);
+        });
 
-    // Get employer's organization name
-    axios
-  .get(`http://localhost:5000/api/users/${employerId}`)
-  .then((res) => {
-    console.log("Employer response:", res.data); // 👈 ADD THIS
-    if (res.data && res.data.username) {
-      setOrgName(res.data.username || "Your Org");
+      // Get employer's organization name
+      axios
+        .get(`http://localhost:5000/api/users/${employerId}`)
+        .then((res) => {
+          if (res.data && res.data.username) {
+            setOrgName(res.data.username || "Your Org");
+          }
+        })
+        .catch((err) => {
+          console.error("Failed to load employer info", err);
+        });
     }
-  })
-  .catch((err) => {
-    console.error("Failed to load employer info", err);
-  });
-  }
-}, [employerId]);
-
+  }, [employerId]);
 
   return (
     <nav className="topbar">
@@ -52,7 +49,6 @@ const HeaderForEmployer = () => {
         </div>
         <div className="topbar-right">
           <span className="org-name">{orgName || "Your Org"}</span>
-
           <div
             className="notification-wrapper"
             style={{ position: "relative", cursor: "pointer" }}

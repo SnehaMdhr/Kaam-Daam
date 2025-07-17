@@ -1,121 +1,156 @@
+/* Edit Job Responsive Styles - Modern & Polished */
+
 .edit-job-container {
-  padding: 30px;
+  padding: clamp(8px, 3vw, 30px);
   background-color: #ffffff;
   border-radius: 8px;
   font-family: 'Segoe UI', sans-serif;
-  margin-left: 320px;
+  margin-left: clamp(0px, 20vw, 320px);
+  min-height: 100vh;
 }
 
-.edit-job-form{
+.edit-job-form {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 20px;
+  margin-bottom: clamp(10px, 2vw, 20px);
 }
+
 .edit-job-form h1 {
-  font-size: 25px;
+  font-size: clamp(1.1rem, 4vw, 2rem);
   color: #1c355e;
 }
 
 .profile-section {
-  margin-bottom: 16px;
-  margin-left: 20px;
-  margin-right: 20px;
+  margin-bottom: clamp(10px, 2vw, 20px);
+  margin-left: clamp(0px, 2vw, 20px);
+  margin-right: clamp(0px, 2vw, 20px);
 }
-  
-  .form-update label {
- display: block;
-  margin-bottom: 10px;
-  margin-top: 10px;
+
+.form-update label {
+  display: block;
+  margin-bottom: clamp(4px, 1vw, 10px);
+  margin-top: clamp(4px, 1vw, 10px);
   font-weight: 500;
-  font-size: 20px;
-  margin-left: 50px;
+  font-size: clamp(1rem, 2vw, 1.2rem);
+  margin-left: clamp(0px, 3vw, 50px);
   color: #333;
-} 
+}
+
 input[type="text"],
 input[type="email"],
 input[type="password"],
 input[type="number"],
-input[type="date"] {
+input[type="date"],
+textarea {
   width: 90%;
-  padding: 6px 12px;
-  margin-left: 50px;
-  margin-right: 100px;
+  padding: clamp(6px, 1vw, 12px);
+  margin-left: clamp(0px, 3vw, 50px);
+  margin-right: clamp(0px, 6vw, 100px);
   border: 1px solid #ccc;
   border-radius: 5px;
-  font-size: 15px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); /* subtle shadow */
-  transition: box-shadow 0.3s ease; /* smooth hover effect */
-
+  font-size: clamp(0.95rem, 2vw, 1.1rem);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease;
 }
 
 input[type="text"]:focus,
 input[type="email"]:focus,
 input[type="password"]:focus,
-input[type="url"]:focus ,
-input [type="date"]:focus{
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* stronger on focus */
-  outline: none; /* remove default outline */
-
+input[type="url"]:focus,
+input[type="date"]:focus,
+textarea:focus {
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  outline: none;
 }
 
 input[type="checkbox"] {
   margin-right: 8px;
-}  
+}
+
 .password-note {
-  font-size: 0.9rem;
+  font-size: clamp(0.8rem, 1vw, 0.95rem);
   color: #666;
-  margin-bottom: 16px;
+  margin-bottom: clamp(8px, 2vw, 16px);
 }
 
 .button-wrapper {
   display: flex;
   justify-content: flex-end;
-  margin-top: 30px; 
-}   
-  button {
-    background-color: #1c355e;
-    color: #fff;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    margin-right: 55px;
-    font-size: 1rem;
-  }
+  margin-top: clamp(16px, 3vw, 30px);
+  gap: clamp(8px, 2vw, 20px);
+}
 
-  button:hover {
-    background-color: #2e4c7b;
-  }
+button {
+  background-color: #1c355e;
+  color: #fff;
+  padding: clamp(8px, 2vw, 16px) clamp(16px, 4vw, 32px);
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-right: clamp(0px, 3vw, 55px);
+  font-size: clamp(1rem, 2vw, 1.1rem);
+  transition: background 0.2s, box-shadow 0.2s;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+}
 
-  textarea {
-    width: 90%;
-    padding: 10px 12px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 1rem;
-    resize: vertical;
-    margin-left: 50px;
-    min-height: 100px;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); /* subtle shadow */
-  transition: box-shadow 0.3s ease; /* smooth hover effect */
+button:hover {
+  background-color: #2e4c7b;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
 
-  }
+textarea {
+  resize: vertical;
+  min-height: 100px;
+}
 
-  .textarea:focus{
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* stronger on focus */
-  outline: none; /* remove default outline */
-
-
-  }
-
-  .bar{
-    background-color: #e9dbc8;  /* Light beige */
-  padding: 6px 20px;
+.bar {
+  background-color: #e9dbc8;
+  padding: clamp(4px, 1vw, 20px) clamp(8px, 2vw, 20px);
   border-radius: 8px;
-  margin-top: 30px;
-  margin-bottom: 20px;
+  margin-top: clamp(10px, 2vw, 30px);
+  margin-bottom: clamp(8px, 2vw, 20px);
   font-weight: bold;
-  font-size: 15px;
+  font-size: clamp(1rem, 2vw, 1.1rem);
   color: #1c355e;
+}
+
+/* Responsive tweaks for extra small screens */
+@media (max-width: 1500px) {
+  .edit-job-container {
+    padding: 20px;
+    margin-left: 320px;
   }
+}
+
+@media (max-width: 800px) {
+  .edit-job-container {
+    padding: 8px 2vw;
+    margin-left: 70px;
+  }
+  .edit-job-form {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+  .profile-section {
+    margin-left: 0;
+    margin-right: 0;
+  }
+  .form-update label,
+  input[type="text"],
+  input[type="email"],
+  input[type="password"],
+  input[type="number"],
+  input[type="date"],
+  textarea {
+    margin-left: 0;
+    margin-right: 0;
+    width: 100%;
+    font-size: 0.95rem;
+  }
+  .button-wrapper {
+    justify-content: center;
+    margin-right: 0;
+  }
+}

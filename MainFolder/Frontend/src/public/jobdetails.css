@@ -1,55 +1,60 @@
+/* Job Details Responsive Styles - Modern & Polished */
+
 .head-title {
- padding: 30px;
+  padding: clamp(8px, 3vw, 30px);
   background-color: #ffffff;
   border-radius: 8px;
   font-family: 'Segoe UI', sans-serif;
-  margin-left: 320px;
+  margin-left: clamp(0px, 20vw, 320px);
+  min-height: 100vh;
 }
-.header-container{
+
+.header-container {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 20px;
+  margin-bottom: clamp(10px, 2vw, 20px);
 }
 
-
-.header-container h1{
-  font-size: 25px;
+.header-container h1 {
+  font-size: clamp(1.1rem, 4vw, 2rem);
   color: #1c355e;
 }
 
-.jobname h2{
-  font-size: 25px;
-  margin-bottom: 25px;
+.jobname h2 {
+  font-size: clamp(1.1rem, 4vw, 2rem);
+  margin-bottom: clamp(10px, 2vw, 25px);
   text-decoration: underline;
 }
 
- p {
-  margin: 10px 0;
-  font-size: 15px;
+p {
+  margin: clamp(6px, 1vw, 10px) 0;
+  font-size: clamp(0.95rem, 2vw, 1.1rem);
   color: #2c3e50;
-  margin-left: 50px;
+  margin-left: clamp(0px, 3vw, 50px);
 }
 
- h1 {
-   font-size: 25px;
-  margin-bottom: 20px;
+h1 {
+  font-size: clamp(1.1rem, 4vw, 2rem);
+  margin-bottom: clamp(10px, 2vw, 20px);
   color: #1c355e;
 }
 
 .button-group {
-  margin-top: 30px;
+  margin-top: clamp(16px, 3vw, 30px);
   display: flex;
-  gap: 12px;
+  gap: clamp(8px, 2vw, 16px);
 }
 
 .btn {
-  padding: 10px 20px;
+  padding: clamp(8px, 2vw, 16px) clamp(16px, 4vw, 32px);
   border: none;
   border-radius: 6px;
-  font-size: 14px;
+  font-size: clamp(0.95rem, 2vw, 1.1rem);
   cursor: pointer;
   font-weight: 500;
+  transition: background 0.2s, box-shadow 0.2s;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
 }
 
 .btn-blue {
@@ -64,15 +69,50 @@
 
 .btn:hover {
   opacity: 0.9;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
 }
 
- .bar{
-    background-color: #e9dbc8;  /* Light beige */
-  padding: 6px 20px;
+.bar {
+  background-color: #e9dbc8;
+  padding: clamp(4px, 1vw, 20px) clamp(8px, 2vw, 20px);
   border-radius: 8px;
-  margin-top: 30px;
-  margin-bottom: 20px;
+  margin-top: clamp(10px, 2vw, 30px);
+  margin-bottom: clamp(8px, 2vw, 20px);
   font-weight: bold;
-  font-size: 15px;
+  font-size: clamp(1rem, 2vw, 1.1rem);
   color: #1c355e;
+}
+
+/* Responsive tweaks for extra small screens */
+@media (max-width: 1500px) {
+  .head-title {
+    padding: 20px;
+    margin-left: 320px;
   }
+}
+
+@media (max-width: 800px) {
+  .head-title {
+    padding: 8px 2vw;
+    margin-left: 70px;
+  }
+  .header-container {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+  .jobname h2,
+  .header-container h1,
+  h1 {
+    font-size: 1.1rem;
+  }
+  p {
+    margin-left: 0;
+    font-size: 0.95rem;
+  }
+  .button-group {
+    flex-direction: column;
+    gap: 8px;
+    align-items: flex-start;
+  }
+}
