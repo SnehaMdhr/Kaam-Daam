@@ -2,11 +2,14 @@
 
 /* Profile container */
 .profile-container {
-  padding: 30px;
-  background-color: #ffffff;
-  border-radius: 8px;
+  padding: clamp(16px, 4vw, 40px);
+  background-color: #fff;
+  border-radius: 12px;
   font-family: 'Segoe UI', sans-serif;
-  margin-left: 320px;
+  margin-left: clamp(70px, 20vw, 320px);
+  min-height: 100vh;
+  box-shadow: 0 2px 12px rgba(28, 53, 94, 0.07);
+  transition: margin-left 0.3s cubic-bezier(.4,0,.2,1);
 }
 
 /* Main content */
@@ -14,25 +17,24 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 20px;
+  margin-bottom: clamp(12px, 2vw, 32px);
 }
 
+.profile-content h1,
 .profile-content h2 {
-   font-size: 25px;
-  color: #1c355e; 
-}
-.profile-content h1 {
-  font-size: 25px;
-  color:#1c355e;
+  font-size: clamp(1.3rem, 2.5vw, 2.2rem);
+  color: #1c355e;
+  font-weight: 700;
+  margin: 0;
 }
 content p {
-  margin: 10px 0;
-  font-size: 15px;
+  margin: clamp(6px, 1vw, 16px) 0;
+  font-size: clamp(0.95rem, 2vw, 1.1rem);
   color: #2c3e50;
 }
 
 .profile-container p {
-  margin-left: 50px;
+  margin-left: clamp(0px, 3vw, 50px);
 }
 
 .profile-content strong {
@@ -43,77 +45,128 @@ content p {
   color: #2c3e50;
   text-decoration: none;
   word-break: break-all;
+  transition: color 0.2s;
 }
 
 .profile-content a:hover {
   text-decoration: underline;
+  color: #1c355e;
 }
 
 .profile-picture {
   display: block;
-  width: 120px;
-  height: 120px;
+  width: clamp(70px, 10vw, 120px);
+  height: clamp(70px, 10vw, 120px);
   object-fit: cover;
   border-radius: 50%;
-  margin: 0 auto 20px auto;
+  margin: 0 auto clamp(16px, 2vw, 24px) auto;
   display: flex;
-  align-items: left;
-  justify-content: left;
-  margin-left: 50px;
+  align-items: flex-start;
+  justify-content: flex-start;
+  margin-left: clamp(0px, 3vw, 50px);
+  box-shadow: 0 2px 8px rgba(28, 53, 94, 0.08);
 }
 
-.reviews-section{
-  margin-left: 50px;
+.reviews-section {
+  margin-left: clamp(0px, 3vw, 50px);
 }
 .review-box {
   border: 1px solid #ddd;
-  padding: 12px;
-  border-radius: 6px;
-  margin-bottom: 12px;
+  padding: clamp(8px, 1vw, 16px);
+  border-radius: 8px;
+  margin-bottom: clamp(8px, 1vw, 16px);
   background-color: #f9f9f9;
+  box-shadow: 0 2px 8px rgba(28, 53, 94, 0.07);
 }
 
 .review-box strong {
-  font-size: 16px;
+  font-size: clamp(1rem, 2vw, 1.2rem);
   color: #333;
 }
 
-.skills-section{
-  margin-left: 50px;
+.skills-section {
+  margin-left: clamp(0px, 3vw, 50px);
 }
 
 
 .skills-section ul {
-  padding-left: 20px;
+  padding-left: clamp(10px, 2vw, 20px);
 }
 
 .skills-section li {
-  margin-bottom: 6px;
+  margin-bottom: clamp(4px, 1vw, 8px);
 }
 
 
  .bar{
     background-color: #e9dbc8;  /* Light beige */
-  padding: 6px 20px;
+  padding: clamp(4px, 1vw, 12px) clamp(10px, 2vw, 24px);
   border-radius: 8px;
-  margin-top: 30px;
-  margin-bottom: 20px;
+  margin-top: clamp(12px, 2vw, 30px);
+  margin-bottom: clamp(8px, 1vw, 20px);
   font-weight: bold;
-  font-size: 15px;
+  font-size: clamp(0.95rem, 2vw, 1.1rem);
   color: #1c355e;
+  box-shadow: 0 2px 8px rgba(28, 53, 94, 0.07);
   } 
 /* Button Styles */
 .back-button {
-  padding: 10px 20px;
+  padding: clamp(8px, 1.5vw, 14px) clamp(18px, 3vw, 32px);
   background-color: #1c355e;
   color: #fff;
   border: none;
-  border-radius: 6px;
+  border-radius: 8px;
   cursor: pointer;
-  transition: background-color 0.3s;
-  font-size: 16px;
+  transition: background-color 0.3s, box-shadow 0.2s;
+  font-size: clamp(1rem, 2vw, 1.1rem);
+  font-weight: 600;
+  box-shadow: 0 2px 8px rgba(28, 53, 94, 0.08);
 }
 
 .back-button:hover {
   background-color: #2c3e50;
+  box-shadow: 0 4px 16px rgba(28, 53, 94, 0.13);
+}
+
+@media (max-width: 1500px) {
+  .profile-container {
+    margin-left: 320px;
+  }
+}
+
+@media (max-width: 800px) {
+  .profile-container {
+    margin-left: 70px;
+    padding: clamp(8px, 4vw, 18px);
+    border-radius: 0;
+    min-height: unset;
+  }
+  .profile-content {
+    flex-direction: column;
+    align-items: flex-start;
+    margin-bottom: clamp(8px, 2vw, 18px);
+  }
+  .profile-content h1,
+  .profile-content h2 {
+    font-size: clamp(1.1rem, 4vw, 1.5rem);
+  }
+  .content p,
+  .profile-container p,
+  .review-box strong {
+    margin-left: 0;
+    font-size: clamp(0.95rem, 3vw, 1.1rem);
+  }
+  .profile-picture {
+    margin-left: 0;
+    width: clamp(60px, 20vw, 90px);
+    height: clamp(60px, 20vw, 90px);
+  }
+  .bar {
+    font-size: clamp(0.9rem, 3vw, 1rem);
+    padding: clamp(4px, 2vw, 10px) clamp(8px, 4vw, 16px);
+  }
+  .reviews-section,
+  .skills-section {
+    margin-left: 0;
+  }
 }

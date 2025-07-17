@@ -1,25 +1,28 @@
+/* Student Message Responsive Styles - Modern & Polished */
+
 .chat-container {
   display: flex;
   font-family: "Segoe UI", sans-serif;
   background: #fff;
-  margin-left: 320px;
+  margin-left: clamp(0px, 20vw, 320px);
+  min-height: 100vh;
 }
 
 .sidebar1 {
-  width: 260px;
-  padding: 20px;
+  width: clamp(120px, 18vw, 260px);
+  padding: clamp(8px, 2vw, 20px);
   border-right: 1px solid #ddd;
   position: fixed;
-  top: 70px;       /* Start from 320px from the top */
+  top: 70px;
   left: 320px;
-  height:calc(100vh - 70px);/* Fill the remaining vertical space */
-  background-color: #fff;      /* Optional for clarity */
+  height: calc(100vh - 70px);
+  background-color: #fff;
+  z-index: 10;
 }
 
-
 .sidebar1 h1 {
-  font-size: 20px;
-  margin-bottom: 30px;
+  font-size: clamp(1rem, 2vw, 1.25rem);
+  margin-bottom: clamp(16px, 2vw, 30px);
   color: #1c355e;
 }
 
@@ -31,23 +34,23 @@
 .sidebar1 li {
   display: flex;
   align-items: center;
-  margin-bottom: 18px;
+  margin-bottom: clamp(10px, 2vw, 18px);
   cursor: pointer;
 }
 
 .avatar {
-  width: 36px;
-  height: 36px;
+  width: clamp(28px, 4vw, 36px);
+  height: clamp(28px, 4vw, 36px);
   background-color: #ddd;
   border-radius: 50%;
   text-align: center;
-  line-height: 36px;
+  line-height: clamp(28px, 4vw, 36px);
   font-weight: bold;
   margin-right: 10px;
 }
 
 .user-info span {
-  font-size: 13px;
+  font-size: clamp(0.8rem, 1vw, 0.95rem);
   color: #777;
 }
 
@@ -55,44 +58,45 @@
   flex: 1;
   display: flex;
   flex-direction: column;
-  padding: 20px;
-  margin-left: 250px;
+  padding: clamp(8px, 2vw, 20px);
+  margin-left: clamp(120px, 18vw, 250px);
 }
+
 .chat-header {
   position: fixed;
   top: 65px;
-  left:580px;
+  left: 580px;
   right: 0;
   background-color: #fff;
-  padding: 15px 20px;
+  padding: clamp(8px, 2vw, 15px) clamp(8px, 2vw, 20px);
   border-bottom: 1px solid #ddd;
   z-index: 100;
 }
 
 .chat-header h1 {
-  font-size: 20px;
+  font-size: clamp(1rem, 2vw, 1.25rem);
   color: #1c355e;
   margin: 0;
 }
-
 
 .messages {
   flex: 1;
   overflow-y: auto;
   padding-right: 10px;
-  margin-top: 50px;
-  margin-bottom: 50px;
+  margin-top: clamp(30px, 4vw, 50px);
+  margin-bottom: clamp(30px, 4vw, 50px);
 }
 
 .message {
-  margin-bottom: 16px;
+  margin-bottom: clamp(10px, 2vw, 16px);
 }
 
 .bubble {
-  padding: 12px 16px;
+  padding: clamp(8px, 2vw, 16px);
+  margin-left: 20px;
   border-radius: 10px;
   max-width: 100%;
-  font-size: 15px;
+  font-size: clamp(0.95rem, 2vw, 1.1rem);
   line-height: 1.4;
 }
 
@@ -107,19 +111,20 @@
 }
 
 .sender {
-  font-size: 12px;
+  font-size: clamp(0.8rem, 1vw, 0.95rem);
   margin-top: 4px;
   color: #888;
+  margin-left: 20px;
   display: inline-block;
-  
 }
+
 .input-box {
   position: fixed;
   bottom: 0;
   left: 580px;
   right: 0;
   background-color: #ffffff;
-  padding: 10px 20px;
+  padding: clamp(6px, 1vw, 12px) clamp(8px, 2vw, 20px);
   display: flex;
   align-items: center;
   gap: 10px;
@@ -130,30 +135,68 @@
 }
 
 .input-box img {
-  width: 30px;
-  height: 30px;
+  width: clamp(20px, 4vw, 30px);
+  height: clamp(20px, 4vw, 30px);
 }
 
 .input-box input {
   flex: 1;
-  padding: 10px 12px;
+  padding: clamp(6px, 1vw, 10px) clamp(8px, 2vw, 12px);
   border: 1px solid #ccc;
   border-radius: 6px;
-  font-size: 14px;
+  font-size: clamp(0.95rem, 2vw, 1.1rem);
   outline: none;
 }
 
 .input-box button {
-  padding: 10px 16px;
+  padding: clamp(6px, 1vw, 10px) clamp(10px, 2vw, 16px);
   background-color: #1c355e;
   color: #fff;
   border: none;
   border-radius: 6px;
   cursor: pointer;
-  font-size: 14px;
+  font-size: clamp(0.95rem, 2vw, 1.1rem);
   transition: background-color 0.3s ease;
 }
 
 .input-box button:hover {
   background-color: #005fa3;
+}
+
+/* Responsive tweaks for extra small screens */
+@media (max-width: 1500px) {
+  .chat-container {
+    margin-left: 320px;
+  }
+  .sidebar1 {
+    left: 320px;
+  }
+}
+
+@media (max-width: 800px) {
+  .chat-container {
+    margin-left: 70px;
+  }
+  .sidebar1 {
+    left: 70px;
+    padding: 8px 2vw;
+  }
+  .chat-box {
+    margin-left: 70px;
+    padding: 8px 2vw;
+  }
+  .chat-header {
+    left: 200px;
+    padding: 8px 2vw;
+  }
+  .bubble{
+    margin-left: 80px;
+  }
+  .sender{
+    margin-left: 80px;
+  }
+  .input-box {
+    left: 200px;
+    padding: 8px 2vw;
+  }
 }

@@ -1,43 +1,47 @@
+/* Employer Application Management Responsive Styles - Modern & Polished */
+
 .job-postings-container {
-  padding: 30px;
+  padding: clamp(8px, 3vw, 30px);
   background-color: #ffffff;
   border-radius: 8px;
   font-family: 'Segoe UI', sans-serif;
-  margin-left: 320px;
+  margin-left: clamp(0px, 20vw, 320px);
+  min-height: 100vh;
 }
 
 .job-postings-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 20px;
+  margin-bottom: clamp(10px, 2vw, 20px);
 }
 
-.job-postings-header h1{
-  font-size: 25px;
+.job-postings-header h1 {
+  font-size: clamp(1.1rem, 4vw, 2rem);
   color: #1c355e;
 }
+
 .job-postings-header1 h3 {
-  font-size: 15px;
+  font-size: clamp(1rem, 2vw, 1.1rem);
   color: #555;
-  margin-bottom: 30px;
+  margin-bottom: clamp(16px, 2vw, 30px);
   font-weight: 400;
 }
 
 .job-postings-header2 h2 {
-  font-size:15px;
+  font-size: clamp(1rem, 2vw, 1.2rem);
   font-weight: 800;
-  margin-bottom: 25px;
+  margin-bottom: clamp(10px, 2vw, 25px);
 }
 
 .search-bar {
   display: flex;
   align-items: center;
   background-color: #e9d6bb;
-  padding: 12px 20px;
+  padding: clamp(8px, 2vw, 16px) clamp(12px, 2vw, 20px);
   border-radius: 6px;
-  margin-bottom: 30px;
-  gap: 10px;
+  margin-bottom: clamp(16px, 2vw, 30px);
+  gap: clamp(6px, 2vw, 10px);
 }
 
 .search-bar input {
@@ -45,14 +49,14 @@
   background: transparent;
   outline: none;
   width: 100%;
-  font-size: 14px;
+  font-size: clamp(0.95rem, 2vw, 1.1rem);
 }
 
 /* Job Table */
 .job-table {
   width: 100%;
   border-collapse: collapse;
-  font-size: 14px;
+  font-size: clamp(0.9rem, 1vw, 1rem);
 }
 
 .job-table thead {
@@ -62,7 +66,7 @@
 
 .job-table th,
 .job-table td {
-  padding: 12px 16px;
+  padding: clamp(8px, 2vw, 16px) clamp(8px, 2vw, 16px);
   border-bottom: 1px solid #eee;
 }
 
@@ -70,27 +74,68 @@
   color: #1c355e;
   text-decoration: none;
   font-weight: 500;
+  transition: color 0.2s;
+}
+
+.job-table a:hover {
+  color: #2563eb;
 }
 
 select {
-  padding: 6px 10px;
+  padding: clamp(4px, 1vw, 8px) clamp(8px, 2vw, 12px);
   border-radius: 4px;
   border: 1px solid #ccc;
-  font-size: 0.95rem;
+  font-size: clamp(0.95rem, 1vw, 1rem);
 }
 
 button {
-  padding: 6px 12px;
+  padding: clamp(6px, 1vw, 12px) clamp(12px, 2vw, 24px);
   background-color: #1c355e;
   color: white;
   border: none;
   border-radius: 4px;
   margin: 0 4px;
   cursor: pointer;
-  font-size: 0.9rem;
-  transition: background-color 0.3s;
+  font-size: clamp(0.9rem, 1vw, 1rem);
+  transition: background-color 0.3s, box-shadow 0.2s;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
 }
 
 button:hover {
   background-color: #2e4c7b;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+/* Responsive tweaks for extra small screens */
+@media (max-width: 1500px) {
+  .job-postings-container {
+    padding: 20px;
+    margin-left: 320px;
+  }
+}
+
+@media (max-width: 800px) {
+  .job-postings-container {
+    padding: 8px 2vw;
+    margin-left: 70px;
+  }
+  .job-postings-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+  .search-bar {
+    flex-direction: column;
+    gap: 8px;
+    padding: 8px 2vw;
+  }
+  .job-table th,
+  .job-table td {
+    padding: 8px 2vw;
+    font-size: 0.95rem;
+  }
+  button {
+    width: 100%;
+    margin-top: 8px;
+  }
 }

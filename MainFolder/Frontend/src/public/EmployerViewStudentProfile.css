@@ -1,24 +1,27 @@
+/* Employer View Student Profile Responsive Styles - Modern & Polished */
 
 .profile-container {
-  padding: 30px;
+  padding: clamp(8px, 3vw, 30px);
   background-color: #ffffff;
   border-radius: 8px;
   font-family: 'Segoe UI', sans-serif;
-  margin-left: 320px;
+  margin-left: clamp(0px, 20vw, 320px);
+  min-height: 100vh;
 }
 
 .profile-content h1 {
-  font-size: 25px;
-  color:#1c355e;
+  font-size: clamp(1.1rem, 4vw, 2rem);
+  color: #1c355e;
 }
+
 .profile-content p {
-  margin: 10px 0;
-  font-size: 15px;
+  margin: clamp(6px, 1vw, 10px) 0;
+  font-size: clamp(0.95rem, 2vw, 1.1rem);
   color: #2c3e50;
 }
 
 .profile-container p {
-  margin-left: 50px;
+  margin-left: clamp(0px, 3vw, 50px);
 }
 
 .profile-content strong {
@@ -37,73 +40,112 @@
 
 .profile-picture {
   display: block;
-  width: 120px;
-  height: 120px;
+  width: clamp(60px, 20vw, 120px);
+  height: clamp(60px, 20vw, 120px);
   object-fit: cover;
   border-radius: 50%;
-  margin: 0 auto 20px auto;
+  margin: 0 auto clamp(16px, 2vw, 20px) auto;
   display: flex;
   align-items: left;
   justify-content: left;
-  margin-left: 50px;
+  margin-left: clamp(0px, 3vw, 50px);
 }
 
-.reviews-section{
-  margin-left: 50px;
+.reviews-section {
+  margin-left: clamp(0px, 3vw, 50px);
 }
+
 .review-box {
   border: 1px solid #ddd;
-  padding: 12px;
-  border-radius: 6px;
-  margin-bottom: 12px;
+  padding: clamp(8px, 2vw, 16px);
+  border-radius: 8px;
+  margin-bottom: clamp(8px, 2vw, 16px);
   background-color: #f9f9f9;
 }
 
 .review-box strong {
-  font-size: 16px;
+  font-size: clamp(1rem, 2vw, 1.1rem);
   color: #333;
 }
 
-.skills-section{
-  margin-left: 50px;
+.skills-section {
+  margin-left: clamp(0px, 3vw, 50px);
 }
 
-
 .skills-section ul {
-  padding-left: 20px;
+  padding-left: clamp(10px, 2vw, 20px);
 }
 
 .skills-section li {
-  margin-bottom: 6px;
+  margin-bottom: clamp(4px, 1vw, 8px);
 }
 
-
- .bar{
-    background-color: #e9dbc8;  /* Light beige */
-  padding: 6px 20px;
+.bar {
+  background-color: #e9dbc8;
+  padding: clamp(4px, 1vw, 20px) clamp(8px, 2vw, 20px);
   border-radius: 8px;
-  margin-top: 30px;
-  margin-bottom: 20px;
+  margin-top: clamp(10px, 2vw, 30px);
+  margin-bottom: clamp(8px, 2vw, 20px);
   font-weight: bold;
-  font-size: 15px;
+  font-size: clamp(1rem, 2vw, 1.1rem);
   color: #1c355e;
-  } .button-wrapper {
+}
+
+.button-wrapper {
   display: flex;
   justify-content: flex-end;
-  margin-top: 30px; /* Optional spacing */
+  margin-top: clamp(16px, 3vw, 30px);
+  gap: clamp(8px, 2vw, 20px);
 }
 
 button {
   background-color: #1c355e;
   color: #fff;
-  padding: 10px 20px;
+  padding: clamp(8px, 2vw, 16px) clamp(16px, 4vw, 32px);
   border: none;
-  margin-right: 55px;
+  margin-right: clamp(0px, 3vw, 55px);
   border-radius: 6px;
   cursor: pointer;
-  font-size: 1rem;
+  font-size: clamp(1rem, 2vw, 1.1rem);
+  transition: background 0.2s, box-shadow 0.2s;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
 }
 
 button:hover {
   background-color: #2e4c7b;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+/* Responsive tweaks for extra small screens */
+@media (max-width: 1500px) {
+  .profile-container {
+    padding: 20px;
+    margin-left: 320px;
+  }
+}
+
+@media (max-width: 800px) {
+  .profile-container {
+    padding: 8px 2vw;
+    margin-left: 70px;
+  }
+  .profile-content h1 {
+    font-size: 1.1rem;
+  }
+  .profile-content p,
+  .profile-container p {
+    margin-left: 0;
+    font-size: 0.95rem;
+  }
+  .profile-picture {
+    margin-left: 0;
+  }
+  .reviews-section,
+  .skills-section {
+    margin-left: 0;
+  }
+  .button-wrapper {
+    justify-content: center;
+    margin-right: 0;
+  }
 }
