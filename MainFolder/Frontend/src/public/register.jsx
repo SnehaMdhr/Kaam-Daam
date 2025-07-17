@@ -49,10 +49,12 @@ const Register = () => {
 
   return (
     <div className="register-container">
-      <div className="register-right">
+
+<div className="register-left">
         <img src={registered} alt="Registration Illustration" />
       </div>
-      <div className="register-left">
+      
+      <div className="register-right">
         <div className="logo">
           <img src={logo} alt="Kaam Daam Logo" />
           <h3>Kaam Daam</h3>
@@ -144,6 +146,8 @@ const Register = () => {
           <a href="#"><FaFacebook /></a>
         </div>
       </div>
+
+
 
       {/* ✅ Toast container for success/failure messages */}
       <ToastContainer position="top-right" autoClose={3000} />
