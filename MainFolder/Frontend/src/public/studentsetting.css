@@ -1,57 +1,60 @@
+/* Student Settings Responsive Styles - Modern & Polished */
+
 .settings-container {
-  padding: 30px;
+  padding: clamp(8px, 3vw, 30px);
   background-color: #ffffff;
   border-radius: 8px;
   font-family: 'Segoe UI', sans-serif;
-  margin-left: 320px;
+  margin-left: clamp(0px, 20vw, 320px);
+  min-height: 100vh;
 }
 
 /* Main content */
 .settings-main {
-  display: block; /* Change to block to stack content vertically */
-  padding: 20px;
+  display: block;
+  padding: clamp(8px, 2vw, 20px);
 }
 
 .settings-header {
- display: flex;
+  display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 20px;
+  margin-bottom: clamp(10px, 2vw, 20px);
 }
 
 .settings-header h1 {
-  font-size: 25px;
+  font-size: clamp(1.1rem, 4vw, 2rem);
   color: #1c355e;
 }
 
 /* Section for settings */
 .settings-section {
   background: #fff;
-  padding: 20px;
-  margin: 20px 0;
+  padding: clamp(8px, 2vw, 20px);
+  margin: clamp(10px, 2vw, 20px) 0;
   border-radius: 10px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
 }
 
 .settings-section h3 {
-  background-color: #e9dbc8;  /* Light beige */
-  padding: 6px 20px;
+  background-color: #e9dbc8;
+  padding: clamp(4px, 1vw, 20px) clamp(8px, 2vw, 20px);
   border-radius: 8px;
-  margin-bottom: 20px;
+  margin-bottom: clamp(8px, 2vw, 20px);
   font-weight: bold;
-  font-size: 15px;
+  font-size: clamp(1rem, 2vw, 1.1rem);
   color: #1c355e;
 }
 
 .form-group {
-  margin-bottom: 16px;
+  margin-bottom: clamp(8px, 2vw, 16px);
 }
 
 .form-group label {
   display: block;
-  font-size: 15px;
-  margin-bottom: 10px;
-  margin-top: 10px;
+  font-size: clamp(0.95rem, 2vw, 1.1rem);
+  margin-bottom: clamp(4px, 1vw, 10px);
+  margin-top: clamp(4px, 1vw, 10px);
   font-weight: 500;
   color: #333;
 }
@@ -59,20 +62,20 @@
 input[type="text"],
 input[type="email"],
 input[type="password"] {
-  width: 100%; /* Use full width */
-  padding: 6px 12px;
+  width: 100%;
+  padding: clamp(6px, 1vw, 12px);
   border: 1px solid #ccc;
   border-radius: 5px;
-  font-size: 15px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); /* subtle shadow */
-  transition: box-shadow 0.3s ease; /* smooth hover effect */
+  font-size: clamp(0.95rem, 2vw, 1.1rem);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease;
 }
 
 input[type="text"]:focus,
 input[type="email"]:focus,
 input[type="password"]:focus {
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* stronger on focus */
-  outline: none; /* remove default outline */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  outline: none;
 }
 
 input[type="checkbox"] {
@@ -80,46 +83,80 @@ input[type="checkbox"] {
 }
 
 .password-note {
-  font-size: 0.9rem;
+  font-size: clamp(0.8rem, 1vw, 0.95rem);
   color: #666;
-  margin-bottom: 16px;
+  margin-bottom: clamp(8px, 2vw, 16px);
 }
 
 .button-wrapper {
   display: flex;
   justify-content: flex-end;
-  margin-top: 30px; /* Optional spacing */
+  margin-top: clamp(16px, 3vw, 30px);
+  gap: clamp(8px, 2vw, 20px);
 }
 
 button {
   background-color: #1c355e;
   color: #fff;
-  padding: 10px 20px;
+  padding: clamp(8px, 2vw, 16px) clamp(16px, 4vw, 32px);
   border: none;
-  margin-right: 55px;
+  margin-right: clamp(0px, 3vw, 55px);
   border-radius: 6px;
   cursor: pointer;
-  font-size: 1rem;
+  font-size: clamp(1rem, 2vw, 1.1rem);
+  transition: background 0.2s, box-shadow 0.2s;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
 }
 
 button:hover {
   background-color: #2e4c7b;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
 }
 
 .logout-btn {
-  background-color: #e74c3c; /* red shade */
+  background-color: #e74c3c;
   color: white;
-  padding: 6px 20px;
+  padding: clamp(6px, 1vw, 16px) clamp(16px, 4vw, 32px);
   border: none;
   border-radius: 6px;
-  font-size: 15px;
+  font-size: clamp(1rem, 2vw, 1.1rem);
   font-weight: 500;
   cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.2s ease;
-  margin-top: 20px;
+  transition: background-color 0.3s, transform 0.2s;
+  margin-top: clamp(8px, 2vw, 20px);
 }
 
 .logout-btn:hover {
-  background-color: #c0392b; /* darker red on hover */
+  background-color: #c0392b;
   transform: scale(1.03);
+}
+
+/* Responsive tweaks for extra small screens */
+@media (max-width: 1500px) {
+  .settings-container {
+    padding: 20px;
+    margin-left: 320px;
+  }
+  .settings-main {
+    padding: 0;
+  }
+}
+
+@media (max-width: 800px) {
+  .settings-container {
+    padding: 8px 2vw;
+    margin-left: 70px;
+  }
+  .settings-main {
+    padding: 0;
+  }
+  .settings-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+  .button-wrapper {
+    justify-content: center;
+    margin-right: 0;
+  }
 }
