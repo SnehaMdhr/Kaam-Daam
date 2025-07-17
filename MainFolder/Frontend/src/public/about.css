@@ -111,9 +111,9 @@ h1 {
   border-radius: 10px;
   padding: 20px;
   width: 750px;
-  height: 400px;
+  
   box-shadow: 2px 4px 10px rgba(0,0,0,0.06);
-  flex: 1 1 220px;
+  flex: 1;
   text-align: left;
 }
 

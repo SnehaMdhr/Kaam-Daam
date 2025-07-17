@@ -33,7 +33,7 @@
 /* Right Side (Form Section) */
 .login-right {
   flex: 1;
-  padding: 60px 80px;
+  padding: 10px 80px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -169,4 +169,129 @@
 
 .social-icons a:hover {
   color: #1f4a5c;
+}
+
+/* Responsive Styles */
+@media (max-width: 1200px) {
+  .login-right {
+    padding: 10px 40px;
+  }
+  .login-left img {
+    max-width: 400px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .login-right {
+    padding: 10px 24px;
+  }
+  .login-right h2 {
+    font-size: 22px;
+  }
+  .login-subtitle {
+    font-size: 0.9rem;
+  }
+  .login-left img {
+    max-width: 320px;
+  }
+}
+
+@media (max-width: 768px) {
+  .login-container {
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    min-height: 100vh;
+    padding: 0;
+  }
+  .login-left {
+    width: 100%;
+    justify-content: center;
+    align-items: flex-end;
+    min-height: 180px;
+    padding: 16px 0 0 0;
+  }
+  .login-left img {
+    max-width: 220px;
+    width: 60vw;
+  }
+  .login-right {
+    width: 100%;
+    padding: 24px 16px 32px 16px;
+    min-height: unset;
+    box-shadow: none;
+  }
+  .login-right h2 {
+    font-size: 20px;
+  }
+  .login-form input {
+    font-size: 15px;
+    padding: 12px;
+  }
+  .login-btn {
+    font-size: 1.05rem;
+    padding: 13px;
+  }
+}
+
+@media (max-width: 600px) {
+  .login-container {
+    min-height: 100vh;
+    padding: 0;
+  }
+  .login-left {
+    min-height: 120px;
+    padding: 8px 0 0 0;
+  }
+  .login-left img {
+    max-width: 120px;
+    width: 80vw;
+  }
+  .login-right {
+    padding: 18px 6vw 24px 6vw;
+  }
+  .login-right h2 {
+    font-size: 1.1rem;
+  }
+  .login-form label {
+    font-size: 13px;
+  }
+  .login-form input {
+    font-size: 13px;
+    padding: 10px;
+  }
+  .login-btn {
+    font-size: 1rem;
+    padding: 11px;
+  }
+  .login-divider {
+    margin: 18px 0;
+  }
+  .social-icons a {
+    font-size: 1.3rem;
+    margin: 0 8px;
+  }
+}
+
+@media (max-width: 400px) {
+  .login-right {
+    padding: 10px 2vw 18px 2vw;
+  }
+  .login-right h2 {
+    font-size: 1rem;
+  }
+  .login-form label {
+    font-size: 12px;
+  }
+  .login-form input {
+    font-size: 12px;
+    padding: 8px;
+  }
+  .login-btn {
+    font-size: 0.95rem;
+    padding: 9px;
+  }
+  .login-divider span {
+    font-size: 0.8rem;
+  }
 }
