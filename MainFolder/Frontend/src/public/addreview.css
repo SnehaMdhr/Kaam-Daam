@@ -68,3 +68,33 @@ button {
 button:hover {
   background-color: #2e4c7b;
 } 
+
+@media (max-width: 1500px) {
+  .review-form {
+    margin-left: 320px;
+    padding: 24px 10vw;
+  }
+}
+
+@media (max-width: 800px) {
+  .review-form {
+    margin-left: 70px;
+    padding: 20px 4vw;
+    border-radius: 0;
+  }
+  .form-group label,
+  .form-group input,
+  .form-group textarea {
+    margin-left: 0;
+    margin-right: 0;
+    width: 100%;
+  }
+  .button-wrapper {
+    margin-right: 0;
+    justify-content: center;
+  }
+  button {
+    width: 100%;
+    margin-right: 0;
+  }
+}

@@ -26,8 +26,10 @@ const AddReview = () => {
   };
 
   return (
+    <div>
+    <Header />
     <div className='review-form'>
-      <Header />
+      
     <div className="review">
       <Sidebar />
       <h1>Give Review</h1>
@@ -39,6 +41,7 @@ const AddReview = () => {
       <textarea value={comment} onChange={e => setComment(e.target.value)} />
         <div className='button-wrapper'>
       <button onClick={handleSubmit}>Submit Review</button></div>
+    </div>
     </div>
     </div>
   );
