@@ -1,113 +1,174 @@
+/* Find Employees - Responsive Styles */
+
 /* GENERAL RESET */
 body {
   margin: 0;
   padding: 0;
   font-family: 'Segoe UI', sans-serif;
-  background-color: #f5f5f5;
+  background-color: white;
 }
 
 /* MAIN LAYOUT */
-.main-layout {
-  display: flex;
-  margin-top: 80px; /* enough for header height */
+.profile-container {
+  padding: clamp(16px, 4vw, 40px);
+  background-color: #fff;
+  border-radius: 12px;
+  font-family: 'Segoe UI', sans-serif;
+  margin-left: clamp(70px, 20vw, 320px);
+  box-shadow: 0 2px 12px rgba(28, 53, 94, 0.07);
+  transition: margin-left 0.3s cubic-bezier(.4,0,.2,1);
+  min-height: 100vh;
 }
 
-/* SIDEBAR is assumed to be fixed or absolute */
 .profile-content {
-  margin-left: 320px; /* adjust if your Sidebar width is different */
-  padding: 30px;
+  margin-left: 0;
+  padding: 0;
   flex: 1;
-  background-color: #ffffff;
-  border-radius: 8px;
+  background-color: transparent;
+  border-radius: 0;
 }
 
-/* HEADER SPACING (if Header is fixed) */
+/* HEADER SPACING */
 h1 {
-  font-size: 25px;
-  color: #1c355e; /* deep blue for consistency */
-  margin-bottom: 10px;
+  font-size: clamp(1.3rem, 2.5vw, 2.2rem);
+  color: #1c355e;
+  font-weight: 700;
+  margin: 0 0 clamp(12px, 2vw, 32px) 0;
 }
 
 /* SEARCH BAR */
 .search-bar {
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
-  margin-bottom: 20px;
+  gap: clamp(8px, 2vw, 16px);
+  margin-bottom: clamp(16px, 3vw, 32px);
+  padding: clamp(12px, 2vw, 24px);
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(28, 53, 94, 0.07);
 }
 
 .search-bar input,
 .search-bar select {
-  padding: 8px;
-  font-size: 16px;
-  border-radius: 4px;
+  padding: clamp(8px, 1.5vw, 14px) clamp(12px, 2vw, 18px);
+  font-size: clamp(0.9rem, 2vw, 1rem);
+  border-radius: 6px;
   border: 1px solid #ccc;
   outline: none;
+  transition: border-color 0.3s, box-shadow 0.3s;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+}
+
+.search-bar input:focus,
+.search-bar select:focus {
+  border-color: #1c355e;
+  box-shadow: 0 0 0 3px rgba(28, 53, 94, 0.1);
+}
+
+.search-bar input {
+  flex: 1;
+  min-width: 200px;
+}
+
+.search-bar select {
+  min-width: 120px;
 }
 
 .search-bar button {
-  padding: 8px 16px;
+  padding: clamp(8px, 1.5vw, 14px) clamp(16px, 3vw, 24px);
   background-color: #1c355e;
   color: #fff;
   border: none;
-  border-radius: 4px;
+  border-radius: 6px;
   cursor: pointer;
+  font-size: clamp(0.9rem, 2vw, 1rem);
+  font-weight: 600;
+  transition: background-color 0.3s, box-shadow 0.3s;
+  box-shadow: 0 2px 8px rgba(28, 53, 94, 0.08);
 }
 
 .search-bar button:hover {
-  background-color: #005fa3;
+  background-color: #2e4c7b;
+  box-shadow: 0 4px 12px rgba(28, 53, 94, 0.15);
 }
 
 /* STUDENT CARD LAYOUT */
 .appbody {
   background-color: #e9dbc8;
-  padding: 20px;
-  border-radius: 8px;
+  padding: clamp(16px, 3vw, 32px);
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(28, 53, 94, 0.07);
 }
 
 .student-card-container {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 20px;
+  grid-template-columns: repeat(auto-fill, minmax(clamp(280px, 30vw, 320px), 1fr));
+  gap: clamp(16px, 3vw, 24px);
 }
 
 .student-card {
   background: #ffffff;
   border-radius: 12px;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, .06);
-  padding: 16px;
-  transition: transform .15s ease-in-out;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+  padding: clamp(16px, 3vw, 24px);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: 1px solid rgba(28, 53, 94, 0.05);
 }
 
 .student-card:hover {
-  transform: translateY(-3px);
+  transform: translateY(-4px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
 }
 
 .student-card img {
   display: block;
-  margin: 0 auto 12px;
-  width: 90px;
-  height: 90px;
+  margin: 0 auto clamp(8px, 2vw, 16px);
+  width: clamp(80px, 12vw, 100px);
+  height: clamp(80px, 12vw, 100px);
   border-radius: 50%;
   object-fit: cover;
+  border: 3px solid #e9dbc8;
+  box-shadow: 0 2px 8px rgba(28, 53, 94, 0.1);
 }
 
 .student-card h3 {
-  font-size: 18px;
-  color: #333;
+  font-size: clamp(1.1rem, 2.5vw, 1.3rem);
+  color: #1c355e;
   text-align: center;
+  margin-bottom: clamp(8px, 2vw, 12px);
+  font-weight: 600;
 }
 
 .student-card p {
   color: #555;
-  font-size: 14px;
+  font-size: clamp(0.85rem, 2vw, 0.95rem);
+  margin-bottom: clamp(4px, 1vw, 8px);
+  line-height: 1.4;
+}
+
+.student-card p strong {
+  color: #1c355e;
+  font-weight: 600;
 }
 
 /* BUTTONS */
 .btn-row {
   display: flex;
-  gap: 10px;
-  margin-top: 12px;
+  gap: clamp(8px, 2vw, 12px);
+  margin-top: clamp(12px, 2vw, 20px);
+}
+
+.view-btn,
+.ping-btn {
+  flex: 1;
+  padding: clamp(8px, 1.5vw, 12px) clamp(12px, 2vw, 16px);
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: clamp(0.85rem, 2vw, 0.95rem);
+  font-weight: 600;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
 }
 
 .view-btn {
@@ -120,47 +181,78 @@ h1 {
   color: #000;
 }
 
-.view-btn,
-.ping-btn {
-  flex: 1;
-  padding: 8px 0;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  font-size: 14px;
-}
-
 .view-btn:hover {
-  background-color: #005fa3;
+  background-color: #2e4c7b;
+  box-shadow: 0 4px 12px rgba(28, 53, 94, 0.2);
 }
 
 .ping-btn:hover {
   background-color: #e68a00;
+  box-shadow: 0 4px 12px rgba(255, 170, 0, 0.3);
 }
 
-/* RESPONSIVENESS */
-@media (max-width: 768px) {
-  .main-layout {
-    flex-direction: column;
-    margin-top: 70px;
+/* Responsive Breakpoints */
+@media (max-width: 1500px) {
+  .profile-container {
+    margin-left: 320px;
   }
+}
 
-  .profile-content {
-    margin-left: 0;
-    padding: 20px;
+
+
+@media (max-width: 800px) {
+  .profile-container {
+    margin-left: 70px;
+    padding: clamp(8px, 4vw, 18px);
+    border-radius: 0;
+    min-height: unset;
   }
-
+  
+  h1 {
+    font-size: clamp(1.1rem, 4vw, 1.5rem);
+  }
+  
   .search-bar {
-    flex-direction: column;
+    padding: clamp(8px, 2vw, 16px);
   }
-
-  .search-bar input,
-  .search-bar select,
-  .search-bar button {
+  
+  .appbody {
+    padding: clamp(12px, 2vw, 20px);
+  }
+  
+  .student-card-container {
+    grid-template-columns: 1fr;
+    gap: clamp(12px, 2vw, 16px);
+  }
+  
+  .student-card {
+    padding: clamp(12px, 2vw, 20px);
+  }
+  
+  .btn-row {
+    flex-direction: column;
+    gap: clamp(6px, 1vw, 8px);
+  }
+  
+  .view-btn,
+  .ping-btn {
     width: 100%;
   }
+}
 
-  .student-card-container {
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+@media (max-width: 480px) {
+  .profile-container {
+    margin-left: 0;
+    padding: clamp(4px, 2vw, 12px);
+  }
+  
+  .search-bar {
+    margin-bottom: clamp(12px, 2vw, 20px);
+  }
+  
+  .student-card img {
+    width: clamp(70px, 15vw, 90px);
+    height: clamp(70px, 15vw, 90px);
   }
 }
+

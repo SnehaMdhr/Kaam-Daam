@@ -81,16 +81,19 @@ const StudentMyApplications = () => {
 
         {/* Pagination Controls */}
         <div className="pagination">
-          {[...Array(totalPages)].map((_, index) => (
-            <button
-              key={index}
-              className={`page-button ${currentPage === index + 1 ? "active" : ""}`}
-              onClick={() => handlePageChange(index + 1)}
-            >
-              {index + 1}
-            </button>
-          ))}
-        </div>
+            <span className="page" onClick={() => goToPage(currentPage - 1)}>&lt;</span>
+            {[...Array(totalPages)].map((_, i) => (
+              <span
+                key={i + 1}
+                className={`page ${currentPage === i + 1 ? "active" : ""}`}
+                onClick={() => goToPage(i + 1)}
+              >
+                {i + 1}
+              </span>
+            ))}
+            
+            <span className="page" onClick={() => goToPage(currentPage + 1)}>&gt;</span>
+          </div>
       </div>
     </div>
   );
