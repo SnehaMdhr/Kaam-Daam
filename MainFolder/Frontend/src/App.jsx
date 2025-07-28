@@ -52,6 +52,7 @@ const EmployerNotifications = lazy(() => import("./public/EmployerNotifications"
 const EditJob = lazy(() => import("./public/EditJob"));
 const EmployerViewStudentProfile = lazy(() => import("./public/EmployerViewStudentProfile"));
 const StudentSavedJobs = lazy(() => import("./public/StudentSavedJobs"));
+import Chatbot from './components/Chatbot';
 
 function App() {
   return (
@@ -134,9 +135,8 @@ function App() {
           <Route path="/editjob/:id" element={<EditJob />} />
           <Route path="/employer/view-student/:userId" element={<EmployerViewStudentProfile />} />
           <Route path="/studentsavedjobs" element={<StudentSavedJobs />} />
-         
-          {/* Add more routes as needed */}
         </Routes>
+        <Chatbot />
       </Suspense>
     </Router>
   );
