@@ -1,1 +1,11 @@
 node_modules
+# Node.js dependencies
+node_modules/
+
+# Python virtual environments and cache
+ML_recommender/venv/
+.env/
+__pycache__/
+*.pyc
+*.pyo
+.ipynb_checkpoints/
