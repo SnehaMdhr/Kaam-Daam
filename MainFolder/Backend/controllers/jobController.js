@@ -1,4 +1,4 @@
-const { createJob, getJobsByUser } = require('../models/jobModel');
+const { getJobsByUser } = require('../models/jobModel');
 const pool = require('../db');
 
 // ✅ POST a job
@@ -16,7 +16,7 @@ const postJob = async (req, res) => {
     category,
     skillLevel,
     duration,
-    userId
+    user_id // ✅ Corrected from userId to match frontend and DB
   } = req.body;
 
   try {
@@ -40,7 +40,7 @@ const postJob = async (req, res) => {
         category,
         skillLevel,
         duration,
-        userId
+        user_id // ✅ use correct key
       ]
     );
     res.status(201).json({ message: "Job posted successfully", job: result.rows[0] });
@@ -61,7 +61,6 @@ const getUserJobs = async (req, res) => {
   }
 };
 
-// ✅ Get single job by ID
 const getJobById = async (req, res) => {
   const { id } = req.params;
   try {
@@ -76,7 +75,6 @@ const getJobById = async (req, res) => {
   }
 };
 
-// ✅ Update job
 const updateJobById = async (req, res) => {
   const { id } = req.params;
   const {
@@ -134,7 +132,6 @@ const updateJobById = async (req, res) => {
   }
 };
 
-// ✅ Delete job
 const deleteJobById = async (req, res) => {
   const { id } = req.params;
   try {
@@ -146,7 +143,6 @@ const deleteJobById = async (req, res) => {
   }
 };
 
-// ✅ Get all jobs with company name
 const getAllJobs = async (req, res) => {
   try {
     const result = await pool.query(`
@@ -162,7 +158,6 @@ const getAllJobs = async (req, res) => {
   }
 };
 
-// ✅ Get filtered jobs using query parameters
 const getFilteredJobs = async (req, res) => {
   const { category, skill_level, duration } = req.query;
 
@@ -201,7 +196,6 @@ const getFilteredJobs = async (req, res) => {
   }
 };
 
-// Update job
 const updateJob = async (req, res) => {
   const { id } = req.params;
   const {
@@ -228,8 +222,6 @@ const updateJob = async (req, res) => {
   }
 };
 
-
-
 const incrementView = async (req, res) => {
   const { jobId } = req.params;
 
@@ -245,7 +237,6 @@ const incrementView = async (req, res) => {
   }
 };
 
-// Get upcoming jobs by deadline (for student dashboard)
 const getUpcomingJobs = async (req, res) => {
   try {
     const result = await pool.query(`
@@ -262,7 +253,6 @@ const getUpcomingJobs = async (req, res) => {
     res.status(500).json({ error: "Server error" });
   }
 };
-
 
 module.exports = {
   postJob,

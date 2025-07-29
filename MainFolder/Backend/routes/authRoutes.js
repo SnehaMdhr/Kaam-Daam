@@ -1,13 +1,19 @@
 const express = require('express');
 const passport = require('passport');
 const router = express.Router();
+const fetch = require("node-fetch");  // ✅ ADD THIS HERE
+const { getRecommendations } = require('../controllers/recommendationController');
+
+
+
 const {
   register,
   login,
   updateRole,
   getMe,
   sendResetLink,
-  resetPasswordWithToken
+  resetPasswordWithToken,
+
 } = require('../controllers/authController');
 
 const { handleGoogleCallback } = require('../controllers/authController');
@@ -29,5 +35,9 @@ router.get(
   passport.authenticate('google', { failureRedirect: '/login' }),
   handleGoogleCallback // This is where your custom logic happens after authentication
 );
+
+router.get("/recommendations/:studentId", getRecommendations);
+
+
 
 module.exports = router;

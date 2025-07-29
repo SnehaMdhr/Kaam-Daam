@@ -3,9 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import Header from "../components/headerforstudent";
 import Sidebar from "../components/sidebarstudent";
-import jobbanner from "../assets/image/jobs.png";
 import "./studentviewjobs.css";
-
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -16,14 +14,15 @@ const StudentViewJob = () => {
   const [alreadyApplied, setAlreadyApplied] = useState(false);
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
+    const storedUser = JSON.parse(localStorage.getItem("user"));
+    const token = storedUser?.token;
 
     // Fetch job details
     axios
       .get(`http://localhost:5000/api/jobs/${id}`)
       .then((res) => {
-        setJob(res.data); // Set job data only once
-        incrementViewCount(); // Increment view count only once after job data is fetched
+        setJob(res.data);
+        incrementViewCount();
       })
       .catch((err) => console.error("Failed to fetch job details", err));
 
@@ -34,24 +33,29 @@ const StudentViewJob = () => {
       })
       .then((res) => setAlreadyApplied(res.data.applied))
       .catch((err) => console.error("Failed to check application status", err));
-  }, [id]); // This will run only once when the page loads
+  }, [id]);
 
   const incrementViewCount = async () => {
     try {
       await axios.post(`http://localhost:5000/api/jobs/increment-view/${id}`);
-      console.log("View count updated");
     } catch (err) {
       console.error("Failed to update view count", err);
     }
   };
 
   const handleApply = () => {
+    const storedUser = JSON.parse(localStorage.getItem("user"));
+    const token = storedUser?.token;
+
+    if (!token) {
+      toast.error("Please log in to apply.");
+      return;
+    }
+
     if (alreadyApplied) {
       toast.info("You've already applied for this job.");
       return;
     }
-
-    const token = localStorage.getItem("token");
 
     axios
       .post(
@@ -62,9 +66,7 @@ const StudentViewJob = () => {
       .then(() => {
         toast.success("Applied successfully!");
         setAlreadyApplied(true);
-        setTimeout(() => {
-          navigate("/studentmyapplication");
-        }, 2000);
+        setTimeout(() => navigate("/studentmyapplication"), 2000);
       })
       .catch((err) => {
         const msg = err.response?.data?.error || err.message;
@@ -100,61 +102,60 @@ const StudentViewJob = () => {
 
         <div className="content">
           <div className="job-title">
-          <h1>{job.title}</h1>
-          <p className="posted-by">Posted by {job.company_name}</p></div>
+            <h1>{job.title}</h1>
+            <p className="posted-by">Posted by {job.company_name}</p>
+          </div>
 
-          {/* <img className="job-banner" src={jobbanner} alt="Job Banner" /> */}
           <div className="job-content">
-          <div className="bar">
-            <h3>Job Overview</h3>
-          </div>
-          <p>
-            <strong>Status:</strong> {job.status}
-          </p>
-          <p>
-            <strong>Posted on:</strong>{" "}
-            {new Date(job.posted_date).toLocaleDateString()}
-          </p>
+            <div className="bar">
+              <h3>Job Overview</h3>
+            </div>
+            <p>
+              <strong>Status:</strong> {job.status}
+            </p>
+            <p>
+              <strong>Posted on:</strong>{" "}
+              {new Date(job.posted_date).toLocaleDateString()}
+            </p>
 
-          <div className="bar">
-            <h3>Job Details</h3>
-          </div>
-          <p>
-            <strong>Address:</strong> {job.address}
-          </p>
-          <p>
-            <strong>Description:</strong> {job.description}
-          </p>
-          <p>
-            <strong>People Required:</strong> {job.people_required}
-          </p>
+            <div className="bar">
+              <h3>Job Details</h3>
+            </div>
+            <p>
+              <strong>Address:</strong> {job.address}
+            </p>
+            <p>
+              <strong>Description:</strong> {job.description}
+            </p>
+            <p>
+              <strong>People Required:</strong> {job.people_required}
+            </p>
 
-          <div className="bar">
-            <h3>Work Schedule</h3>
-          </div>
-          <p>
-            <strong>Work Schedule:</strong> {job.work_schedule}
-          </p>
-          <p>
-            <strong>Shift Timing:</strong> {job.shift_timing}
-          </p>
+            <div className="bar">
+              <h3>Work Schedule</h3>
+            </div>
+            <p>
+              <strong>Work Schedule:</strong> {job.work_schedule}
+            </p>
+            <p>
+              <strong>Shift Timing:</strong> {job.shift_timing}
+            </p>
 
-          <div className="apply-button-wrapper">
-            {!alreadyApplied ? (
-              <button className="apply-button" onClick={handleApply}>
-                Apply Now
-              </button>
-            ) : (
-              <button className="apply-button" disabled>
-                Already Applied
-              </button>
-            )}
+            <div className="apply-button-wrapper">
+              {!alreadyApplied ? (
+                <button className="apply-button" onClick={handleApply}>
+                  Apply Now
+                </button>
+              ) : (
+                <button className="apply-button" disabled>
+                  Already Applied
+                </button>
+              )}
             </div>
           </div>
         </div>
       </div>
 
-      {/* Toast feedback UI */}
       <ToastContainer position="top-right" autoClose={3000} />
     </div>
   );

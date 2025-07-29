@@ -1,22 +1,22 @@
-import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import HeaderForEmployer from '../components/headerforemployer';
-import Sidebar from '../components/sidebar';
-import { FaSearch } from 'react-icons/fa';
-import './employerjobposting.css';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import HeaderForEmployer from "../components/headerforemployer";
+import Sidebar from "../components/sidebar";
+import { FaSearch } from "react-icons/fa";
+import "./employerjobposting.css";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const EmployerJobPosting = () => {
   const navigate = useNavigate();
   const [jobs, setJobs] = useState([]);
-  const [searchTerm, setSearchTerm] = useState('');
+  const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
     const fetchJobs = async () => {
       try {
-        const token = localStorage.getItem('token');
-        const response = await fetch('http://localhost:5000/api/jobs/my-jobs', {
+        const token = JSON.parse(localStorage.getItem("user"))?.token; // ✅ Updated
+        const response = await fetch("http://localhost:5000/api/jobs/my-jobs", {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -26,24 +26,25 @@ const EmployerJobPosting = () => {
         if (response.ok) {
           setJobs(data);
           if (data.length === 0) {
-            toast.info('You have not posted any jobs yet.');
+            toast.info("You have not posted any jobs yet.");
           }
         } else {
-          toast.error(data.message || 'Failed to fetch job postings');
+          toast.error(data.message || "Failed to fetch job postings");
         }
       } catch (err) {
         console.error(err);
-        toast.error('Error fetching jobs. Please try again later.');
+        toast.error("Error fetching jobs. Please try again later.");
       }
     };
 
     fetchJobs();
   }, []);
 
-  // Format the date for the table
   const formatDate = (dateStr) => {
     const date = new Date(dateStr);
-    return isNaN(date.getTime()) ? 'Invalid date' : date.toISOString().split('T')[0];
+    return isNaN(date.getTime())
+      ? "Invalid date"
+      : date.toISOString().split("T")[0];
   };
 
   const filteredJobs = jobs.filter((job) =>
@@ -59,7 +60,10 @@ const EmployerJobPosting = () => {
         <Sidebar />
         <div className="job-postings-header">
           <h1>Job Postings</h1>
-          <button className="new-job-btn" onClick={() => navigate('/createjob')}>
+          <button
+            className="new-job-btn"
+            onClick={() => navigate("/createjob")}
+          >
             Create New Job
           </button>
         </div>
@@ -80,7 +84,7 @@ const EmployerJobPosting = () => {
               <th>Job Title</th>
               <th>Status</th>
               <th>Applicants</th>
-              <th>Posted Date</th> {/* Updated column title */}
+              <th>Posted Date</th>
               <th>Actions</th>
             </tr>
           </thead>
@@ -90,12 +94,24 @@ const EmployerJobPosting = () => {
                 <tr key={job.id}>
                   <td>{job.title}</td>
                   <td>
-                    <span className={`status ${job.status === 'open' ? 'active' : job.status === 'closed' ? 'inactive' : 'filled'}`}>
-                      {job.status === 'open' ? 'Active' : job.status === 'closed' ? 'Inactive' : job.status}
+                    <span
+                      className={`status ${
+                        job.status === "open"
+                          ? "active"
+                          : job.status === "closed"
+                          ? "inactive"
+                          : "filled"
+                      }`}
+                    >
+                      {job.status === "open"
+                        ? "Active"
+                        : job.status === "closed"
+                        ? "Inactive"
+                        : job.status}
                     </span>
                   </td>
                   <td>{job.applicants_count || 0}</td>
-                  <td>{formatDate(job.created_at)}</td> {/* Displaying created_at */}
+                  <td>{formatDate(job.created_at)}</td>
                   <td>
                     <a href={`/jobdetails/${job.id}`}>View Details</a>
                   </td>
@@ -103,7 +119,7 @@ const EmployerJobPosting = () => {
               ))
             ) : (
               <tr>
-                <td colSpan="5" style={{ textAlign: 'center' }}>
+                <td colSpan="5" style={{ textAlign: "center" }}>
                   No matching job postings.
                 </td>
               </tr>

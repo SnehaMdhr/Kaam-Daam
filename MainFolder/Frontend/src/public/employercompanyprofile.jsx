@@ -1,33 +1,33 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import HeaderForEmployer from '../components/headerforemployer';
-import Sidebar from '../components/sidebar';
-import './employercompanyprofile.css';
-import { toast, ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import HeaderForEmployer from "../components/headerforemployer";
+import Sidebar from "../components/sidebar";
+import "./employercompanyprofile.css";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const EmployerCompanyProfile = () => {
   const [user, setUser] = useState({
-    username: '',
-    email: '',
-    phone: '',
-    profile_picture_url: '',
-    comp_description: '',
-    industry: '',
-    website: '',
-    linkedin: '',
-    facebook: '',
+    username: "",
+    email: "",
+    phone: "",
+    profile_picture_url: "",
+    comp_description: "",
+    industry: "",
+    website: "",
+    linkedin: "",
+    facebook: "",
   });
 
   const [profilePictureFile, setProfilePictureFile] = useState(null);
-  const userId = localStorage.getItem('userId');
+  const userId = localStorage.getItem("userId");
 
   useEffect(() => {
     if (userId) {
       axios
         .get(`http://localhost:5000/api/employers/${userId}`)
         .then((res) => setUser(res.data))
-        .catch((err) => console.error('Failed to load profile', err));
+        .catch((err) => console.error("Failed to load profile", err));
     }
   }, [userId]);
 
@@ -42,37 +42,43 @@ const EmployerCompanyProfile = () => {
     e.preventDefault();
 
     if (user.phone.length !== 10) {
-      toast.error('Phone number must be exactly 10 digits.');
+      toast.error("Phone number must be exactly 10 digits.");
       return;
     }
 
     const formData = new FormData();
-    formData.append('username', user.username);
-    formData.append('email', user.email);
-    formData.append('phone', user.phone);
-    formData.append('comp_description', user.comp_description);
-    formData.append('industry', user.industry);
-    formData.append('website', user.website);
-    formData.append('linkedin', user.linkedin);
-    formData.append('facebook', user.facebook);
+    formData.append("username", user.username);
+    formData.append("email", user.email);
+    formData.append("phone", user.phone);
+    formData.append("comp_description", user.comp_description);
+    formData.append("industry", user.industry);
+    formData.append("website", user.website);
+    formData.append("linkedin", user.linkedin);
+    formData.append("facebook", user.facebook);
     if (profilePictureFile) {
-      formData.append('profile_picture', profilePictureFile);
+      formData.append("profile_picture", profilePictureFile);
     }
 
     try {
-      await axios.put(`http://localhost:5000/api/employers/${userId}`, formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      });
+      await axios.put(
+        `http://localhost:5000/api/employers/${userId}`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
 
-      const updatedUser = await axios.get(`http://localhost:5000/api/employers/${userId}`);
+      const updatedUser = await axios.get(
+        `http://localhost:5000/api/employers/${userId}`
+      );
       setUser(updatedUser.data);
 
-      toast.success('Profile updated successfully!');
+      toast.success("Profile updated successfully!");
     } catch (err) {
-      console.error('Update failed', err);
-      toast.error('Failed to update profile.');
+      console.error("Update failed", err);
+      toast.error("Failed to update profile.");
     }
   };
 
@@ -105,11 +111,11 @@ const EmployerCompanyProfile = () => {
                     alt="Profile"
                     className="preview-img"
                     style={{
-                      width: '120px',
-                      height: '120px',
-                      objectFit: 'cover',
-                      marginTop: '10px',
-                      borderRadius: '50%',
+                      width: "120px",
+                      height: "120px",
+                      objectFit: "cover",
+                      marginTop: "10px",
+                      borderRadius: "50%",
                     }}
                   />
                 )}

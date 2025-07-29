@@ -1,67 +1,65 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
-import Header from "../components/headerforstudent";  // You can also use a different header for employer if needed
-import Sidebar from "../components/sidebarstudent";   // Optional: show sidebar if desired
-import "./studentreview.css"; // Assuming you have some styles for this component
 
-
-const StudentReviewsPage = () => {
-  const { studentId } = useParams();
+const StudentReviews = () => {
   const [reviews, setReviews] = useState([]);
-  const [studentName, setStudentName] = useState("");
+  const [error, setError] = useState("");
 
-  // 🔄 Fetch student name (optional)
-  useEffect(() => {
-    axios
-      .get(`http://localhost:5000/api/users/${studentId}`)
-      .then((res) => setStudentName(res.data.username))
-      .catch((err) => console.error("Failed to load student name", err));
-  }, [studentId]);
+  const { userId: routeUserId } = useParams();
 
-  // 🔄 Fetch reviews for this student
   useEffect(() => {
+    let resolvedUserId = null;
+
+    // Step 1: Get ID from route or localStorage
+    if (routeUserId && routeUserId !== "null" && !isNaN(routeUserId)) {
+      resolvedUserId = parseInt(routeUserId);
+    } else {
+      try {
+        const userStr = localStorage.getItem("user");
+        const userObj = userStr ? JSON.parse(userStr) : null;
+        if (userObj && userObj.id && userObj.id !== "null") {
+          resolvedUserId = userObj.id;
+        }
+      } catch (e) {
+        console.error("Error parsing local user", e);
+        setError("⚠️ Invalid user in localStorage.");
+        return;
+      }
+    }
+
+    // Step 2: Validate and fetch
+    if (!resolvedUserId || isNaN(resolvedUserId)) {
+      setError("❌ Invalid user ID. Cannot fetch reviews.");
+      return;
+    }
+
     axios
-      .get(`http://localhost:5000/api/reviews/student/${studentId}`)
+      .get(`http://localhost:5000/api/reviews/student/${resolvedUserId}`)
       .then((res) => setReviews(res.data))
-      .catch((err) => console.error("Failed to load reviews", err));
-  }, [studentId]);
+      .catch((err) => {
+        console.error("❌ Error fetching reviews", err);
+        setError("❌ Failed to load reviews.");
+      });
+  }, [routeUserId]);
+
+  if (error) return <div style={{ color: "red" }}>{error}</div>;
 
   return (
     <div>
-      <Header />
-      <div className="profile-container">
-        
-        <div className="profile-content">
-          <Sidebar />
-          <h1>Reviews for {studentName}</h1>
+      <h2>My Reviews</h2>
+      {reviews.length === 0 ? (
+        <p>No reviews found.</p>
+      ) : (
+        reviews.map((r) => (
+          <div key={r.id}>
+            <strong>{r.employer_name}</strong> ({r.rating}/5)
+            <p>{r.comment}</p>
           </div>
-          <div className="content">
-
-          {reviews.length === 0 ? (
-            <p>No reviews yet.</p>
-          ) : (
-            reviews.map((r) => (
-              <div key={r.id} className="review-box">
-                <strong>{r.employer_name}</strong> ({r.rating}/5)
-                <p>{r.comment}</p>
-              </div>
-            ))
-          )}
-        </div>
-      </div>
+        ))
+      )}
     </div>
   );
 };
 
-const styles = {
-  reviewBox: {
-    border: "1px solid #ccc",
-    padding: "15px",
-    marginBottom: "15px",
-    borderRadius: "8px",
-    backgroundColor: "#f9f9f9"
-  }
-};
-
-export default StudentReviewsPage;
+export default StudentReviews;

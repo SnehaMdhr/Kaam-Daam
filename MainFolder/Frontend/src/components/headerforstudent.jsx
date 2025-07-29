@@ -1,3 +1,4 @@
+// ✅ HeaderForStudent.jsx (Fix userId retrieval)
 import React, { useEffect, useState } from "react";
 import { FaBell, FaUserCircle } from "react-icons/fa";
 import logo from "../assets/image/logo.png";
@@ -7,19 +8,22 @@ import axios from "axios";
 
 const HeaderForStudent = () => {
   const navigate = useNavigate();
-  const userId = localStorage.getItem("userId");
   const [hasUnseen, setHasUnseen] = useState(false);
+  const storedUser = JSON.parse(localStorage.getItem("user"));
+  const userId = storedUser?.id;
 
   const goToProfile = () => {
-    navigate(`/studentviewprofile/${userId}`);
+    if (userId) navigate(`/studentviewprofile/${userId}`);
   };
 
   useEffect(() => {
     if (userId) {
-      axios.get(`http://localhost:5000/api/notifications/${userId}`).then((res) => {
-        const unseen = res.data.some((n) => !n.is_read);
-        setHasUnseen(unseen);
-      });
+      axios
+        .get(`http://localhost:5000/api/notifications/${userId}`)
+        .then((res) => {
+          const unseen = res.data.some((n) => !n.is_read);
+          setHasUnseen(unseen);
+        });
     }
   }, [userId]);
 

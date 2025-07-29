@@ -10,8 +10,15 @@ const StudentMyApplications = () => {
   const [totalPages, setTotalPages] = useState(1);
   const applicationsPerPage = 10;
 
+  // ✅ Proper token handling
+  const getToken = () => {
+    const user = JSON.parse(localStorage.getItem("user"));
+    return user?.token || null;
+  };
+
   useEffect(() => {
-    const token = localStorage.getItem("token");
+    const token = getToken();
+    if (!token) return;
 
     axios
       .get("http://localhost:5000/api/applications/student", {
@@ -25,10 +32,10 @@ const StudentMyApplications = () => {
       .catch((err) => console.error("Failed to load my applications", err));
   }, []);
 
-  // Handle page change
   const handlePageChange = (page) => {
     setCurrentPage(page);
-    const token = localStorage.getItem("token");
+    const token = getToken();
+    if (!token) return;
 
     axios
       .get("http://localhost:5000/api/applications/student", {
@@ -37,9 +44,17 @@ const StudentMyApplications = () => {
       .then((res) => {
         const allApplications = res.data;
         const offset = (page - 1) * applicationsPerPage;
-        setApplications(allApplications.slice(offset, offset + applicationsPerPage));
+        setApplications(
+          allApplications.slice(offset, offset + applicationsPerPage)
+        );
       })
       .catch((err) => console.error("Failed to load my applications", err));
+  };
+
+  // ✅ Helper for pagination controls
+  const goToPage = (page) => {
+    if (page < 1 || page > totalPages) return;
+    handlePageChange(page);
   };
 
   return (
@@ -65,7 +80,11 @@ const StudentMyApplications = () => {
                   <a
                     href={`/studentviewjob/${app.job_id}`}
                     className="view-link"
-                    style={{ color: " #1f4a5c", marginTop: "8px", display: "inline-block" }}
+                    style={{
+                      color: "#1f4a5c",
+                      marginTop: "8px",
+                      display: "inline-block",
+                    }}
                   >
                     View Job
                   </a>
@@ -81,19 +100,22 @@ const StudentMyApplications = () => {
 
         {/* Pagination Controls */}
         <div className="pagination">
-            <span className="page" onClick={() => goToPage(currentPage - 1)}>&lt;</span>
-            {[...Array(totalPages)].map((_, i) => (
-              <span
-                key={i + 1}
-                className={`page ${currentPage === i + 1 ? "active" : ""}`}
-                onClick={() => goToPage(i + 1)}
-              >
-                {i + 1}
-              </span>
-            ))}
-            
-            <span className="page" onClick={() => goToPage(currentPage + 1)}>&gt;</span>
-          </div>
+          <span className="page" onClick={() => goToPage(currentPage - 1)}>
+            &lt;
+          </span>
+          {[...Array(totalPages)].map((_, i) => (
+            <span
+              key={i + 1}
+              className={`page ${currentPage === i + 1 ? "active" : ""}`}
+              onClick={() => goToPage(i + 1)}
+            >
+              {i + 1}
+            </span>
+          ))}
+          <span className="page" onClick={() => goToPage(currentPage + 1)}>
+            &gt;
+          </span>
+        </div>
       </div>
     </div>
   );

@@ -1,15 +1,15 @@
-import { React, useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
+import { FaSearch } from "react-icons/fa";
 import Header from "../components/headerforstudent";
 import Sidebar from "../components/sidebarstudent";
-import { FaSearch, FaRegClock } from "react-icons/fa";
-import studentImg from "../assets/image/kimti.png";
-import { Link, useNavigate } from "react-router-dom";
-import "./studentdashboard.css";
 import StudentReviews from "../components/StudentReviews";
+import studentImg from "../assets/image/kimti.png";
 import AppliedJobs from "../assets/image/applied jobs.png";
+import SaveJob from "../assets/image/savejob.png";
 import RecommendJobs from "../assets/image/recommend jobs.png";
-import axios from "axios";
-import SaveJob from "../assets/image/savejob.png"
+import "./studentdashboard.css";
 
 const StudentDashboard = () => {
   const [studentInfo, setStudentInfo] = useState(null);
@@ -120,22 +120,19 @@ const StudentDashboard = () => {
                 </Link>
 
                 <Link to="/studentsavedjobs" className="job-card">
-                  <img
-                    src={SaveJob}
-                    alt="Recommendation"
-                    className="profile-img"
-                  />
+                  <img src={SaveJob} alt="Saved" className="profile-img" />
                   <p>Saved Jobs</p>
                 </Link>
 
-                <div className="job-card">
+                {/* Updated Link for Job Recommendations */}
+                <Link to="/studentrecommendations" className="job-card">
                   <img
                     src={RecommendJobs}
                     alt="Recommendation"
                     className="profile-img"
                   />
                   <p>Job Recommendations</p>
-                </div>
+                </Link>
               </div>
 
               <StudentReviews studentId={studentId} />
@@ -171,7 +168,8 @@ const StudentDashboard = () => {
                     key={index}
                     style={{
                       fontWeight: note.is_read ? "normal" : "normal",
-                      cursor: "pointer", marginBottom:"30px",
+                      cursor: "pointer",
+                      marginBottom: "30px",
                     }}
                     onClick={handleNotificationClick}
                   >

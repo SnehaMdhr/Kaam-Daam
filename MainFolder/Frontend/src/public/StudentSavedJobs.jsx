@@ -50,25 +50,36 @@ const StudentSavedJobs = () => {
           <h1>Saved Jobs</h1>
           <div className="appbody">
             <div className="job-cards">
-                      {savedJobs.length === 0 ? (
-            <p>You haven’t saved any jobs yet.</p>
-          ) : (
-            savedJobs.map((job) => (
-              <div className="job-card" key={job.id}>
-                <div className="job-content">
-                <h3>{job.title}</h3>
-                <p>{job.description?.slice(0, 100)}...</p>
-                <a href={`/studentviewjob/${job.id}`} className="view-link" style={{ color: " #1f4a5c", marginTop: "8px", display: "inline-block" }}>View Job</a>
-                <a onClick={() => unsaveJob(job.id)} className="save-button">
-                  Unsave Job
-                </a>
-              </div>
-              </div>
-              
-
-            ))
-          )}
-          </div>
+              {savedJobs.length === 0 ? (
+                <p>You haven’t saved any jobs yet.</p>
+              ) : (
+                savedJobs.map((job) => (
+                  <div className="job-card" key={job.id}>
+                    <div className="job-content">
+                      <h3>{job.title}</h3>
+                      <p>{job.description?.slice(0, 100)}...</p>
+                      <a
+                        href={`/studentviewjob/${job.id}`}
+                        className="view-link"
+                        style={{
+                          color: " #1f4a5c",
+                          marginTop: "8px",
+                          display: "inline-block",
+                        }}
+                      >
+                        View Job
+                      </a>
+                      <a
+                        onClick={() => unsaveJob(job.id)}
+                        className="save-button"
+                      >
+                        Unsave Job
+                      </a>
+                    </div>
+                  </div>
+                ))
+              )}
+            </div>
           </div>
         </div>
       </div>

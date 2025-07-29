@@ -1,13 +1,16 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import "./Login.css";
 import { FaGoogle, FaFacebook } from "react-icons/fa";
 import jobImage from "../assets/image/job.png";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { AuthContext } from "../context/AuthContext";
 
 const Login = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const { login } = useContext(AuthContext);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -16,20 +19,33 @@ const Login = () => {
       const response = await fetch("http://localhost:5000/api/auth/login", {
         method: "POST",
         headers: {
-          "Content-Type": "application/json"
+          "Content-Type": "application/json",
         },
-        body: JSON.stringify({ email, password })
+        body: JSON.stringify({ email, password }),
       });
 
       const data = await response.json();
 
       if (response.ok && data.token) {
-        localStorage.setItem("token", data.token);
-        localStorage.setItem("userId", data.user.id);
-        localStorage.setItem("role", data.user.role);
+        const userData = {
+          id: data.user.id,
+          token: data.token,
+          username: data.user.username,
+          role: data.user.role,
+        };
+
+        // ✅ Store full user info
+        localStorage.setItem("user", JSON.stringify(userData));
+
+        // ✅ Store userId separately for easy access
+        localStorage.setItem("userId", String(data.user.id));
+
+        // ✅ Update context
+        login(userData);
 
         toast.success("Login Successful! Redirecting...");
 
+        // Redirect based on role
         setTimeout(() => {
           if (!data.user.role) {
             window.location.href = "/role-selection";
@@ -40,7 +56,9 @@ const Login = () => {
           }
         }, 2000);
       } else {
-        toast.error(data.message || "Login failed. Please check your credentials.");
+        toast.error(
+          data.message || "Login failed. Please check your credentials."
+        );
       }
     } catch (err) {
       console.error("Login Error:", err);
@@ -57,7 +75,7 @@ const Login = () => {
       <div className="login-right">
         <h2>Welcome back to Kaam Daam</h2>
         <p className="login-subtitle">
-          Login with your registered Email &amp; Password
+          Login with your registered Email & Password
         </p>
 
         <form onSubmit={handleSubmit} className="login-form">
@@ -80,25 +98,34 @@ const Login = () => {
             required
           />
 
-          <button type="submit" className="login-btn">Log In</button>
+          <button type="submit" className="login-btn">
+            Log In
+          </button>
         </form>
 
         <div className="login-links">
-          <a href="/forget" className="forgot-link">Forgot password?</a>
+          <a href="/forget" className="forgot-link">
+            Forgot password?
+          </a>
           <p className="signup-text">
             Don’t have an account? <a href="/register">Register Now</a>
           </p>
         </div>
 
-        <div className="login-divider"><span>OR</span></div>
+        <div className="login-divider">
+          <span>OR</span>
+        </div>
 
         <div className="social-icons">
-          <a href="http://localhost:5000/api/auth/google"><FaGoogle /></a>
-          <a href="#"><FaFacebook /></a>
+          <a href="http://localhost:5000/api/auth/google">
+            <FaGoogle />
+          </a>
+          <a href="#">
+            <FaFacebook />
+          </a>
         </div>
       </div>
 
-      {/* ✅ Toast container for feedback messages */}
       <ToastContainer position="top-right" autoClose={3000} />
     </div>
   );

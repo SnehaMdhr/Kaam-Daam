@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
+// Lazy-loaded components
 const DashboardWithoutLogin = lazy(() =>
   import("./public/dashboardWithoutLogin")
 );
@@ -45,19 +46,25 @@ const EmployerViewProfile = lazy(() => import("./public/EmployerViewProfile"));
 const AddReview = lazy(() => import("./public/AddReview"));
 const FindEmployees = lazy(() => import("./public/FindEmployees"));
 const StudentEmployerList = lazy(() => import("./public/StudentEmployerList"));
-
 const EmployerStudentList = lazy(() => import("./public/EmployerStudentList"));
 const StudentNotifications = lazy(() => import("./public/StudentNofications"));
-const EmployerNotifications = lazy(() => import("./public/EmployerNotifications"));
+const EmployerNotifications = lazy(() =>
+  import("./public/EmployerNotifications")
+);
 const EditJob = lazy(() => import("./public/EditJob"));
-const EmployerViewStudentProfile = lazy(() => import("./public/EmployerViewStudentProfile"));
+const EmployerViewStudentProfile = lazy(() =>
+  import("./public/EmployerViewStudentProfile")
+);
 const StudentSavedJobs = lazy(() => import("./public/StudentSavedJobs"));
+const StudentRecommendations = lazy(() =>
+  import("./public/StudentRecommendations")
+);
 
 function App() {
   return (
     <Router>
       <Suspense fallback={<div>Loading...</div>}>
-      <ToastContainer
+        <ToastContainer
           position="top-right"
           autoClose={3000}
           hideProgressBar={false}
@@ -68,7 +75,9 @@ function App() {
           pauseOnHover
           theme="colored"
         />
+
         <Routes>
+          {/* Public */}
           <Route path="/" element={<DashboardWithoutLogin />} />
           <Route path="/dashboardWithout" element={<DashboardWithoutLogin />} />
           <Route path="/login" element={<Login />} />
@@ -82,8 +91,9 @@ function App() {
           <Route path="/help" element={<Help />} />
           <Route path="/about" element={<About />} />
           <Route path="/resetthing" element={<ResetThing />} />
-          <Route path="/createjob" element={<CreateJob />} />
 
+          {/* Employer Routes */}
+          <Route path="/createjob" element={<CreateJob />} />
           <Route path="/settingemployer" element={<SettingEmployer />} />
           <Route path="/employeranalytics" element={<EmployerAnalytics />} />
           <Route
@@ -100,18 +110,32 @@ function App() {
             path="/empoyerjobapplicationmanagement"
             element={<Empoyerjobapplications />}
           />
-          <Route path="/jobdetails/:id" element={<JobDetails />} />
+          <Route
+            path="/employer/notifications"
+            element={<EmployerNotifications />}
+          />
+          <Route path="/employer/messages" element={<EmployerStudentList />} />
+          <Route
+            path="/employer/view-student/:userId"
+            element={<EmployerViewStudentProfile />}
+          />
+          <Route
+            path="/employerviewprofile"
+            element={<EmployerViewProfile />}
+          />
+
+          {/* Student Routes */}
           <Route path="/studentdashboard" element={<StudentDashboard />} />
           <Route path="/studentjobs" element={<StudentJobs />} />
           <Route
             path="/student/messages/:employerId"
             element={<StudentMessage />}
           />
+          <Route path="/student/messages" element={<StudentEmployerList />} />
           <Route
             path="/studentmyapplication"
             element={<StudentMyApplication />}
           />
-          <Route path="/studentprofile" element={<StudentProfile />} />
           <Route path="/studentreview/:studentId" element={<StudentReview />} />
           <Route path="/studentsetting" element={<StudentSetting />} />
           <Route path="/studentviewjob/:id" element={<StudentViewJob />} />
@@ -120,22 +144,22 @@ function App() {
             element={<StudentViewProfile />}
           />
           <Route path="/studentviewprofile" element={<StudentViewProfile />} />
-          <Route
-            path="/employerviewprofile"
-            element={<EmployerViewProfile />}
-          />
+
+          {/* ✅ FIXED: Add dynamic route for student profile */}
+          <Route path="/studentprofile/:id" element={<StudentProfile />} />
+          {/* Optional: keep static too if needed */}
+          <Route path="/studentprofile" element={<StudentProfile />} />
+
           <Route path="/add-review/:studentId/:jobId" element={<AddReview />} />
           <Route path="/findemployees" element={<FindEmployees />} />
-          <Route path="/student/messages" element={<StudentEmployerList />} />
-
-          <Route path="/employer/messages" element={<EmployerStudentList />} />
           <Route path="/notifications" element={<StudentNotifications />} />
-          <Route path="/employer/notifications" element={<EmployerNotifications />} />
           <Route path="/editjob/:id" element={<EditJob />} />
-          <Route path="/employer/view-student/:userId" element={<EmployerViewStudentProfile />} />
+          <Route path="/jobdetails/:id" element={<JobDetails />} />
           <Route path="/studentsavedjobs" element={<StudentSavedJobs />} />
-         
-          {/* Add more routes as needed */}
+          <Route
+            path="/studentrecommendations"
+            element={<StudentRecommendations />}
+          />
         </Routes>
       </Suspense>
     </Router>

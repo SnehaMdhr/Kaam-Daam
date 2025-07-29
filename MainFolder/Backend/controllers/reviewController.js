@@ -30,7 +30,10 @@ const addReview = async (req, res) => {
 
 // ✅ Get reviews for a student
 const getReviewsForStudent = async (req, res) => {
-  const studentId = req.params.studentId;
+  const studentId = parseInt(req.params.studentId);
+  if (!studentId || isNaN(studentId)) {
+    return res.status(400).json({ message: "Invalid student ID" });
+  }
 
   try {
     const result = await pool.query(`
@@ -48,9 +51,13 @@ const getReviewsForStudent = async (req, res) => {
   }
 };
 
-// Controller to get reviews and average rating for a student
+
 const getReviewsAndAverageRating = async (req, res) => {
-  const { studentId } = req.params;
+  const studentId = parseInt(req.params.studentId);
+
+  if (!studentId || isNaN(studentId)) {
+    return res.status(400).json({ message: "Invalid student ID" });
+  }
 
   try {
     const reviews = await pool.query(
@@ -75,5 +82,6 @@ const getReviewsAndAverageRating = async (req, res) => {
     res.status(500).send("Server error");
   }
 };
+
 
 module.exports = { addReview, getReviewsForStudent, getReviewsAndAverageRating };

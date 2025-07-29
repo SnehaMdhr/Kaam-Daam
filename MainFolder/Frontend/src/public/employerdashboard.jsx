@@ -14,10 +14,27 @@ import { Link } from "react-router-dom";
 const Employerdashboard = () => {
   const [notifications, setNotifications] = useState([]);
   const [applicants, setApplicants] = useState([]);
+  const [employerInfo, setEmployerInfo] = useState(null);
   const userId = localStorage.getItem("userId");
   const token = localStorage.getItem("token");
 
   useEffect(() => {
+    const fetchEmployerInfo = async () => {
+      try {
+        const res = await fetch(`http://localhost:5000/api/users/${userId}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        const data = await res.json();
+        setEmployerInfo(data);
+      } catch (err) {
+        console.error("Failed to fetch employer info", err);
+      }
+    };
+
+    fetchEmployerInfo();
+
     const fetchNotifications = async () => {
       try {
         const res = await fetch(
@@ -56,27 +73,6 @@ const Employerdashboard = () => {
     fetchApplicants();
   }, [userId, token]);
 
-  const handleMarkAllAsRead = async () => {
-    try {
-      await fetch(
-        `http://localhost:5000/api/notifications/${userId}/mark-read`,
-        {
-          method: "PUT",
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-      const updated = notifications.map((note) => ({
-        ...note,
-        is_read: true,
-      }));
-      setNotifications(updated);
-    } catch (err) {
-      console.error("Failed to mark notifications as read", err);
-    }
-  };
-
   return (
     <div>
       <HeaderForEmployer />
@@ -98,8 +94,8 @@ const Employerdashboard = () => {
             <div className="dashboard-main">
               <div className="profile-card">
                 <div className="profile-info">
-                  <h2>Softwarica College</h2>
-                  <p>IT & E-Commerce</p>
+                  <h2>{employerInfo?.username || "Your Company"}</h2>
+                  <p>{employerInfo?.industry || "Your Industry"}</p>
                   <strong>Are you looking for employees?</strong>
                 </div>
                 <img src={girl} alt="student" className="profile-img" />
@@ -157,7 +153,8 @@ const Employerdashboard = () => {
                       key={index}
                       style={{
                         fontWeight: note.is_read ? "normal" : "normal",
-                      cursor: "pointer", marginBottom:"30px",
+                        cursor: "pointer",
+                        marginBottom: "30px",
                       }}
                     >
                       <strong>
@@ -173,13 +170,6 @@ const Employerdashboard = () => {
                       {note.message}
                     </p>
                   ))}
-                  <button
-  onClick={handleMarkAllAsRead}
-  className="mark-read-btn"
-  style={{ marginBottom: "10px" }}
->
-                    Mark all as read
-                  </button>
                 </>
               ) : (
                 <p>No new notifications</p>

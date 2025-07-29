@@ -18,6 +18,7 @@ const notificationRoutes = require("./routes/notificationRoutes");
 const analyticsRoutes = require("./routes/analyticsRoutes")
 const savedJobs = require("./routes/savedJobs")
 
+
 const path = require('path');
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
@@ -48,9 +49,11 @@ app.use("/api/saved-jobs", savedJobs)
 app.use(passport.initialize());
 app.use(passport.session());
 
+
 // Normal routes
 const authRoutes = require('./routes/authRoutes');
 app.use('/api/auth', authRoutes);
+
 
 
 // WebSocket (Socket.io) setup

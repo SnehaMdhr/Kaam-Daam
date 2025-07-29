@@ -3,10 +3,15 @@ import axios from "axios";
 import Header from "../components/headerforstudent";
 import Sidebar from "../components/sidebarstudent";
 import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css"; // Import toast styles
+import { useParams } from "react-router-dom";
+import "react-toastify/dist/ReactToastify.css";
 import "./studentprofile.css";
 
-const studentprofile = () => {
+const StudentProfile = () => {
+  const { id: routeUserId } = useParams();
+  const storedUser = JSON.parse(localStorage.getItem("user"));
+  const userId = routeUserId || storedUser?.id;
+
   const [user, setUser] = useState({
     username: "",
     email: "",
@@ -22,7 +27,6 @@ const studentprofile = () => {
   });
 
   const [profilePictureFile, setProfilePictureFile] = useState(null);
-  const userId = localStorage.getItem("userId");
 
   useEffect(() => {
     if (userId) {
@@ -33,9 +37,10 @@ const studentprofile = () => {
           setUser((prev) => ({
             ...prev,
             ...fetchedUser,
-            skills: Array.isArray(fetchedUser.skills) && fetchedUser.skills.length > 0
-              ? fetchedUser.skills
-              : [{ name: "", level: "" }],
+            skills:
+              Array.isArray(fetchedUser.skills) && fetchedUser.skills.length > 0
+                ? fetchedUser.skills
+                : [{ name: "", level: "" }],
             experience_level: fetchedUser.experience_level || "",
           }));
         })
@@ -54,12 +59,9 @@ const studentprofile = () => {
   };
 
   const handleSkillChange = (index, field, value) => {
-    const newSkills = [...user.skills];
-    newSkills[index][field] = value;
-    setUser((prev) => ({
-      ...prev,
-      skills: newSkills,
-    }));
+    const updatedSkills = [...user.skills];
+    updatedSkills[index][field] = value;
+    setUser((prev) => ({ ...prev, skills: updatedSkills }));
   };
 
   const addSkillField = () => {
@@ -87,16 +89,14 @@ const studentprofile = () => {
     formData.append("portfolio", user.portfolio);
     formData.append("bio", user.bio);
     formData.append("experience_level", user.experience_level);
-    formData.append("skills", user.skills ? JSON.stringify(user.skills) : "[]");
+    formData.append("skills", JSON.stringify(user.skills));
     if (profilePictureFile) {
       formData.append("profile_picture", profilePictureFile);
     }
 
     try {
       await axios.put(`http://localhost:5000/api/users/${userId}`, formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
+        headers: { "Content-Type": "multipart/form-data" },
       });
       toast.success("Profile updated successfully!");
     } catch (err) {
@@ -113,9 +113,10 @@ const studentprofile = () => {
         <h1>Student Profile</h1>
 
         <form className="student-profile-form" onSubmit={handleUpdate}>
-          <div className='bar'>
+          <div className="bar">
             <h3>Profile Picture</h3>
           </div>
+
           <label>Upload Photo</label>
           <input
             type="file"
@@ -133,51 +134,69 @@ const studentprofile = () => {
                 objectFit: "cover",
                 marginTop: "10px",
                 borderRadius: "50%",
-                marginLeft: "50px"
+                marginLeft: "50px",
               }}
             />
           )}
 
-          <div className='bar'>
+          <div className="bar">
             <h3>Profile Overview</h3>
           </div>
 
           <label>Full Name</label>
-          <input type="text" name="username" value={user.username} onChange={handleChange} />
+          <input
+            type="text"
+            name="username"
+            value={user.username}
+            onChange={handleChange}
+          />
 
           <label>Email</label>
-          <input type="email" name="email" value={user.email} onChange={handleChange} />
+          <input
+            type="email"
+            name="email"
+            value={user.email}
+            onChange={handleChange}
+          />
 
           <label>Phone Number</label>
           <input
             type="text"
             name="phone"
-            value={user.phone}
             maxLength={10}
+            value={user.phone}
             onChange={(e) => {
               const value = e.target.value;
               if (/^\d*$/.test(value)) {
-                setUser((prev) => ({
-                  ...prev,
-                  phone: value,
-                }));
+                setUser((prev) => ({ ...prev, phone: value }));
               }
             }}
           />
 
-          <div className='bar'>
+          <div className="bar">
             <h3>Academic Background</h3>
           </div>
 
           <label>Course / Program</label>
-          <input type="text" name="course" value={user.course} onChange={handleChange} />
+          <input
+            type="text"
+            name="course"
+            value={user.course}
+            onChange={handleChange}
+          />
 
           <label>Institution / University</label>
-          <input type="text" name="institution" value={user.institution} onChange={handleChange} />
+          <input
+            type="text"
+            name="institution"
+            value={user.institution}
+            onChange={handleChange}
+          />
 
-          <div className='bar'>
+          <div className="bar">
             <h3>Skills and Experiences</h3>
           </div>
+
           <label>Experience Level</label>
           <select
             name="experience_level"
@@ -191,10 +210,15 @@ const studentprofile = () => {
 
           <label>Skills</label>
           {user.skills.map((skill, index) => (
-            <div className="skill-select-container" key={index} style={{ display: "flex", gap: "10px", marginBottom: "10px" }}>
+            <div
+              key={index}
+              style={{ display: "flex", gap: "10px", marginBottom: "10px" }}
+            >
               <select
                 value={skill.name}
-                onChange={(e) => handleSkillChange(index, "name", e.target.value)}
+                onChange={(e) =>
+                  handleSkillChange(index, "name", e.target.value)
+                }
               >
                 <option value="">Select Skill</option>
                 <option value="Programming">Programming</option>
@@ -205,7 +229,9 @@ const studentprofile = () => {
 
               <select
                 value={skill.level}
-                onChange={(e) => handleSkillChange(index, "level", e.target.value)}
+                onChange={(e) =>
+                  handleSkillChange(index, "level", e.target.value)
+                }
               >
                 <option value="">Select Level</option>
                 <option value="Beginner">Beginner</option>
@@ -221,33 +247,46 @@ const studentprofile = () => {
             </button>
           </div>
 
-          <div className='bar'>
+          <div className="bar">
             <h3>Links</h3>
           </div>
 
           <label>LinkedIn Profile</label>
-          <input type="url" name="linkedin" value={user.linkedin} onChange={handleChange} />
+          <input
+            type="url"
+            name="linkedin"
+            value={user.linkedin}
+            onChange={handleChange}
+          />
 
           <label>Portfolio / Website</label>
-          <input type="url" name="portfolio" value={user.portfolio} onChange={handleChange} />
+          <input
+            type="url"
+            name="portfolio"
+            value={user.portfolio}
+            onChange={handleChange}
+          />
 
-          <div className='bar'>
+          <div className="bar">
             <h3>Bio</h3>
           </div>
 
           <label>Short Bio</label>
-          <textarea name="bio" value={user.bio} onChange={handleChange}></textarea>
+          <textarea
+            name="bio"
+            value={user.bio}
+            onChange={handleChange}
+          ></textarea>
 
           <div className="button-wrapper">
             <button type="submit">Update Profile</button>
           </div>
         </form>
 
-        {/* Toast Notifications */}
         <ToastContainer />
       </div>
     </div>
   );
 };
 
-export default studentprofile;
+export default StudentProfile;
