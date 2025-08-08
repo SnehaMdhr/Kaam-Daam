@@ -10,7 +10,10 @@ const StudentSavedJobs = () => {
   const [savedJobs, setSavedJobs] = useState([]);
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
+      const rawUser = localStorage.getItem('user');
+  const storedUser = rawUser ? JSON.parse(rawUser) : null;
+  const token = storedUser?.token;
+
 
     axios
       .get("http://localhost:5000/api/saved-jobs", {
@@ -21,7 +24,10 @@ const StudentSavedJobs = () => {
   }, []);
 
   const unsaveJob = (jobId) => {
-    const token = localStorage.getItem("token");
+      const rawUser = localStorage.getItem('user');
+  const storedUser = rawUser ? JSON.parse(rawUser) : null;
+  const token = storedUser?.token;
+
 
     axios
       .post(

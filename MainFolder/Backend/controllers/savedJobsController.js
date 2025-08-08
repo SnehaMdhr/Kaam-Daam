@@ -4,6 +4,8 @@ const pool = require("../db");
 const saveJob = async (req, res) => {
   const { jobId } = req.body;
   const studentId = req.user.id;
+  console.log("Received jobId:", jobId);  // Check the received jobId
+  console.log("Student ID from token:", studentId); 
 
   try {
     const check = await pool.query(
@@ -12,7 +14,8 @@ const saveJob = async (req, res) => {
     );
 
     if (check.rows.length > 0) {
-      return res.status(400).json({ msg: "Job already saved" });
+      console.log('Job already saved by this student');
+      return res.status(200).json({ msg: "Job already saved" });  // Change this to 200 to indicate success
     }
 
     await pool.query(
@@ -20,12 +23,14 @@ const saveJob = async (req, res) => {
       [studentId, jobId]
     );
 
-    res.json({ msg: "Job saved successfully" });
+    res.status(200).json({ msg: "Job saved successfully" });  // Ensure it's a 200 status for success
   } catch (err) {
     console.error("Error saving job:", err);
-    res.status(500).send("Server error");
+    res.status(500).json({ msg: "Server error" });  // Keep 500 for server errors
   }
 };
+
+
 
 // @desc Get all saved jobs for the student
 const getSavedJobs = async (req, res) => {
