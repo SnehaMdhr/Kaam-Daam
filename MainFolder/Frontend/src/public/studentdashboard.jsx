@@ -2,21 +2,28 @@ import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { FaSearch } from "react-icons/fa";
+
 import Header from "../components/headerforstudent";
 import Sidebar from "../components/sidebarstudent";
 import StudentReviews from "../components/StudentReviews";
+
 import studentImg from "../assets/image/kimti.png";
 import AppliedJobs from "../assets/image/applied jobs.png";
 import SaveJob from "../assets/image/savejob.png";
 import RecommendJobs from "../assets/image/recommend jobs.png";
+
 import "./studentdashboard.css";
 
 const StudentDashboard = () => {
   const [studentInfo, setStudentInfo] = useState(null);
   const [upcomingJobs, setUpcomingJobs] = useState([]);
   const [studentNotifications, setStudentNotifications] = useState([]);
+
   const studentId = localStorage.getItem("userId");
-  const token = localStorage.getItem("token");
+  const rawUser = localStorage.getItem("user");
+  const storedUser = rawUser ? JSON.parse(rawUser) : null;
+  const token = storedUser?.token;
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -47,12 +54,9 @@ const StudentDashboard = () => {
           }
         );
         const data = await res.json();
-
-        // Show only the 3 most recent notifications
         const sorted = data
           .sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
           .slice(0, 3);
-
         setStudentNotifications(sorted);
       } catch (err) {
         console.error("Failed to fetch student notifications", err);
@@ -74,11 +78,15 @@ const StudentDashboard = () => {
 
   return (
     <div>
+      {/* Header always at the top */}
       <Header />
+
+      {/* Sidebar + Main Content Wrapper */}
       <div className="dashboard-container">
         <Sidebar />
-        <div className="dashboard-content">
-          {/* Top Search Bar */}
+
+        <main className="dashboard-content">
+          {/* Search bar and Browse Button */}
           <div className="dashboard-header">
             <div className="search-box">
               <FaSearch />
@@ -90,7 +98,7 @@ const StudentDashboard = () => {
           </div>
 
           <div className="dashboard-body">
-            {/* Left Side */}
+            {/* Main section (left) */}
             <div className="dashboard-main">
               <div className="profile-card">
                 <div className="profile-info">
@@ -111,26 +119,17 @@ const StudentDashboard = () => {
 
               <div className="category-boxes">
                 <Link to="/studentmyapplication" className="job-card">
-                  <img
-                    src={AppliedJobs}
-                    alt="Applied"
-                    className="profile-img"
-                  />
+                  <img src={AppliedJobs} alt="Applied" />
                   <p>Applied Jobs</p>
                 </Link>
 
                 <Link to="/studentsavedjobs" className="job-card">
-                  <img src={SaveJob} alt="Saved" className="profile-img" />
+                  <img src={SaveJob} alt="Saved" />
                   <p>Saved Jobs</p>
                 </Link>
 
-                {/* Updated Link for Job Recommendations */}
                 <Link to="/studentrecommendations" className="job-card">
-                  <img
-                    src={RecommendJobs}
-                    alt="Recommendation"
-                    className="profile-img"
-                  />
+                  <img src={RecommendJobs} alt="Recommendation" />
                   <p>Job Recommendations</p>
                 </Link>
               </div>
@@ -143,23 +142,20 @@ const StudentDashboard = () => {
                   <p className="rating">85% Completed</p>
                   <ul className="stars-breakdown">
                     <li>
-                      Resume{" "}
-                      <div className="bar" style={{ width: "80%" }}></div>
+                      Resume <div className="bar" style={{ width: "80%" }}></div>
                     </li>
                     <li>
-                      Skills{" "}
-                      <div className="bar" style={{ width: "90%" }}></div>
+                      Skills <div className="bar" style={{ width: "90%" }}></div>
                     </li>
                     <li>
-                      Experience{" "}
-                      <div className="bar" style={{ width: "70%" }}></div>
+                      Experience <div className="bar" style={{ width: "70%" }}></div>
                     </li>
                   </ul>
                 </div>
               </div>
             </div>
 
-            {/* Right Sidebar */}
+            {/* Right section (notifications) */}
             <div className="dashboard-sidebar">
               <h3>Notifications</h3>
               {studentNotifications.length > 0 ? (
@@ -167,7 +163,7 @@ const StudentDashboard = () => {
                   <p
                     key={index}
                     style={{
-                      fontWeight: note.is_read ? "normal" : "normal",
+                      fontWeight: note.is_read ? "normal" : "bold",
                       cursor: "pointer",
                       marginBottom: "30px",
                     }}
@@ -200,7 +196,7 @@ const StudentDashboard = () => {
               )}
             </div>
           </div>
-        </div>
+        </main>
       </div>
     </div>
   );

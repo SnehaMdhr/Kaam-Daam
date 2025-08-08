@@ -1,5 +1,3 @@
-/* Student Sidebar Responsive Styles - Modern & Polished */
-
 * {
   margin: 0;
   padding: 0;
@@ -8,17 +6,21 @@
 }
 
 body {
-  background: white;
+  background: #f9f9f9;
   color: #333;
 }
 
-/* Sidebar styles (desktop/tablet) */
+.container {
+  max-width: 95%;
+  margin: auto;
+  padding: 15px 20px;
+}
+/* Sidebar */
 .sidebar {
-  margin-top: 72px;
-  width: clamp(200px, 20vw, 320px);
+  width: 320px;
   background-color: #fff;
   color: black;
-  padding: clamp(12px, 2vw, 20px) clamp(10px, 2vw, 15px);
+  padding: 20px 15px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -27,22 +29,25 @@ body {
   bottom: 0;
   left: 0;
   box-shadow: 2px 0 5px rgba(0, 0, 0, 0.05);
-  z-index: 1000;
 }
 
+/* Sidebar navigation list */
 .sidebar ul {
+  margin-top: 100px;
   list-style: none;
   padding: 0;
   display: flex;
   flex-direction: column;
-  gap: clamp(10px, 2vw, 18px);
+  gap: 15px;
 }
 
+/* List item */
 .sidebar li {
   transition: background-color 0.3s ease;
   border-radius: 8px;
 }
 
+/* Link inside list item */
 .sidebar li a {
   display: flex;
   align-items: center;
@@ -50,23 +55,25 @@ body {
   text-decoration: none;
   color: #000;
   font-weight: 500;
-  padding: clamp(8px, 1vw, 12px) clamp(8px, 1vw, 12px);
-  font-size: clamp(1rem, 1.2vw, 1.1rem);
+  padding: 10px 12px;
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
+/* Hover effect */
 .sidebar li a:hover {
   background-color: #f1f1f1;
   color: #1c355e;
 }
 
+/* Icon styling */
 .icon {
-  font-size: clamp(1.1rem, 1.5vw, 1.3rem);
+  font-size: 18px;
 }
 
+/* Footer settings link */
 .sidebar-footer {
   margin-top: auto;
-  padding-top: clamp(16px, 2vw, 30px);
+  padding-top: 30px;
   border-top: 1px solid #e0e0e0;
 }
 
@@ -77,117 +84,11 @@ body {
   text-decoration: none;
   color: #000;
   font-weight: 500;
-  padding: clamp(8px, 1vw, 12px) clamp(8px, 1vw, 12px);
-  font-size: clamp(1rem, 1.2vw, 1.1rem);
+  padding: 10px 12px;
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .sidebar-footer a:hover {
   background-color: #f1f1f1;
   color: #1c355e;
-}
-
-/* Hamburger styles (hidden by default) */
-.hamburger {
-  background: white;
-  color: #333;
-  margin-top: 60px;
-  border: none;
-  cursor: pointer;
-  z-index: 2001;
-  display: none;
-}
-.hamburger svg {
-  color: #1c355e;
-  font-size: 20px;
-}
-
-/* === Responsive Sidebar & Hamburger === */
-@media (max-width: 800px) {
-  .sidebar {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 70vw;
-    max-width: 320px;
-    height: 100vh;
-    background: #fff;
-    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.08);
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 32px 24px;
-    gap: 24px;
-    transform: translateX(-100%);
-    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    z-index: 2000;
-    opacity: 0.98;
-    visibility: hidden;
-  }
-  .sidebar.open {
-    display: flex;
-    transform: translateX(0);
-    visibility: visible;
-  }
-  /* Hamburger as a small vertical bar */
-  .hamburger {
-    display: flex;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 40px;
-    background-color: #fff;
-    align-items: center;
-    justify-content: center;
-    border: none;
-    cursor: pointer;
-    z-index: 2001;
-    border-top-right-radius: 16px;
-    border-bottom-right-radius: 16px;
-    box-shadow: 2px 0 8px rgba(0,0,0,0.08);
-    transition: background 0.2s;
-  }
-  .hamburger svg {
-    color: #1c355e;
-    font-size: 22px;
-  }
-}
-
-@media (max-width: 800px) {
-  .sidebar {
-    background-color: #fff;
-    width: 90vw;
-    max-width: 100vw;
-    padding: 20px 10px;
-  }
-  .hamburger {
-    width: 36px;
-  }
-  .hamburger svg {
-    font-size: 18px;
-  }
-  .sidebar li a, .sidebar-footer a {
-    font-size: clamp(0.9rem, 1vw, 1rem);
-  }
-  .icon {
-    font-size: clamp(1rem, 1.2vw, 1.1rem);
-  }
-}
-
-@media (max-width: 200px) {
-  .sidebar {
-    padding: 12px 6px;
-  }
-  .hamburger {
-    width: 32px;
-  } 
-  .hamburger svg {
-    font-size: 16px;
-  }
-  .sidebar li a, .sidebar-footer a {
-    font-size: 0.85rem;
-  }
-  .icon {
-    font-size: 0.95rem;
-  }
 }
