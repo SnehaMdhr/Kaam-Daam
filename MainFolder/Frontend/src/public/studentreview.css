@@ -1,91 +1,126 @@
-/* Responsive Student Review Page Styles - Like studentjobs.css */
-
-.profile-container {
-  padding: clamp(10px, 3vw, 30px);
-  background-color: #ffffff;
-  border-radius: 8px;
+/* General reset for all elements */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
   font-family: 'Segoe UI', sans-serif;
-  margin-left: clamp(0px, 20vw, 320px);
 }
 
-.profile-content {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: clamp(8px, 2vw, 24px);
+body {
+  background-color: #f9f9f9;
+  color: #333;
+  margin: 0;
+  padding: 0;
 }
 
-.profile-content h1 {
-  font-size: clamp(1.2rem, 3vw, 1.7rem);
+/* Review Container */
+.reviews-container {
+  display: flex;  /* Flexbox to display sidebar and content side by side */
+  margin-top: 80px; /* Adjust space for header */
+  margin-left: 280px; /* Sidebar width */
+  padding: 20px;
+  height: 100vh; /* Full viewport height */
+  overflow-y: auto; /* Enable scrolling if content overflows */
+}
+
+.reviews-content {
+  flex: 1; /* Take up the remaining space */
+  padding: 20px;
+  overflow-y: auto; /* Allow scrolling for long content */
+}
+
+.reviews-title {
+  font-size: 1.5rem;
   color: #1c355e;
-  margin-bottom: clamp(10px, 2vw, 20px);
+  margin-bottom: 20px;
 }
 
-.content {
-  background-color: #e9dbc8;
-  border-radius: 8px;
-  padding: clamp(10px, 3vw, 20px);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-  max-width: 100%;
-  margin: 0 auto;
+.no-reviews {
+  font-size: 1.1rem;
+  color: #777;
 }
 
 .review-box {
+  background-color: #fff;
   border: 1px solid #e0e0e0;
-  border-radius: 6px;
-  padding: clamp(8px, 2vw, 16px);
-  margin-bottom: clamp(6px, 1vw, 12px);
-  margin-top: clamp(6px, 1vw, 12px);
-  background-color: white;
-  transition: background-color 0.3s;
-  font-size: clamp(0.95rem, 1.2vw, 1.1rem);
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
 .review-box:hover {
   background-color: #f0f8ff;
 }
 
-.review-box strong {
-  font-size: clamp(1rem, 1.5vw, 1.1rem);
+.employer-name {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #333;
 }
 
-.review-box p {
-  font-size: clamp(0.9rem, 1vw, 1rem);
+.rating {
+  font-size: 1rem;
+  font-weight: 500;
+  color: #1c355e;
+}
+
+.review-comment {
+  font-size: 1rem;
   color: #555;
-  margin: 0.5em 0 0 0;
+  margin-top: 10px;
 }
 
-/* Responsive tweaks for tablets and small screens */
-@media (max-width: 1500px) {
-  .profile-container {
-    margin-left: 320px;
-    padding: 16px;
-  }
-  .content {
-    padding: 12px;
-  }
+/* Error message style */
+.error-message {
+  color: red;
+  font-size: 1.2rem;
+  padding: 10px;
+  background-color: #f8d7da;
+  border: 1px solid #f5c6cb;
+  border-radius: 4px;
+  margin-top: 10px;
 }
 
-
-
+/* Mobile view adjustments */
 @media (max-width: 800px) {
-  .profile-container {
-    padding: 2vw;
-    margin-left: 70px;
+  .reviews-container {
+    flex-direction: column; /* Stack items vertically on mobile */
+    margin-left: 0; /* Remove sidebar margin for mobile */
+    margin-top: 80px; /* Ensure space for header */
   }
-  
-  .content {
-    padding: 1vw;
+
+  .reviews-content {
+    padding: 10px;
   }
+
   .review-box {
-    padding: 1vw;
-    font-size: 0.85rem;
+    padding: 15px;
   }
-  .review-box strong {
+
+  .reviews-title {
+    font-size: 1.3rem;
+  }
+
+  .review-box .employer-name {
+    font-size: 1.1rem;
+  }
+
+  .review-comment {
     font-size: 0.95rem;
   }
-  .review-box p {
-    font-size: 0.8rem;
+}
+
+@media (max-width: 500px) {
+  .reviews-title {
+    font-size: 1.2rem;
   }
-} 
+
+  .review-box .employer-name {
+    font-size: 1rem;
+  }
+
+  .review-comment {
+    font-size: 0.9rem;
+  }
+}

@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
+import Header from "../components/headerforstudent";
+import Sidebar from "../components/sidebarstudent";
+import "./studentreview.css"; // Optional for custom styles
 
 const StudentReviews = () => {
   const [reviews, setReviews] = useState([]);
@@ -43,21 +46,26 @@ const StudentReviews = () => {
       });
   }, [routeUserId]);
 
-  if (error) return <div style={{ color: "red" }}>{error}</div>;
+  if (error) return <div className="error-message">{error}</div>;
 
   return (
-    <div>
-      <h2>My Reviews</h2>
-      {reviews.length === 0 ? (
-        <p>No reviews found.</p>
-      ) : (
-        reviews.map((r) => (
-          <div key={r.id}>
-            <strong>{r.employer_name}</strong> ({r.rating}/5)
-            <p>{r.comment}</p>
-          </div>
-        ))
-      )}
+    <div className="reviews-container">
+      <Header />
+      <Sidebar />
+      <div className="reviews-content">
+        <h2 className="reviews-title">My Reviews</h2>
+        {reviews.length === 0 ? (
+          <p className="no-reviews">No reviews found.</p>
+        ) : (
+          reviews.map((r) => (
+            <div key={r.id} className="review-box">
+              <strong className="employer-name">{r.employer_name}</strong> (
+              <span className="rating">{r.rating}/5</span>)
+              <p className="review-comment">{r.comment}</p>
+            </div>
+          ))
+        )}
+      </div>
     </div>
   );
 };
