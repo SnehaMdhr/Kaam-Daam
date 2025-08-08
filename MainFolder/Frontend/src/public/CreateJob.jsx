@@ -3,6 +3,8 @@ import "./CreateJob.css";
 import { useNavigate } from "react-router-dom";
 import Header from "../components/headerforemployer";
 import Sidebar from "../components/sidebar";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const CreateJob = () => {
   const navigate = useNavigate();
@@ -33,13 +35,13 @@ const CreateJob = () => {
     const userId = storedUser ? JSON.parse(storedUser).id : null;
 
     if (!userId) {
-      alert("User not logged in. Please log in first.");
+      toast.error("User not logged in. Please log in first.");
       return;
     }
 
     const jobData = {
       ...job,
-      user_id: userId, // Backend expects this format
+      user_id: userId,
     };
 
     try {
@@ -54,22 +56,31 @@ const CreateJob = () => {
       const data = await response.json();
 
       if (response.ok) {
-        alert("Job posted successfully!");
-        navigate("/employerjobposting");
-        console.log(data.job);
+        toast.success("Job posted successfully!");
+        setTimeout(() => {
+          navigate("/employerjobposting");
+        }, 2000);
       } else {
         console.error("Error posting job:", data.error);
-        alert("Failed to post job: " + data.error);
+        toast.error("Failed to post job: " + data.error);
       }
     } catch (error) {
       console.error("Fetch error:", error);
-      alert("Something went wrong. Try again later.");
+      toast.error("Something went wrong. Try again later.");
+    }
+  };
+
+  const handleKeyPress = (e) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      handleSubmit(e);
     }
   };
 
   return (
-    <div>
+    <div onKeyDown={handleKeyPress}>
       <Header />
+      <ToastContainer />
       <div className="head-container">
         <Sidebar />
         <div className="header-container">

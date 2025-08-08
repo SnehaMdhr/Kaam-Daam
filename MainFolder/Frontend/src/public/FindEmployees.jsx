@@ -3,6 +3,8 @@ import axios from "axios";
 import Header from "../components/headerforemployer";
 import Sidebar from "../components/sidebar";
 import "./findemployeess.css";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const FindEmployees = () => {
   const [query, setQuery] = useState("");
@@ -16,7 +18,10 @@ const FindEmployees = () => {
 
   const fetchStudents = async () => {
     try {
-      const token = localStorage.getItem("token");
+      const rawUser = localStorage.getItem("user");
+      const storedUser = rawUser ? JSON.parse(rawUser) : null;
+      const token = storedUser?.token;
+
       const res = await axios.get(
         "http://localhost:5000/api/users/search/students",
         {
@@ -26,12 +31,16 @@ const FindEmployees = () => {
       setStudents(res.data);
     } catch (err) {
       console.error("Error fetching students:", err);
+      toast.error("Failed to fetch students.");
     }
   };
 
   const handleSearch = async () => {
     try {
-      const token = localStorage.getItem("token");
+      const rawUser = localStorage.getItem("user");
+      const storedUser = rawUser ? JSON.parse(rawUser) : null;
+      const token = storedUser?.token;
+
       const res = await axios.get(
         "http://localhost:5000/api/users/search/students",
         {
@@ -46,12 +55,16 @@ const FindEmployees = () => {
       setStudents(res.data);
     } catch (err) {
       console.error("Search failed:", err);
+      toast.error("Search failed.");
     }
   };
 
   const handlePing = async (studentId) => {
     try {
-      const token = localStorage.getItem("token");
+      const rawUser = localStorage.getItem("user");
+      const storedUser = rawUser ? JSON.parse(rawUser) : null;
+      const token = storedUser?.token;
+
       await axios.post(
         "http://localhost:5000/api/notifications/ping",
         { studentId },
@@ -59,93 +72,99 @@ const FindEmployees = () => {
           headers: { Authorization: `Bearer ${token}` },
         }
       );
-      alert("Ping sent successfully!");
+      toast.success("Ping sent successfully!");
     } catch (err) {
       console.error("Failed to ping student:", err);
-      alert("Failed to send ping");
+      toast.error("Failed to send ping.");
+    }
+  };
+
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter") {
+      handleSearch();
     }
   };
 
   return (
-  <div>
-    <Header />
-    <div className="profile-container">
-      <Sidebar />
+    <div>
+      <Header />
+      <div className="profile-container">
+        <Sidebar />
+        <div className="profile-content">
+          <h1>Find Employees</h1>
 
-      <div className="profile-content">
-        <h1>Find Employees</h1>
+          {/* 🔍 Filter Bar */}
+          <div className="search-bar">
+            <input
+              type="text"
+              placeholder="Search by name or skill..."
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              onKeyDown={handleKeyDown}
+            />
 
-        {/* 🔍 Filter Bar */}
-        <div className="search-bar">
-          <input
-            type="text"
-            placeholder="Search by name or skill..."
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-          />
+            <select
+              value={selectedSkill}
+              onChange={(e) => setSelectedSkill(e.target.value)}
+            >
+              <option value="">All Skills</option>
+              <option value="Programming">Programming</option>
+              <option value="Data Science">Data Science</option>
+              <option value="Design">Design</option>
+              <option value="Marketing">Marketing</option>
+            </select>
 
-          <select
-            value={selectedSkill}
-            onChange={(e) => setSelectedSkill(e.target.value)}
-          >
-            <option value="">All Skills</option>
-            <option value="Programming">Programming</option>
-            <option value="Data Science">Data Science</option>
-            <option value="Design">Design</option>
-            <option value="Marketing">Marketing</option>
-          </select>
+            <select
+              value={experienceLevel}
+              onChange={(e) => setExperienceLevel(e.target.value)}
+            >
+              <option value="">All Experience</option>
+              <option value="No Experience">No Experience</option>
+              <option value="Some Experience">Some Experience</option>
+            </select>
 
-          <select
-            value={experienceLevel}
-            onChange={(e) => setExperienceLevel(e.target.value)}
-          >
-            <option value="">All Experience</option>
-            <option value="No Experience">No Experience</option>
-            <option value="Some Experience">Some Experience</option>
-          </select>
+            <button onClick={handleSearch}>Search</button>
+          </div>
 
-          <button onClick={handleSearch}>Search</button>
-        </div>
+          {/* 👥 Student Cards */}
+          <div className="appbody">
+            <div className="student-card-container">
+              {students.length === 0 ? (
+                <p>No students found.</p>
+              ) : (
+                students.map((student) => (
+                  <div key={student.id} className="student-card">
+                    <img
+                      src={`http://localhost:5000/uploads/${student.profile_picture_url || "default.png"}`}
+                      alt="Profile"
+                    />
+                    <h3>{student.username}</h3>
+                    <p><strong>Email:</strong> {student.email}</p>
+                    <p><strong>Institution:</strong> {student.institution}</p>
+                    <p><strong>Experience:</strong> {student.experience_level || "N/A"}</p>
+                    <p><strong>Skills:</strong> {Array.isArray(student.skills) && student.skills.length > 0
+                      ? student.skills.map((s) => `${s.name} (${s.level})`).join(", ")
+                      : "N/A"}</p>
+                    <p><strong>Bio:</strong> {student.bio}</p>
 
-        {/* 👥 Student Cards */}
-        <div className="appbody">
-          <div className="student-card-container">
-            {students.length === 0 ? (
-              <p>No students found.</p>
-            ) : (
-              students.map((student) => (
-                <div key={student.id} className="student-card">
-                  <img
-                    src={`http://localhost:5000/uploads/${student.profile_picture_url || "default.png"}`}
-                    alt="Profile"
-                  />
-                  <h3>{student.username}</h3>
-                  <p><strong>Email:</strong> {student.email}</p>
-                  <p><strong>Institution:</strong> {student.institution}</p>
-                  <p><strong>Experience:</strong> {student.experience_level || "N/A"}</p>
-                  <p><strong>Skills:</strong> {Array.isArray(student.skills) && student.skills.length > 0
-                    ? student.skills.map((s) => `${s.name} (${s.level})`).join(", ")
-                    : "N/A"}</p>
-                  <p><strong>Bio:</strong> {student.bio}</p>
-
-                  <div className="btn-row">
-                    <button className="view-btn" onClick={() => window.location.href = `/employer/view-student/${student.id}`}>
-                      View Profile
-                    </button>
-                    <button className="ping-btn" onClick={() => handlePing(student.id)}>
-                      Ping 👋
-                    </button>
+                    <div className="btn-row">
+                      <button className="view-btn" onClick={() => window.location.href = `/employer/view-student/${student.id}`}>
+                        View Profile
+                      </button>
+                      <button className="ping-btn" onClick={() => handlePing(student.id)}>
+                        Ping 👋
+                      </button>
+                    </div>
                   </div>
-                </div>
-              ))
-            )}
+                ))
+              )}
+            </div>
           </div>
         </div>
       </div>
+      <ToastContainer position="top-right" autoClose={3000} />
     </div>
-  </div>
-);
-
+  );
 };
 
 export default FindEmployees;

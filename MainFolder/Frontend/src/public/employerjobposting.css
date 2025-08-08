@@ -109,6 +109,27 @@
   color: #777;
 }
 
+.pagination {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.pagination button {
+  margin: 0 5px;
+  padding: 6px 12px;
+  border: 1px solid #ccc;
+  background-color: white;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.pagination .active-page {
+  background-color: #007bff;
+  color: white;
+  border-color: #007bff;
+}
+
+
 /* Responsive tweaks for extra small screens */
 @media (max-width: 1500px) {
   .job-postings-container {

@@ -59,6 +59,7 @@ const StudentSavedJobs = lazy(() => import("./public/StudentSavedJobs"));
 const StudentRecommendations = lazy(() =>
   import("./public/StudentRecommendations")
 );
+import Chatbot from './components/Chatbot';
 
 function App() {
   return (
@@ -161,6 +162,7 @@ function App() {
             element={<StudentRecommendations />}
           />
         </Routes>
+        <Chatbot/>
       </Suspense>
     </Router>
   );

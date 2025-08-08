@@ -9,7 +9,9 @@ const EmployerStudentList = () => {
   const [students, setStudents] = useState([]);
 
   const employerId = localStorage.getItem("userId");
-  const token = localStorage.getItem("token");
+   const rawUser = localStorage.getItem('user');
+        const storedUser = rawUser ? JSON.parse(rawUser) : null;
+        const token = storedUser?.token;
 
   useEffect(() => {
     if (!employerId || !token) {
