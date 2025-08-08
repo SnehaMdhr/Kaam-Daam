@@ -19,7 +19,7 @@ const CreateJob = () => {
     shiftTiming: "",
     category: "",
     skillLevel: "",
-    duration: "",
+    duration: "1 month",
   });
 
   const handleChange = (e) => {
@@ -39,7 +39,7 @@ const CreateJob = () => {
 
     const jobData = {
       ...job,
-      user_id: userId, // ✅ backend expects this format
+      user_id: userId, // Backend expects this format
     };
 
     try {

@@ -16,7 +16,10 @@ const Employerdashboard = () => {
   const [applicants, setApplicants] = useState([]);
   const [employerInfo, setEmployerInfo] = useState(null);
   const userId = localStorage.getItem("userId");
-  const token = localStorage.getItem("token");
+  const rawUser = localStorage.getItem('user');
+const storedUser = rawUser ? JSON.parse(rawUser) : null;
+const token = storedUser?.token;
+
 
   useEffect(() => {
     const fetchEmployerInfo = async () => {
@@ -98,7 +101,15 @@ const Employerdashboard = () => {
                   <p>{employerInfo?.industry || "Your Industry"}</p>
                   <strong>Are you looking for employees?</strong>
                 </div>
-                <img src={girl} alt="student" className="profile-img" />
+               <img
+                                 src={
+                                   employerInfo?.profile_picture_url
+                                     ? `http://localhost:5000/uploads/${employerInfo.profile_picture_url}`
+                                     : girl
+                                 }
+                                 alt="Profile"
+                                 className="profile-img"
+                               />
               </div>
 
               <div className="category-boxes">

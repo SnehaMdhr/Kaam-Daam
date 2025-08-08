@@ -16,7 +16,7 @@ const postJob = async (req, res) => {
     category,
     skillLevel,
     duration,
-    user_id // ✅ Corrected from userId to match frontend and DB
+    user_id // user_id will match the frontend
   } = req.body;
 
   try {
@@ -40,7 +40,7 @@ const postJob = async (req, res) => {
         category,
         skillLevel,
         duration,
-        user_id // ✅ use correct key
+        user_id // Ensure correct key for user_id
       ]
     );
     res.status(201).json({ message: "Job posted successfully", job: result.rows[0] });
@@ -50,16 +50,18 @@ const postJob = async (req, res) => {
   }
 };
 
+
 // ✅ Get jobs for logged-in user
 const getUserJobs = async (req, res) => {
   try {
-    const jobs = await getJobsByUser(req.user.id);
+    const jobs = await getJobsByUser(req.user.id);  // Fetch jobs with application count
     res.status(200).json(jobs);
   } catch (err) {
     console.error("Error fetching jobs:", err.message);
     res.status(500).json({ error: "Failed to fetch jobs" });
   }
 };
+
 
 const getJobById = async (req, res) => {
   const { id } = req.params;
@@ -200,27 +202,66 @@ const updateJob = async (req, res) => {
   const { id } = req.params;
   const {
     title,
+    status,
+    deadline,
     description,
-    address,
     people_required,
+    address,
+    job_type,
     work_schedule,
     shift_timing,
-    status,
-    deadline
+    category,
+    skill_level,
+    duration,
+    company_name,
+    required_skills
   } = req.body;
 
   try {
-    const updated = await pool.query(
-      `UPDATE job_posts SET title = $1, description = $2, address = $3, people_required = $4,
-      work_schedule = $5, shift_timing = $6, status = $7, deadline = $8 WHERE id = $9 RETURNING *`,
-      [title, description, address, people_required, work_schedule, shift_timing, status, deadline, id]
+    const result = await pool.query(
+      `UPDATE job_posts SET
+        title = $1,
+        status = $2,
+        deadline = $3,
+        description = $4,
+        people_required = $5,
+        address = $6,
+        job_type = $7,
+        work_schedule = $8,
+        shift_timing = $9,
+        category = $10,
+        skill_level = $11,
+        duration = $12,
+        company_name = $13,
+        required_skills = $14
+      WHERE id = $15 RETURNING *`,
+      [
+        title,
+        status,
+        deadline,
+        description,
+        people_required,
+        address,
+        job_type,
+        work_schedule,
+        shift_timing,
+        category,
+        skill_level,
+        duration,
+        company_name,
+        required_skills,
+        id
+      ]
     );
-    res.json(updated.rows[0]);
+
+    res.json({ message: 'Job updated successfully', job: result.rows[0] });
   } catch (err) {
-    console.error(err.message);
-    res.status(500).send("Server Error");
+    console.error('Error updating job:', err);
+    res.status(500).json({ error: 'Failed to update job' });
   }
 };
+
+
 
 const incrementView = async (req, res) => {
   const { jobId } = req.params;

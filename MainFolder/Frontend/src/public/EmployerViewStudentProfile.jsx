@@ -44,7 +44,6 @@ const EmployerViewStudentProfile = () => {
               className="profile-picture"
             />
           )}
-
           <div className='bar'>
 
               <h3>Personal Information</h3>

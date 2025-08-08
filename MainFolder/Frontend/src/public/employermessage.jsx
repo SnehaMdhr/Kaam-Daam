@@ -12,7 +12,9 @@ const socket = io("http://localhost:5000");
 const EmployerMessage = () => {
   const { studentId } = useParams(); // from route: /employer/messages/:studentId
   const employerId = localStorage.getItem("userId");
-  const token = localStorage.getItem("token");
+  const rawUser = localStorage.getItem('user');
+        const storedUser = rawUser ? JSON.parse(rawUser) : null;
+        const token = storedUser?.token;
 
   const [messages, setMessages] = useState([]);
   const [newMsg, setNewMsg] = useState("");

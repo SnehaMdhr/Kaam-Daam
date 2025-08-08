@@ -11,7 +11,9 @@ const EmployerApplicationManagement = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
+    const rawUser = localStorage.getItem('user');
+        const storedUser = rawUser ? JSON.parse(rawUser) : null;
+        const token = storedUser?.token;
     axios
       .get("http://localhost:5000/api/applications/employer", {
         headers: { Authorization: `Bearer ${token}` },
@@ -21,7 +23,9 @@ const EmployerApplicationManagement = () => {
   }, []);
 
   const handleStatusChange = (applicationId, newStatus) => {
-    const token = localStorage.getItem("token");
+    const rawUser = localStorage.getItem('user');
+        const storedUser = rawUser ? JSON.parse(rawUser) : null;
+        const token = storedUser?.token;
     axios
       .put(
         `http://localhost:5000/api/applications/status/${applicationId}`,

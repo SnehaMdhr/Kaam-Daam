@@ -43,21 +43,38 @@ const getKPI = async (req, res) => {
   }
 };
 
-// GET Application Trends (fake monthly data)
+// GET Application Trends (monthly trends)
 const getTrends = async (req, res) => {
   const { employerId } = req.params;
 
   try {
-    const result = await pool.query(`
-      SELECT 
-        TO_CHAR(DATE_TRUNC('month', ja.applied_at), 'Mon') AS month,
-        COUNT(*) AS applications
-      FROM job_applications ja
-      JOIN job_posts jp ON ja.job_id = jp.id
-      WHERE jp.user_id = $1
-      GROUP BY DATE_TRUNC('month', ja.applied_at)
-      ORDER BY DATE_TRUNC('month', ja.applied_at)
-    `, [employerId]);
+    const result = await pool.query(
+      `
+      WITH months AS (
+        SELECT to_char(d, 'Mon YYYY') AS month,
+               d AS month_date
+        FROM generate_series(
+          CURRENT_DATE - INTERVAL '24 months',
+          CURRENT_DATE,
+          INTERVAL '1 month'
+        ) AS d
+      ),
+      app_counts AS (
+        SELECT 
+          to_char(date_trunc('month', ja.applied_at), 'Mon YYYY') AS month,
+          COUNT(*) AS applications
+        FROM job_applications ja
+        JOIN job_posts jp ON ja.job_id = jp.id
+        WHERE jp.user_id = $1
+        GROUP BY month
+      )
+      SELECT m.month, COALESCE(a.applications, 0) AS applications
+      FROM months m
+      LEFT JOIN app_counts a ON m.month = a.month
+      ORDER BY m.month_date
+      `,
+      [employerId]
+    );
 
     res.json(result.rows);
   } catch (error) {
@@ -66,6 +83,8 @@ const getTrends = async (req, res) => {
   }
 };
 
+
+// GET Job Posting Performance Data
 const getPerformance = async (req, res) => {
   const { employerId } = req.params;
 
@@ -99,11 +118,8 @@ const getPerformance = async (req, res) => {
   }
 };
 
-
-
 module.exports = {
   getKPI,
   getTrends,
   getPerformance,
-  
 };

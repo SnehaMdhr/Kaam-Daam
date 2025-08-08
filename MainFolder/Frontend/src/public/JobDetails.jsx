@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"; 
+import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import HeaderForEmployer from "../components/headerforemployer";
 import Sidebar from "../components/sidebar";
@@ -26,7 +26,6 @@ const JobDetails = () => {
 
         // Only show the success toast if the job is fetched successfully
         toast.success("Job loaded successfully!");
-
       } catch (err) {
         console.error("Error loading job details:", err.message);
         toast.error("Failed to load job details");
@@ -81,6 +80,7 @@ const JobDetails = () => {
         </div>
         <p><strong>Status:</strong> {job.status}</p>
         <p><strong>Deadline:</strong> {new Date(job.deadline).toLocaleDateString()}</p>
+        <p><strong>Views:</strong> {job.views}</p> {/* Added views here */}
 
         <div className="bar"><h3>Job Details</h3></div>
         <p><strong>Address:</strong> {job.address}</p>
@@ -90,6 +90,11 @@ const JobDetails = () => {
         <div className="bar"><h3>Work Schedule</h3></div>
         <p><strong>Work Schedule:</strong> {job.work_schedule}</p>
         <p><strong>Shift Timing:</strong> {job.shift_timing}</p>
+
+        <div className="bar"><h3>Skills and Requirements</h3></div>
+        <p><strong>Category:</strong> {job.category}</p>
+        <p><strong>Skill Level:</strong> {job.skill_level}</p>
+        <p><strong>Duration:</strong> {job.duration}</p>
 
         <div className="button-group">
           <button className="btn btn-blue" onClick={handleUpdate}>Update</button>

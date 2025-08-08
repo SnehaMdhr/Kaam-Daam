@@ -20,14 +20,20 @@ const createJob = async (jobData) => {
 // ✅ Get all jobs created by a specific user
 const getJobsByUser = async (userId) => {
   const result = await pool.query(
-    `SELECT id, title, status, TO_CHAR(created_at, 'YYYY-MM-DD') AS created_at
-FROM job_posts 
-WHERE user_id = $1 
-ORDER BY created_at DESC;
-`,
+    `SELECT j.id, 
+            j.title, 
+            j.status, 
+            TO_CHAR(j.created_at, 'YYYY-MM-DD') AS created_at, 
+            COUNT(a.id) AS applications
+     FROM job_posts j
+     LEFT JOIN job_applications a ON a.job_id = j.id
+     WHERE j.user_id = $1 
+     GROUP BY j.id
+     ORDER BY j.created_at DESC;`,
     [userId]
   );
   return result.rows;
 };
+
 
 module.exports = { createJob, getJobsByUser };
