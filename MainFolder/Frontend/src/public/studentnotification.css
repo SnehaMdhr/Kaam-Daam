@@ -19,7 +19,7 @@
 
 /* Heading */
 .notification-main h1 {
-  font-size: clamp(1.1rem, 4vw, 2rem);
+  font-size: clamp(1rem, 3.5vw, 1.8rem);
   color: #1c355e;
   margin-bottom: 0;
 }

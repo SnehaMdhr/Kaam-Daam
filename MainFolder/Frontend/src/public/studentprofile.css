@@ -13,7 +13,7 @@
 }
 
 .student-profile-container h1 {
-  font-size: clamp(1.3rem, 2.5vw, 2.2rem);
+  font-size: clamp(1rem, 3.5vw, 1.8rem);
   color: #1c355e;
   font-weight: 700;
   margin: 0;
@@ -27,121 +27,130 @@
 
 .student-profile-form label {
   display: block;
-  margin-bottom: clamp(6px, 1vw, 12px);
-  margin-top: clamp(6px, 1vw, 12px);
+  font-size: clamp(0.85rem, 1.5vw, 1rem); /* smaller text */
+  margin-bottom: clamp(3px, 0.8vw, 8px);
+  margin-top: clamp(3px, 0.8vw, 8px);
+  margin-left: 20px;
   font-weight: 500;
-  font-size: clamp(1rem, 2vw, 1.2rem);
-  margin-left: clamp(0px, 3vw, 50px);
-  color: #333;
+  color: #1c355e;
 }
 
 .student-profile-form input,
 .student-profile-form textarea {
   width: 90%;
-  padding: clamp(6px, 1vw, 14px) clamp(10px, 2vw, 18px);
-  margin-left: clamp(0px, 3vw, 50px);
-  margin-right: clamp(0px, 6vw, 100px);
+  margin-left: 20px;
+  margin-right: 20px;
+  padding: clamp(4px, 0.8vw, 8px); /* smaller height */
   border: 1px solid #ccc;
-  border-radius: 7px;
-  font-size: clamp(0.95rem, 2vw, 1.1rem);
-  box-shadow: 0 2px 8px rgba(0,0,0,0.07);
-  transition: box-shadow 0.3s, border-color 0.3s
+  border-radius: 5px;
+  font-size: clamp(0.85rem, 1.5vw, 1rem); /* smaller text */
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease;
 }
 
 .student-profile-form textarea {
-  min-height: 100px;
+  min-height: clamp(60px, 12vh, 120px); /* compact but flexible */
   resize: vertical;
 }
 
 .student-profile-form input:focus,
 .student-profile-form textarea:focus {
-  box-shadow: 0 4px 16px rgba(28, 53, 94, 0.13);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
   border-color: #1c355e;
   outline: none;
 }
 
+.student-profile-form .password-note {
+  font-size: clamp(0.75rem, 0.9vw, 0.85rem); /* smaller helper text */
+  color: #666;
+  margin-bottom: clamp(6px, 1.5vw, 12px);
+}
+
+
 .button-wrapper {
   display: flex;
   justify-content: flex-end;
-  margin-top: clamp(18px, 3vw, 40px);
+  margin-top: clamp(16px, 3vw, 30px);
+  gap: clamp(8px, 2vw, 20px);
 }
 
-.button-wrapper button {
+button {
   background-color: #1c355e;
   color: #fff;
-  padding: clamp(8px, 1.5vw, 14px) clamp(18px, 3vw, 32px);
+  padding: clamp(4px, 1vw, 8px) clamp(8px, 2vw, 16px); /* smaller */
   border: none;
-  border-radius: 8px;
+  margin-right: clamp(0px, 2vw, 20px);
+  border-radius: 6px;
   cursor: pointer;
-  margin-right: clamp(0px, 4vw, 55px);
-  font-size: clamp(1rem, 2vw, 1.1rem);
-  font-weight: 600;
-  box-shadow: 0 2px 8px rgba(28, 53, 94, 0.08);
+  font-size: clamp(0.75rem, 1.2vw, 0.9rem);/* slightly smaller font */
   transition: background 0.2s, box-shadow 0.2s;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
 }
 
-.button-wrapper button:hover {
+
+button:hover {
   background-color: #2e4c7b;
-  box-shadow: 0 4px 16px rgba(28, 53, 94, 0.13);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
 }
+
 
 .bar {
+  margin-top: 20px;
   background-color: #e9dbc8;
-  padding: clamp(4px, 1vw, 12px) clamp(10px, 2vw, 24px);
+  padding: clamp(2px, 0.5vw, 12px) clamp(6px, 1.5vw, 12px); /* smaller padding */
   border-radius: 8px;
-  margin-top: clamp(12px, 2vw, 30px);
-  margin-bottom: clamp(8px, 1vw, 20px);
+  margin-bottom: clamp(6px, 1.5vw, 16px); /* slightly less gap */
   font-weight: bold;
-  font-size: clamp(0.95rem, 2vw, 1.1rem);
+  font-size: clamp(0.9rem, 1.5vw, 1rem); /* smaller text */
   color: #1c355e;
-  box-shadow: 0 2px 8px rgba(28, 53, 94, 0.07);
 }
 
 select[name="experience_level"] {
   width: 90%;
-  margin-left: clamp(0px, 3vw, 50px);
-  padding: clamp(6px, 1vw, 14px) clamp(10px, 2vw, 18px);
+  margin-left: 20px; /* matches .form-group inputs */
+  padding: clamp(4px, 0.8vw, 8px) clamp(8px, 1.5vw, 12px); /* compact like text inputs */
   border: 1px solid #ccc;
-  border-radius: 7px;
-  font-size: clamp(0.95rem, 2vw, 1.1rem);
+  border-radius: 5px; /* matches other form inputs */
+  font-size: clamp(0.85rem, 1.5vw, 1rem); /* same as .form-group */
   background-color: #fff;
   color: #333;
   transition: border-color 0.3s, box-shadow 0.3s;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1); /* same as other inputs */
 }
 
 select[name="experience_level"]:focus {
   border-color: #1c355e;
   outline: none;
-  box-shadow: 0 0 0 3px rgba(28, 53, 94, 0.2);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
   background-color: #fefefe;
 }
 
 .skill-select-container {
   display: flex;
   gap: clamp(6px, 2vw, 20px);
-  margin-left: clamp(0px, 3vw, 50px);
-  margin-right: clamp(0px, 3vw, 55px);
-  margin-bottom: clamp(8px, 2vw, 15px);
+  margin-left: 20px;
+  margin-right: 20px;
+  margin-bottom: clamp(8px, 1.5vw, 12px);
 }
 
 .skill-select-container select {
   flex: 1;
-  padding: clamp(6px, 1vw, 14px) clamp(10px, 2vw, 18px);
+  padding: clamp(4px, 0.8vw, 8px) clamp(8px, 1.5vw, 12px); /* same compact padding */
   border: 1px solid #ccc;
-  border-radius: 7px;
-  font-size: clamp(0.9rem, 2vw, 1rem);
+  border-radius: 5px;
+  font-size: clamp(0.85rem, 1.5vw, 1rem); /* consistent font size */
   background-color: #fff;
   color: #333;
   transition: border-color 0.3s, box-shadow 0.3s;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
 }
 
 .skill-select-container select:focus {
   border-color: #1c355e;
   outline: none;
-  box-shadow: 0 0 0 3px rgba(28, 53, 94, 0.2);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
+
 
 .profile-picture-section {
   display: flex;

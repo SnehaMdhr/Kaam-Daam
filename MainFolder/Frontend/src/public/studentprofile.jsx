@@ -210,36 +210,37 @@ const StudentProfile = () => {
 
           <label>Skills</label>
           {user.skills.map((skill, index) => (
-            <div
-              key={index}
-              style={{ display: "flex", gap: "10px", marginBottom: "10px" }}
-            >
-              <select
-                value={skill.name}
-                onChange={(e) =>
-                  handleSkillChange(index, "name", e.target.value)
-                }
-              >
-                <option value="">Select Skill</option>
-                <option value="Programming">Programming</option>
-                <option value="Data Science">Data Science</option>
-                <option value="Design">Design</option>
-                <option value="Marketing">Marketing</option>
-              </select>
+  <div
+    key={index}
+    className="skill-select-container"
+  >
+    <select
+      value={skill.name}
+      onChange={(e) =>
+        handleSkillChange(index, "name", e.target.value)
+      }
+    >
+      <option value="">Select Skill</option>
+      <option value="Programming">Programming</option>
+      <option value="Data Science">Data Science</option>
+      <option value="Design">Design</option>
+      <option value="Marketing">Marketing</option>
+    </select>
 
-              <select
-                value={skill.level}
-                onChange={(e) =>
-                  handleSkillChange(index, "level", e.target.value)
-                }
-              >
-                <option value="">Select Level</option>
-                <option value="Beginner">Beginner</option>
-                <option value="Intermediate">Intermediate</option>
-                <option value="Advanced">Advanced</option>
-              </select>
-            </div>
-          ))}
+    <select
+      value={skill.level}
+      onChange={(e) =>
+        handleSkillChange(index, "level", e.target.value)
+      }
+    >
+      <option value="">Select Level</option>
+      <option value="Beginner">Beginner</option>
+      <option value="Intermediate">Intermediate</option>
+      <option value="Advanced">Advanced</option>
+    </select>
+  </div>
+))}
+
 
           <div className="button-wrapper">
             <button type="button" onClick={addSkillField}>

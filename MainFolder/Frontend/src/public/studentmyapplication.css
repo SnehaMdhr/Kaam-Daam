@@ -46,7 +46,7 @@
 }
 
 .apphead h1 {
-  font-size: clamp(1.1rem, 4vw, 2rem);
+  font-size: clamp(1rem, 3.5vw, 1.8rem);
   color: #1c355e;
 }
 
@@ -100,7 +100,15 @@
   color:  #1f4a5c;
 }
 
+.app-status.accepted {
+  background-color: #e0f2fe;
+  color:  #1f4a5c;
+}
 .app-status.review {
+  background-color: #fef9c3;
+  color: #b45309;
+}
+.app-status.interview {
   background-color: #fef9c3;
   color: #b45309;
 }
@@ -109,8 +117,12 @@
   background-color: #fee2e2;
   color: #dc2626;
 }
+.app-status.past {
+  background-color: #fee2e2;
+  color: #dc2626;
+}
 
-.app-status.accepted {
+.app-status.hired {
   background-color: #d1fae5;
   color: #059669;
 }
@@ -164,17 +176,19 @@
     padding: 20px;
     margin-left: 320px;
   }
+
   .application-card {
-    flex-direction: column;
-    align-items: flex-start;
+    flex-direction: row; /* Keep image on the side */
+    align-items: center; /* Vertically center text and image */
     padding: 2vw;
-    gap: 8px;
+    gap: 16px; /* Slightly larger gap for readability */
   }
+
   .application-card img {
     margin-left: 0;
-    margin-top: 10px;
-    width: 100%;
-    height: clamp(24px, 20vw, 80px);
+    margin-top: 0; /* Remove top margin so it aligns in row */
+    width: clamp(60px, 15vw, 120px); /* Keep reasonable size */
+    height: auto; /* Maintain aspect ratio */
   }
 }
 

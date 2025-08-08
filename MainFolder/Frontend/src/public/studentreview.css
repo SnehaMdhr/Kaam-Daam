@@ -16,7 +16,7 @@
 
 /* Heading */
 .profile-content h1 {
- font-size: 25px;
+  font-size: clamp(1rem, 3.5vw, 1.8rem);
   color: #1c355e;
   margin-bottom: 20px;
 }
@@ -26,7 +26,8 @@
   padding: 20px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
   max-width: 100%;
-  margin: 0 auto;
+  margin-top: 5px;
+  margin-bottom: 5px;
 }
 
 .review-box {

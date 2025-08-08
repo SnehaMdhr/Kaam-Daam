@@ -17,7 +17,7 @@
 }
 
 .profile-content h1 {
-  font-size: clamp(1.1rem, 4vw, 2rem);
+  font-size: clamp(1rem, 3.5vw, 1.8rem);
   color: #1c355e;
 }
 
@@ -61,14 +61,15 @@
 }
 
 .bar {
-  background-color: #e9dbc8;
-  padding: clamp(4px, 1vw, 20px) clamp(8px, 2vw, 20px);
+ background-color: #e9dbc8;
+  padding: clamp(2px, 0.5vw, 12px) clamp(6px, 1.5vw, 12px); /* smaller padding */
   border-radius: 8px;
-  margin-top: clamp(10px, 2vw, 30px);
-  margin-bottom: clamp(8px, 2vw, 20px);
+  margin-bottom: clamp(6px, 1.5vw, 16px); /* slightly less gap */
   font-weight: bold;
-  font-size: clamp(1rem, 2vw, 1.1rem);
+  font-size: clamp(0.9rem, 1.5vw, 1rem); /* smaller text */
   color: #1c355e;
+  margin-bottom: 20px;
+  margin-top: 20px;
 }
 
 .skills-section {
@@ -89,6 +90,7 @@
 }
 
 .review-box {
+  margin-top: 20px;
   border: 1px solid #ddd;
   padding: clamp(8px, 2vw, 16px);
   border-radius: 8px;
