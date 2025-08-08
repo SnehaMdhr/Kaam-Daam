@@ -17,7 +17,9 @@
 }
 
 .job-postings-header h1 {
-  font-size: clamp(1.1rem, 4vw, 2rem);
+  font-size: clamp(1rem, 3.5vw, 1.8rem);
+
+
   color: #1c355e;
 }
 
@@ -45,18 +47,19 @@
 }
 
 .search-bar input {
+   margin-left: 20px;
   border: none;
   background: transparent;
   outline: none;
   width: 100%;
-  font-size: clamp(0.95rem, 2vw, 1.1rem);
+  font-size: clamp(0.75rem, 1.5vw, 0.9rem);
 }
 
 /* Job Table */
 .job-table {
   width: 100%;
   border-collapse: collapse;
-  font-size: clamp(0.9rem, 1vw, 1rem);
+  font-size: clamp(0.8rem, 0.9vw, 0.9rem);
 }
 
 .job-table thead {
@@ -85,19 +88,19 @@ select {
   padding: clamp(4px, 1vw, 8px) clamp(8px, 2vw, 12px);
   border-radius: 4px;
   border: 1px solid #ccc;
-  font-size: clamp(0.95rem, 1vw, 1rem);
+  font-size: clamp(0.8rem, 0.9vw, 0.9rem);
 }
 
 button {
-  padding: clamp(6px, 1vw, 12px) clamp(12px, 2vw, 24px);
-  background-color: #1c355e;
-  color: white;
+   background-color: #1c355e;
+  color: #fff;
+  padding: clamp(4px, 1vw, 8px) clamp(8px, 2vw, 16px); /* smaller */
   border: none;
-  border-radius: 4px;
-  margin: 0 4px;
+  margin-right: clamp(0px, 2vw, 20px);
+  border-radius: 6px;
   cursor: pointer;
-  font-size: clamp(0.9rem, 1vw, 1rem);
-  transition: background-color 0.3s, box-shadow 0.2s;
+  font-size: clamp(0.75rem, 1.2vw, 0.9rem);/* slightly smaller font */
+  transition: background 0.2s, box-shadow 0.2s;
   box-shadow: 0 2px 6px rgba(0,0,0,0.05);
 }
 

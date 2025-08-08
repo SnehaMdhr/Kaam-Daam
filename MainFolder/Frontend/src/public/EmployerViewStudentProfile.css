@@ -10,7 +10,8 @@
 }
 
 .profile-content h1 {
-  font-size: clamp(1.1rem, 4vw, 2rem);
+ font-size: clamp(1rem, 3.5vw, 1.8rem);
+
   color: #1c355e;
 }
 
@@ -57,6 +58,8 @@
 
 .review-box {
   border: 1px solid #ddd;
+  margin-right: 80px;
+  margin-left: 20px;
   padding: clamp(8px, 2vw, 16px);
   border-radius: 8px;
   margin-bottom: clamp(8px, 2vw, 16px);
@@ -67,28 +70,29 @@
   font-size: clamp(1rem, 2vw, 1.1rem);
   color: #333;
 }
-
 .skills-section {
-  margin-left: clamp(0px, 3vw, 50px);
+  margin-left: clamp(10px, 3vw, 50px);
 }
 
 .skills-section ul {
-  padding-left: clamp(10px, 2vw, 20px);
+  padding-left: clamp(8px, 1.5vw, 16px);
 }
 
 .skills-section li {
-  margin-bottom: clamp(4px, 1vw, 8px);
+  margin-bottom: clamp(3px, 0.8vw, 6px);
 }
+
 
 .bar {
   background-color: #e9dbc8;
-  padding: clamp(4px, 1vw, 20px) clamp(8px, 2vw, 20px);
+  padding: clamp(2px, 0.5vw, 12px) clamp(6px, 1.5vw, 12px); /* smaller padding */
   border-radius: 8px;
-  margin-top: clamp(10px, 2vw, 30px);
-  margin-bottom: clamp(8px, 2vw, 20px);
+  margin-bottom: clamp(6px, 1.5vw, 16px); /* slightly less gap */
   font-weight: bold;
-  font-size: clamp(1rem, 2vw, 1.1rem);
+  font-size: clamp(0.9rem, 1.5vw, 1rem); /* smaller text */
   color: #1c355e;
+  margin-top: 20px;
+  margin-right: 50px;
 }
 
 .button-wrapper {

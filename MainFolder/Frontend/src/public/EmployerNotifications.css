@@ -20,7 +20,8 @@
 
 /* Heading */
 .notification-main h1 {
-  font-size: clamp(1.3rem, 2.5vw, 2.2rem);
+  font-size: clamp(1rem, 3.5vw, 1.8rem);
+
   color: #1c355e;
   font-weight: 700;
   margin: 0;

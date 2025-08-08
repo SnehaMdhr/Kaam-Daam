@@ -79,7 +79,7 @@ button {
   color: #fff;
   padding: clamp(4px, 1vw, 8px) clamp(8px, 2vw, 16px); /* smaller */
   border: none;
-  margin-right: clamp(0px, 2vw, 20px);
+  margin-right: clamp(0px, 2vw, 100px);
   border-radius: 6px;
   cursor: pointer;
   font-size: clamp(0.75rem, 1.2vw, 0.9rem);/* slightly smaller font */
@@ -96,6 +96,7 @@ button:hover {
 
 .bar {
   margin-top: 20px;
+  margin-right: 50px;
   background-color: #e9dbc8;
   padding: clamp(2px, 0.5vw, 12px) clamp(6px, 1.5vw, 12px); /* smaller padding */
   border-radius: 8px;
@@ -129,7 +130,7 @@ select[name="experience_level"]:focus {
   display: flex;
   gap: clamp(6px, 2vw, 20px);
   margin-left: 20px;
-  margin-right: 20px;
+  margin-right: 75px;
   margin-bottom: clamp(8px, 1.5vw, 12px);
 }
 

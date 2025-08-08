@@ -10,7 +10,8 @@
 }
 
 .dashboard-container h1 {
-  font-size: clamp(1.3rem, 2.5vw, 2.2rem);
+  font-size: clamp(1rem, 3.5vw, 1.8rem);
+
   margin-bottom: clamp(20px, 4vw, 40px);
   color: #1c355e;
   font-weight: 700;

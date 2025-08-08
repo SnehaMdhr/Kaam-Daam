@@ -17,7 +17,7 @@
 }
 
 .edit-job-form h1 {
-  font-size: clamp(1.1rem, 4vw, 2rem);
+  font-size: clamp(1rem, 3.5vw, 1.8rem);
   color: #1c355e;
 }
 
@@ -26,14 +26,13 @@
   margin-left: clamp(0px, 2vw, 20px);
   margin-right: clamp(0px, 2vw, 20px);
 }
-
 .form-update label {
   display: block;
-  margin-bottom: clamp(4px, 1vw, 10px);
-  margin-top: clamp(4px, 1vw, 10px);
+  margin-bottom: clamp(3px, 0.7vw, 8px);
+  margin-top: clamp(3px, 0.7vw, 8px);
   font-weight: 500;
-  font-size: clamp(1rem, 2vw, 1.2rem);
-  margin-left: clamp(0px, 3vw, 50px);
+  font-size: clamp(0.9rem, 1.5vw, 1rem);
+  margin-left: clamp(0px, 2vw, 30px);
   color: #333;
 }
 
@@ -44,12 +43,12 @@ input[type="number"],
 input[type="date"],
 textarea {
   width: 90%;
-  padding: clamp(6px, 1vw, 12px);
-  margin-left: clamp(0px, 3vw, 50px);
-  margin-right: clamp(0px, 6vw, 100px);
+  padding: clamp(5px, 0.8vw, 10px);
+  margin-left: clamp(0px, 2vw, 30px);
+  margin-right: clamp(0px, 4vw, 60px);
   border: 1px solid #ccc;
   border-radius: 5px;
-  font-size: clamp(0.95rem, 2vw, 1.1rem);
+  font-size: clamp(0.85rem, 1.5vw, 1rem);
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
   transition: box-shadow 0.3s ease;
 }
@@ -69,9 +68,9 @@ input[type="checkbox"] {
 }
 
 .password-note {
-  font-size: clamp(0.8rem, 1vw, 0.95rem);
+  font-size: clamp(0.75rem, 0.9vw, 0.9rem);
   color: #666;
-  margin-bottom: clamp(8px, 2vw, 16px);
+  margin-bottom: clamp(6px, 1.5vw, 12px);
 }
 
 .button-wrapper {
@@ -82,14 +81,14 @@ input[type="checkbox"] {
 }
 
 button {
-  background-color: #1c355e;
+ background-color: #1c355e;
   color: #fff;
-  padding: clamp(8px, 2vw, 16px) clamp(16px, 4vw, 32px);
+  padding: clamp(4px, 1vw, 8px) clamp(8px, 2vw, 16px); /* smaller */
   border: none;
+  margin-right: clamp(0px, 2vw, 50px);
   border-radius: 6px;
   cursor: pointer;
-  margin-right: clamp(0px, 3vw, 55px);
-  font-size: clamp(1rem, 2vw, 1.1rem);
+  font-size: clamp(0.75rem, 1.2vw, 0.9rem);/* slightly smaller font */
   transition: background 0.2s, box-shadow 0.2s;
   box-shadow: 0 2px 6px rgba(0,0,0,0.05);
 }
@@ -104,14 +103,29 @@ textarea {
   min-height: 100px;
 }
 
+select{
+  width: 90%;
+  padding: clamp(5px, 0.8vw, 10px);
+  margin-left: clamp(0px, 2vw, 30px);
+  margin-right: clamp(0px, 4vw, 60px);
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: clamp(0.85rem, 1.5vw, 1rem);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease;
+}
+
+
+
 .bar {
   background-color: #e9dbc8;
-  padding: clamp(4px, 1vw, 20px) clamp(8px, 2vw, 20px);
+  padding: clamp(2px, 0.5vw, 12px) clamp(6px, 1.5vw, 12px); /* smaller padding */
   border-radius: 8px;
-  margin-top: clamp(10px, 2vw, 30px);
-  margin-bottom: clamp(8px, 2vw, 20px);
+  margin-top: 20px;
+  margin-right: 40px;
+  margin-bottom: clamp(6px, 1.5vw, 16px); /* slightly less gap */
   font-weight: bold;
-  font-size: clamp(1rem, 2vw, 1.1rem);
+  font-size: clamp(0.9rem, 1.5vw, 1rem); /* smaller text */
   color: #1c355e;
 }
 

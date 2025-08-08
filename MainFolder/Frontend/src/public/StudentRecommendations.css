@@ -15,7 +15,7 @@
 .recommendations-content {
   flex-grow: 1;
   padding: 20px;
-  background-color: #f9f9f9;
+  background-color: white;
   margin-left: 325px; /* This creates space on the left for the sidebar */
 }
 
